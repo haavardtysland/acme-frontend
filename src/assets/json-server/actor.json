@@ -1,0 +1,13 @@
+{
+  "actors": [
+    {
+      "name": "Fake",
+      "surname": "Actor",
+      "email": "user@gmail.com",
+      "phone": "+34612345678",
+      "address": "myAddress",
+      "role": "EXPLORER",
+      "password": "123"
+    }
+  ]
+}

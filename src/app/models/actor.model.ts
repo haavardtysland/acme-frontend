@@ -14,6 +14,7 @@ export class Actor {
   private _phone?: string;
   private _address?: string;
   private _role: Role;
+  private _password: string;
   private _finder: Finder;
 
   constructor(
@@ -26,7 +27,7 @@ export class Actor {
     finder: Finder,
     phone?: string,
     address?: string
-  ) { 
+  ) {
     this._id = id;
     this._name = name;
     this._surname = surname;
@@ -34,6 +35,7 @@ export class Actor {
     this._phone = phone;
     this._address = address;
     this._role = role;
+    this._password = password;
     this._finder = finder;
   }
 
@@ -67,6 +69,9 @@ export class Actor {
     return this._role;
   }
 
+  public get password(): string {
+    return this._password;
+  }
   public get finder(): Finder {
     return this._finder;
   }
