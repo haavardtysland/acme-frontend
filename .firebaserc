@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "acme-auth": {
+      "hosting": {
+        "acme-explorer": [
+          "acme-auth"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "acme-auth"
+  }
+}
