@@ -13,6 +13,8 @@ import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/master/header/header.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -25,7 +27,13 @@ export const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    LoginComponent,
+    HeaderComponent,
+    NotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,6 +47,7 @@ export const firebaseConfig = {
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
   ],
+  exports: [HeaderComponent],
   providers: [],
   bootstrap: [AppComponent],
 })
