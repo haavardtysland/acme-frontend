@@ -1,4 +1,6 @@
 export const environment = {
+  production: false,
+  backendApiBaseUrl: 'http://localhost:3000/',
   firebase: {
     projectId: 'acme-auth',
     appId: '1:1064310712960:web:5896852b8c3cd263a2d465',
@@ -7,4 +9,5 @@ export const environment = {
     authDomain: 'acme-auth.firebaseapp.com',
     messagingSenderId: '1064310712960',
     measurementId: 'G-83Q5T96VWG',
-  },};
+  },
+};

@@ -1,12 +1,14 @@
-<form>
+<form class="form-horizontal" (ngSubmit)="onLogin(f)" #f="ngForm">
   <div class="form-group">
     <label for="email">Email</label>
     <input
       type="email"
+      name="email"
       class="form-control"
       id="emailInput"
       aria-describedby="emailHelp"
       placeholder="Enter email"
+      ngModel
     />
   </div>
 
@@ -14,9 +16,11 @@
     <label for="password">Password</label>
     <input
       type="password"
+      name="password"
       class="form-control"
       id="passwordInput"
       placeholder="Enter password"
+      ngModel
     />
   </div>
   <button type="submit" class="btn btn-primary">Log in</button>
