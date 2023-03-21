@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actor } from '../models/actor.model';
-import { Role } from '../enums/RoleEnum';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Role } from '../enums/RoleEnum';
+import { Actor } from '../models/actor.model';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,30 +20,31 @@ export class AuthService {
 
   registerUser(actor: Actor) {
     return new Promise((resolve, reject) => {
-      this.fireAuth
+      /*       this.fireAuth
         .createUserWithEmailAndPassword(actor.email, actor.password)
-        .then((_) => {
-          // if the authentication was ok, then we proceed
-          const headers = new HttpHeaders();
-          headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseUrl + '/actors'}`;
-          const body = JSON.stringify(actor);
-          this.http
-            .post(url, body, httpOptions)
-            .toPromise()
-            .then(
-              (res) => {
-                resolve(res);
-              },
-              (err) => {
-                reject(err);
-              }
-            );
-        })
+        .then((_) => { */
+      // if the authentication was ok, then we proceed
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      const url = `${environment.backendApiBaseUrl + '/Actors'}`;
+      const body = actor.getJson();
+      console.log(body);
+      this.http
+        .post(url, body, httpOptions)
+        .toPromise()
+        .then(
+          (res) => {
+            console.log(res);
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    }); /* 
         .catch((err) => {
           reject(err);
-        });
-    });
+        }); */
   }
 
   getRoles(): string[] {
@@ -52,14 +53,37 @@ export class AuthService {
 
   login(email: string, password: string) {
     return new Promise<any>((resolve, reject) => {
-      this.fireAuth
+      /*   this.fireAuth
         .signInWithEmailAndPassword(email, password)
         .then((res) => {
           resolve(res);
         })
         .catch((err) => {
           reject(err);
-        });
+        }); */
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      const url = `${environment.backendApiBaseUrl + '/Actors/Login'}`;
+      var obj = {
+        email,
+        password,
+      };
+      obj.email = email;
+      obj.password = password;
+      const body = JSON.stringify(obj);
+      console.log(body);
+      this.http
+        .post(url, body, httpOptions)
+        .toPromise()
+        .then(
+          (res) => {
+            console.log(res);
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
     });
   }
 }
