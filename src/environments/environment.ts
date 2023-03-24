@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  backendApiBaseUrl: 'http://localhost:8080/api/v0',
+  backendApiBaseUrl: 'https://acme.exigo.dev/api/v0',
   firebase: {
     projectId: 'acme-auth',
     appId: '1:1064310712960:web:5896852b8c3cd263a2d465',

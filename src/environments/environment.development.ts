@@ -9,5 +9,5 @@ export const environment = {
     measurementId: 'G-83Q5T96VWG',
   },
   production: false,
-  backendApiBaseUrl: 'http://localhost:8080/api/v0',
+  backendApiBaseUrl: 'https://acme.exigo.dev/api/v0',
 };

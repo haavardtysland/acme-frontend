@@ -71,16 +71,16 @@ export class Actor extends Entity {
     this._ban = ban;
   }
 
-  public getJson() {
+  public static toJson(actor: Actor) {
     const obj = {
-      name: this._name,
-      surname: this._surname,
-      email: this._email,
-      password: this._password,
-      phone: this._phone,
-      address: this._address,
-      role: this._role,
-      isBanned: this._ban,
+      name: actor.name,
+      surname: actor.surname,
+      email: actor.email,
+      password: actor.password,
+      phone: actor.phone,
+      address: actor.address,
+      role: actor.role,
+      isBanned: actor.ban,
     };
     return JSON.stringify(obj);
   }
