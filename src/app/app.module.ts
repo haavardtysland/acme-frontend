@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/master/header/header.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { HomeComponent } from './components/master/home/home.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -33,6 +34,7 @@ export const firebaseConfig = {
     LoginComponent,
     HeaderComponent,
     NotFoundComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
