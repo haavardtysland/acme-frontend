@@ -1,5 +1,5 @@
-import { Entity } from './entity.model';
 import { Role } from '../enums/RoleEnum';
+import { Entity } from './entity.model';
 
 export class Actor extends Entity {
   private _name: string;
@@ -69,5 +69,19 @@ export class Actor extends Entity {
   }
   public set ban(ban: boolean) {
     this._ban = ban;
+  }
+
+  public getJson() {
+    const obj = {
+      name: this._name,
+      surname: this._surname,
+      email: this._email,
+      password: this._password,
+      phone: this._phone,
+      address: this._address,
+      role: this._role,
+      isBanned: this._ban,
+    };
+    return JSON.stringify(obj);
   }
 }
