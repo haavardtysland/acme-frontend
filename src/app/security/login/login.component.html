@@ -1,4 +1,5 @@
 <form class="form-horizontal" (ngSubmit)="onLogin(f)" #f="ngForm">
+  <legend>Log in</legend>
   <div class="form-group">
     <label for="email">Email</label>
     <input
@@ -23,5 +24,6 @@
       ngModel
     />
   </div>
+  <p>Do you not have a user? <a href="/register">Register here</a></p>
   <button type="submit" class="btn btn-primary">Log in</button>
 </form>
