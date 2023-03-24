@@ -26,7 +26,7 @@ fdescribe('AuthService', () => {
     actor.email = 'test@gmail.com';
     actor.password = '123456';
 
-    //If test is run once previosuly, then this will fail as user is in database
+    //If test is run once previosuly, then this will fail as user is in database. We are currently using our deployed backend which can be seen in the environment files.
     service.registerUser(actor).subscribe((res) => {
       expect(res['name']).toEqual(actor.name);
       expect(res['surname']).toEqual(actor.surname);
