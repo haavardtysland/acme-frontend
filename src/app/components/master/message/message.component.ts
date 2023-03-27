@@ -30,6 +30,10 @@ export class MessageComponent implements OnInit {
       });
   }
 
+  removeMessage() {
+    this.messageService.removeMessage();
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
