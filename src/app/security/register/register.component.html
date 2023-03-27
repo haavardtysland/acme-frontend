@@ -1,64 +1,81 @@
-<form>
-  <div class="form-group">
-    <label for="firstname">Firstname</label>
-    <input
-      type="text"
-      class="form-control"
-      id="firstnameInput"
-      aria-describedby="firstnameHelp"
-      placeholder="Enter firstname"
-    />
-  </div>
-  <div class="form-group">
-    <label for="surname">Surname</label>
-    <input
-      type="text"
-      class="form-control"
-      id="surnameInput"
-      aria-describedby="surnameHelp"
-      placeholder="Enter surname"
-    />
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input
-      type="email"
-      class="form-control"
-      id="emailInput"
-      aria-describedby="emailHelp"
-      placeholder="Enter email"
-    />
-  </div>
-  <div class="form-group">
-    <label for="adress">Adress</label>
-    <input
-      type="text"
-      class="form-control"
-      id="adressInput"
-      aria-describedby="adressHelp"
-      placeholder="Enter adress"
-    />
-  </div>
-  <div class="form-group">
-    <label for="phone">Phone</label>
-    <input
-      type="phone"
-      class="form-control"
-      id="phoneInput"
-      aria-describedby="phoneHelp"
-      placeholder="Enter phone"
-    />
-  </div>
+<form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+  <fieldset>
+    <legend>Register new actor</legend>
+    <div class="form-group has-danger">
+      <label for="role">Role:</label>
+      <select id="role" class="form-control" formControlName="role">
+        <option *ngFor="let role of roleList" [value]="role">
+          {{ role }}
+        </option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="passwordInput"
-      placeholder="Enter password"
-    />
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <p>Already registered? <a routerLink="/login">Login</a></p>
+    <div class="form-group has-danger">
+      <label for="name">Name:</label>
+      <input
+        id="name"
+        class="form-control"
+        type="text"
+        formControlName="name"
+      />
+    </div>
+
+    <div class="form-group has-danger">
+      <label for="surname">Surname:</label>
+      <input
+        id="surname"
+        class="form-control"
+        type="text"
+        formControlName="surname"
+      />
+    </div>
+
+    <div class="form-group has-danger">
+      <label for="phone">Phone:</label>
+      <input
+        id="phone"
+        class="form-control"
+        type="text"
+        formControlName="phone"
+      />
+    </div>
+
+    <div class="form-group has-danger">
+      <label for="address">Address:</label>
+      <input
+        id="address"
+        class="form-control"
+        type="text"
+        formControlName="address"
+      />
+    </div>
+
+    <div class="form-group has-danger">
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        class="form-control"
+        type="text"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="form-group has-danger">
+      <label for="password">Password:</label>
+      <input
+        id="password"
+        class="form-control"
+        type="password"
+        formControlName="password"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <p>Already registered? <a routerLink="/login">Login</a></p>
+      </div>
+    </div>
+  </fieldset>
 </form>

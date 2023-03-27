@@ -1,8 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { environment } from 'src/environments/environment.development';
-import { Actor } from './../models/actor.model';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Role } from '../enums/RoleEnum';
+import { Actor } from '../models/actor.model';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -10,30 +19,40 @@ import { Actor } from './../models/actor.model';
 export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
-  registerUser(actor: Actor) {
-    return new Promise<any>((resolve, reject) => {
-      this.fireAuth.auth
-        .createUserWithEmailAndPassword(actor.email, actor.password)
-        .then((_) => {
-          const headers = new HttpHeaders();
-          headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseUrl + '/actors'}`;
-          const body = JSON.stringify(actor);
-          this.http
-            .post(url, body)
-            .toPromise()
-            .then(
-              (res) => {
-                resolve(res);
-              },
-              (err) => {
-                reject(err);
-              }
-            );
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+  registerUser(actor: Actor): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    const url = `${environment.backendApiBaseUrl + '/Actors'}`;
+    const body = Actor.toJson(actor);
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('registerUser')));
+  }
+
+  getRoles(): string[] {
+    return Object.values(Role);
+  }
+
+  login(email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    const url = `${environment.backendApiBaseUrl + '/Actors/Login'}`;
+    var obj = {
+      email,
+      password,
+    };
+    obj.email = email;
+    obj.password = password;
+    const body = JSON.stringify(obj);
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('loginUser')));
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(error as T);
+    };
   }
 }
