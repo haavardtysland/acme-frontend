@@ -1,4 +1,3 @@
-<!-- <nav class="navbar navbar-dark bg-dark"> -->
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -44,10 +43,20 @@
           placeholder="Search"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success me-2" type="submit">
+          Search
+        </button>
       </form>
+      <button class="btn btn-secondary me-2" (click)="changeLanguage('EN')">
+        EN
+      </button>
+      <button class="btn btn-secondary me-2" (click)="changeLanguage('ES')">
+        ES
+      </button>
       <div class="d-flex p-1">
-        <ul class="navbar-nav mb-2 mg-lg-0 me-2">
+        <ul
+          class="navbar-nav mb-2 mg-lg-0 me-2 justify-content-center align-items-center"
+        >
           <li class="nav-item">
             <a routerLink="/login" class="nav-link active"><i>Login</i></a>
           </li>
@@ -56,10 +65,46 @@
               ><i>Register</i></a
             >
           </li>
+          <li>
+            <div ngbDropdown class="flex-shrink-0 dropdown">
+              <a
+                ngbDropdownToggle
+                href="#"
+                class="d-block link-dark text-decoration-none dropdown-toggle"
+                id="dropdownUser2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  class="bi bi-person-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                  />
+                </svg>
+              </a>
+              <ul
+                ngbDropdownMenu
+                class="dropdown-menu text-small shadow dropdown-menu-end"
+                aria-labelledby="dropdownUser2"
+              >
+                <li ngbDropdownItem>
+                  <a class="dropdown-item" href="#">Profile</a>
+                </li>
+                <li ngbDropdownItem><hr class="dropdown-divider" /></li>
+                <li ngbDropdownItem>
+                  <a class="dropdown-item" href="#">Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
-      <!-- TODO Add register and login -->
     </div>
   </div>
 </nav>
-<!-- </nav> -->
