@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -15,10 +16,21 @@ import { FooterComponent } from './components/master/footer/footer.component';
 import { HeaderComponent } from './components/master/header/header.component';
 import { HomeComponent } from './components/master/home/home.component';
 import { MessageComponent } from './components/master/message/message.component';
+import { ApplicationComponent } from './components/pages/application/application.component';
+import { ApplicationsComponent } from './components/pages/applications/applications.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
+import { ManageAccountsComponent } from './components/pages/manage-accounts/manage-accounts.component';
+import { ManageApplicationsComponent } from './components/pages/manage-applications/manage-applications.component';
+import { ManageTripComponent } from './components/pages/manage-trip/manage-trip.component';
+import { ManageTripsComponent } from './components/pages/manage-trips/manage-trips.component';
+import { NewTripComponent } from './components/pages/new-trip/new-trip.component';
+import { ProfileEditComponent } from './components/pages/profile-edit/profile-edit.component';
+import { TripComponent } from './components/pages/trip/trip.component';
+import { TripsComponent } from './components/pages/trips/trips.component';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
+import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { ProfileComponent } from './components/actor/profile/profile.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -40,11 +52,23 @@ export const firebaseConfig = {
     HomeComponent,
     FooterComponent,
     MessageComponent,
-    ProfileComponent,
+    DeniedAccessComponent,
+    TripsComponent,
+    ApplicationsComponent,
+    ManageTripsComponent,
+    ManageApplicationsComponent,
+    ManageAccountsComponent,
+    DashboardComponent,
+    ProfileEditComponent,
+    NewTripComponent,
+    TripComponent,
+    ManageTripComponent,
+    ApplicationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     NgbModule,
     ReactiveFormsModule,
     FormsModule,

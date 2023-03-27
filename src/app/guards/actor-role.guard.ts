@@ -30,6 +30,8 @@ export class ActorRoleGuard implements CanActivate {
       if (actor) {
         if (expectedRole.indexOf(actor.role) !== -1) {
           result = true;
+        } else {
+          this.router.navigate(['denied-access']);
         }
       } else {
         this.router.navigate(['login']);
