@@ -68,16 +68,23 @@
         <ul
           class="navbar-nav mb-2 mg-lg-0 me-2 justify-content-center align-items-center"
         >
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!currentActor">
             <a routerLink="/login" class="nav-link active"><i>Login</i></a>
           </li>
           <li class="nav-item">
-            <a routerLink="/register" class="nav-link active"
+            <a
+              routerLink="/register"
+              class="nav-link active"
+              *ngIf="!currentActor"
               ><i>Register</i></a
             >
           </li>
           <li>
-            <div ngbDropdown class="flex-shrink-0 dropdown">
+            <div
+              ngbDropdown
+              class="flex-shrink-0 dropdown"
+              *ngIf="currentActor"
+            >
               <a
                 ngbDropdownToggle
                 href="#"
@@ -105,11 +112,17 @@
                 aria-labelledby="dropdownUser2"
               >
                 <li ngbDropdownItem>
-                  <a class="dropdown-item" href="/profile/:id">Profile</a>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/profile/', currentActor._id]"
+                    >Profile</a
+                  >
                 </li>
                 <li ngbDropdownItem><hr class="dropdown-divider" /></li>
                 <li ngbDropdownItem>
-                  <a class="dropdown-item" href="#" (click)="logOut()">Sign out</a>
+                  <a class="dropdown-item" href="#" (click)="logOut()"
+                    >Sign out</a
+                  >
                 </li>
               </ul>
             </div>

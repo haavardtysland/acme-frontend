@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from './components/actor/profile/profile.component';
 import { HomeComponent } from './components/master/home/home.component';
 import { Role } from './enums/RoleEnum';
 import { ActorRoleGuard } from './guards/actor-role.guard';
@@ -14,12 +15,18 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
+    path: 'profile/:id',
+    component: ProfileComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: [Role.EXPLORER, Role.MANAGER] },
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full',
     component: HomeComponent,
     canActivate: [ActorRoleGuard],
-    data: { expectedRole: Role.EXPLORER },
+    data: { expectedRole: [Role.EXPLORER] },
   },
   { path: '**', component: NotFoundComponent },
 ];

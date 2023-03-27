@@ -52,7 +52,6 @@ export class AuthService {
       catchError(this.handleError('loginUser')),
       tap((res: any) => {
         const actor = res['actor'] as Actor;
-        localStorage.setItem('actor', JSON.stringify(actor));
         this.currentActor = (res as any)['actor'];
         this.loginStatus.next(true);
       })
@@ -61,6 +60,11 @@ export class AuthService {
 
   getCurrentActor(): Actor {
     return this.currentActor;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.loginStatus.next(false);
   }
 
   getStatus(): Observable<Boolean> {

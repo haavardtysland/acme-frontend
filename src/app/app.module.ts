@@ -18,6 +18,7 @@ import { MessageComponent } from './components/master/message/message.component'
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { ProfileComponent } from './components/actor/profile/profile.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -39,6 +40,7 @@ export const firebaseConfig = {
     HomeComponent,
     FooterComponent,
     MessageComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

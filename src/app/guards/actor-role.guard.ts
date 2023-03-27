@@ -26,11 +26,9 @@ export class ActorRoleGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       const expectedRole = route.data['expectedRole'];
       const actor: Actor = this.authService.getCurrentActor();
-      console.log(actor);
       let result = false;
       if (actor) {
-        const activeRole = new RegExp(actor.role.toString(), 'i');
-        if (expectedRole.search(activeRole) !== -1) {
+        if (expectedRole.indexOf(actor.role) !== -1) {
           result = true;
         }
       } else {
