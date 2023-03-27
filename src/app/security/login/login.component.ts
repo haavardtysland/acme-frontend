@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Actor } from 'src/app/models/actor.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
     const password = form.value.password;
     this.authService.login(email, password).subscribe((res) => {
       console.log(res);
+      localStorage.setItem('id', res['id']);
+      localStorage.setItem('token', res['token']);
     });
   }
 }

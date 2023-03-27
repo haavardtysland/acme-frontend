@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   }),
 };
 
@@ -47,6 +48,18 @@ export class AuthService {
     return this.http
       .post(url, body, httpOptions)
       .pipe(catchError(this.handleError('loginUser')));
+  }
+
+  getCurrentActor() {
+    const headers = new HttpHeaders();
+    headers.append('Content_Type', 'application/json');
+    const token = localStorage.getItem('token');
+    const id = localStorage.getItem('id');
+    headers.append('Authorization', `Bearer ${token}`);
+    const url = `${environment.backendApiBaseUrl}/Actors/${id}`;
+    return this.http
+      .get<Actor>(url, httpOptions)
+      .pipe(catchError(this.handleError('getCurrentActor')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
