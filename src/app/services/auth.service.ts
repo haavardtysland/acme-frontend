@@ -4,7 +4,8 @@ import { Role } from '../enums/RoleEnum';
 import { Actor } from '../models/actor.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, Subject, tap } from 'rxjs';
+
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
@@ -18,6 +19,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
+  private currentActor!: Actor;
+  private loginStatus = new Subject<Boolean>();
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
   registerUser(actor: Actor): Observable<any> {
@@ -34,7 +37,7 @@ export class AuthService {
     return Object.values(Role);
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string) {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const url = `${environment.backendApiBaseUrl + '/Actors/Login'}`;
@@ -45,35 +48,23 @@ export class AuthService {
     obj.email = email;
     obj.password = password;
     const body = JSON.stringify(obj);
-    return this.http
-      .post(url, body, httpOptions)
-      .pipe(catchError(this.handleError('loginUser')));
-  }
-
-  //Gets current actors role from their token
-  getCurrentActorRole() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      return this.parseJwt(token)['role'];
-    }
-    return null;
-  }
-
-  //Parse token to get object with id, role and expiration date
-  private parseJwt(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(
-      window
-        .atob(base64)
-        .split('')
-        .map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join('')
+    return this.http.post(url, body, httpOptions).pipe(
+      catchError(this.handleError('loginUser')),
+      tap((res: any) => {
+        const actor = res['actor'] as Actor;
+        localStorage.setItem('actor', JSON.stringify(actor));
+        this.currentActor = (res as any)['actor'];
+        this.loginStatus.next(true);
+      })
     );
+  }
 
-    return JSON.parse(jsonPayload);
+  getCurrentActor(): Actor {
+    return this.currentActor;
+  }
+
+  getStatus(): Observable<Boolean> {
+    return this.loginStatus.asObservable();
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

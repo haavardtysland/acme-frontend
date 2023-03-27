@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Actor } from 'src/app/models/actor.model';
 import { MessageService } from 'src/app/services/services/message.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { MessageService } from 'src/app/services/services/message.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  protected currentActor: Actor | undefined;
   constructor(private messageService: MessageService, private router: Router) {}
   changeLanguage(languare: string) {
     this.messageService.notifyMessage(

@@ -16,11 +16,12 @@ export class LoginComponent implements OnInit {
   onLogin(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    this.authService.login(email, password).subscribe((res) => {
-      console.log(res);
-      localStorage.setItem('id', res['id']);
-      localStorage.setItem('token', res['token']);
-      this.router.navigate(['']);
+    this.authService.login(email, password).subscribe((res: any) => {
+      if (res['id'] != null && res['token'] != null) {
+        localStorage.setItem('id', res['id']);
+        localStorage.setItem('token', res['token']);
+        this.router.navigate(['/']);
+      }
     });
   }
 }

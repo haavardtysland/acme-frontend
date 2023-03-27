@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { Actor } from '../models/actor.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,11 @@ export class ActorRoleGuard implements CanActivate {
     | UrlTree {
     return new Promise((resolve, reject) => {
       const expectedRole = route.data['expectedRole'];
-      const actorRole: string | null = this.authService.getCurrentActorRole();
-      const token = localStorage.getItem('token');
+      const actor: Actor = this.authService.getCurrentActor();
+      console.log(actor);
       let result = false;
-      if (token && actorRole) {
-        const activeRole = new RegExp(actorRole.toString(), 'i');
+      if (actor) {
+        const activeRole = new RegExp(actor.role.toString(), 'i');
         if (expectedRole.search(activeRole) !== -1) {
           result = true;
         }
