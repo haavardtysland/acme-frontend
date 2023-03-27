@@ -1,0 +1,7 @@
+export enum AStatus {
+  ACCEPTED = 'ACCEPTED',
+  DUE = 'DUE',
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED',
+  CANCELLED = 'CANCELLED',
+}

@@ -34,4 +34,20 @@ export class Finder {
   public get toDate(): Date | undefined {
     return this._toDate;
   }
+
+  public set keyWord(keyWord: string | undefined) {
+    this._keyWord = keyWord;
+  }
+  public set fromPrice(fromPrice: number | undefined) {
+    this._fromPrice = fromPrice;
+  }
+  public set toPrice(toPrice: number | undefined) {
+    this._toPrice = toPrice;
+  }
+  public set fromDate(fromDate: Date | undefined) {
+    this._fromDate = fromDate;
+  }
+  public set toDate(toDate: Date | undefined) {
+    this._toDate = toDate;
+  }
 }
