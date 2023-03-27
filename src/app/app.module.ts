@@ -11,8 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './components/master/footer/footer.component';
 import { HeaderComponent } from './components/master/header/header.component';
 import { HomeComponent } from './components/master/home/home.component';
+import { MessageComponent } from './components/master/message/message.component';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
@@ -35,6 +37,8 @@ export const firebaseConfig = {
     HeaderComponent,
     NotFoundComponent,
     HomeComponent,
+    FooterComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
