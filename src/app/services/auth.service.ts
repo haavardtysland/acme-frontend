@@ -50,16 +50,30 @@ export class AuthService {
       .pipe(catchError(this.handleError('loginUser')));
   }
 
-  getCurrentActor() {
-    const headers = new HttpHeaders();
-    headers.append('Content_Type', 'application/json');
+  //Gets current actors role from their token
+  getCurrentActorRole() {
     const token = localStorage.getItem('token');
-    const id = localStorage.getItem('id');
-    headers.append('Authorization', `Bearer ${token}`);
-    const url = `${environment.backendApiBaseUrl}/Actors/${id}`;
-    return this.http
-      .get<Actor>(url, httpOptions)
-      .pipe(catchError(this.handleError('getCurrentActor')));
+    if (token) {
+      return this.parseJwt(token)['role'];
+    }
+    return null;
+  }
+
+  //Parse token to get object with id, role and expiration date
+  private parseJwt(token: string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+
+    return JSON.parse(jsonPayload);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

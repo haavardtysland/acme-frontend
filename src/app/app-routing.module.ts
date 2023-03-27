@@ -19,7 +19,7 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
     canActivate: [ActorRoleGuard],
-    data: { expectedRole: Role },
+    data: { expectedRole: Role.EXPLORER },
   },
   { path: '**', component: NotFoundComponent },
 ];

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Actor } from 'src/app/models/actor.model';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
       console.log(res);
       localStorage.setItem('id', res['id']);
       localStorage.setItem('token', res['token']);
+      this.router.navigate(['']);
     });
   }
 }

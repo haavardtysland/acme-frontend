@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'src/app/services/services/message.service';
 
 @Component({
@@ -7,11 +8,16 @@ import { MessageService } from 'src/app/services/services/message.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private router: Router) {}
   changeLanguage(languare: string) {
     this.messageService.notifyMessage(
       'alert alert-info',
       'You changed language to: ' + languare
     );
+  }
+
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }
