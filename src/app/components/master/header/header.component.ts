@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Role } from 'src/app/enums/RoleEnum';
+import { Actor } from 'src/app/models/actor.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/services/message.service';
 
 @Component({
@@ -7,11 +11,36 @@ import { MessageService } from 'src/app/services/services/message.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private messageService: MessageService) {}
-  changeLanguage(languare: string) {
+  protected currentActor: Actor | undefined;
+  protected activeRole: string = '';
+
+  constructor(
+    private messageService: MessageService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.getStatus().subscribe((loggedIn) => {
+      if (loggedIn) {
+        this.currentActor = this.authService.getCurrentActor();
+        this.activeRole = this.currentActor.role;
+      } else {
+        this.activeRole = Role.ANONYMOUS;
+        this.currentActor = undefined;
+      }
+    });
+  }
+
+  changeLanguage(language: string) {
     this.messageService.notifyMessage(
       'alert alert-info',
-      'You changed language to: ' + languare
+      'You changed language to: ' + language
     );
+  }
+
+  logOut() {
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 }

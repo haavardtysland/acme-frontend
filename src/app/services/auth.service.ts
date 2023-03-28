@@ -4,12 +4,14 @@ import { Role } from '../enums/RoleEnum';
 import { Actor } from '../models/actor.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, Subject, tap } from 'rxjs';
+
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   }),
 };
 
@@ -17,6 +19,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
+  private currentActor!: Actor;
+  private loginStatus = new Subject<Boolean>();
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
   registerUser(actor: Actor): Observable<any> {
@@ -33,7 +37,7 @@ export class AuthService {
     return Object.values(Role);
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string) {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const url = `${environment.backendApiBaseUrl + '/Actors/Login'}`;
@@ -44,9 +48,27 @@ export class AuthService {
     obj.email = email;
     obj.password = password;
     const body = JSON.stringify(obj);
-    return this.http
-      .post(url, body, httpOptions)
-      .pipe(catchError(this.handleError('loginUser')));
+    return this.http.post(url, body, httpOptions).pipe(
+      catchError(this.handleError('loginUser')),
+      tap((res: any) => {
+        const actor = res['actor'] as Actor;
+        this.currentActor = (res as any)['actor'];
+        this.loginStatus.next(true);
+      })
+    );
+  }
+
+  getCurrentActor(): Actor {
+    return this.currentActor;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.loginStatus.next(false);
+  }
+
+  getStatus(): Observable<Boolean> {
+    return this.loginStatus.asObservable();
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

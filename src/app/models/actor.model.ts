@@ -8,7 +8,7 @@ export class Actor extends Entity {
   private _password: string;
   private _phone!: string;
   private _address!: string;
-  private _role: Role;
+  private _role: Role | string;
   private _ban: boolean;
 
   constructor() {
@@ -18,7 +18,7 @@ export class Actor extends Entity {
     this._email = '';
     this._password = '';
     this._ban = false;
-    this._role = Role.EXPLORER;
+    this._role = '';
   }
 
   public get name(): string {
@@ -39,7 +39,7 @@ export class Actor extends Entity {
   public get address(): string {
     return this._address;
   }
-  public get role(): Role {
+  public get role(): Role | string {
     return this._role;
   }
   public get ban(): boolean {
@@ -64,7 +64,7 @@ export class Actor extends Entity {
   public set address(address: string) {
     this._address = address;
   }
-  public set role(role: Role) {
+  public set role(role: Role | string) {
     this._role = role;
   }
   public set ban(ban: boolean) {
