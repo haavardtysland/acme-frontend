@@ -1,46 +1,37 @@
-<div class="card-group">
-  <div class="card mw-50">
-    <img src="../../../../assets/logo.png" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
-    </div>
-  </div>
-
-  <div class="card mw-50">
-    <img src="../../../../assets/logo.png" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
-    </div>
-  </div>
-  <div class="card mw-50">
-    <img src="../../../../assets/logo.png" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
+<h1>Explore trips!</h1>
+<!-- <div *ngIf="trips && trips.length > 0" class="card-group"> -->
+<div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+  <div *ngFor="let trip of trips" class="col">
+    <div class="card" style="cursor: pointer" (click)="displayTrip(trip._id)">
+      <img
+        *ngIf="trip.pictures.length == 0"
+        src="../../../../assets/noImg.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <img
+        *ngIf="trip.pictures.length > 0"
+        src="../../../../assets/logo.png"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ trip.title }}</h5>
+        <p class="card-text">
+          {{ trip.description }}
+        </p>
+        <p class="card-text">Price: € {{ trip.totalPrice }}</p>
+        <p class="card-text">
+          <small class="text-muted"
+            >From: {{ formatDate(trip.startDate) | date : "medium" }}, To:
+            {{ formatDate(trip.endDate) | date : "medium" }}</small
+          >
+        </p>
+        <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
+          >Explore trip</a
+        >
+      </div>
     </div>
   </div>
 </div>
-
-<div *ngIf="!trips || trips.length == 0">
-    Sorry, no items found
-</div>
+<div *ngIf="!trips || trips.length == 0">Sorry, no items found</div>

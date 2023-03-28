@@ -1,31 +1,38 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Trip } from 'src/app/models/trip.model';
+import { TripService } from 'src/app/services/trip/trip.service';
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.css'],
 })
-export class TripsComponent /* implements OnInit */ {
-  /* trip: Trip[];
-  id: string;
+export class TripsComponent implements OnInit {
+  trips: Trip[];
 
-  constructor(private tripService TripService, private router: Router, private route: ActivatedRoute){
-    this.trip = [];
+  constructor(
+    private tripService: TripService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.trips = [];
   }
 
   ngOnInit(): void {
-      this.id = this.route.snapshot.params["id"];
+    this.tripService.getTrips().subscribe((trips: Trip[]) => {
+      this.trips = trips;
+      console.log('Display trip: ' + trips);
+    });
+  }
+  goBack() {
+    this.router.navigate(['/']);
+  }
+  displayTrip(id: string) {
+    this.router.navigate(['/trips/' + id]);
+  }
+  formatDate(date: string) {
+    let newDate = new Date(date);
+    return newDate;
+  }
 
-      this.tripService.getTrip(this.id).subscribe ((trip) => {
-        this.trip = trip;
-        console.log("Display trip: " + trip);
-      })
-  }
-  goBack(){
-    this.router.navigate(["/"]);
-  }
-  displayTrip(id: string){
-    this.router.navigate(["/trips/" + id]);
-  }
- */
 }

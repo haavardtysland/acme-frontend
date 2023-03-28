@@ -1,21 +1,47 @@
-<div class="card-group">
-  <div class="card w-25">
-    <img
-      src="../../../../assets/logo.png"
-      width="50"
-      height="50"
-      class="card-img-top"
-      alt="..."
-    />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
+<div class="container">
+  <div class="card">
+    <div class="flex d-flex">
+      <img src="../../../../assets/logo.png" class="card-img-left" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ trip.title }}</h5>
+        <p class="card-text">
+          {{ trip.description }}
+        </p>
+        <p class="card-text">Price: € {{ trip.totalPrice }}</p>
+        <p class="card-text">
+          <small class="text-muted"
+            >From: {{ formatDate(trip.startDate) | date : "medium" }}</small
+          >
+        </p>
+        <p class="card-text">
+          <small class="text-muted"
+            >To: {{ formatDate(trip.endDate) | date : "medium" }}</small
+          >
+        </p>
+      </div>
+      <div class="card-body" *ngIf="trip.requirements.length > 0">
+        <h5>Requirements:</h5>
+        <ul *ngFor="let requirement of trip.requirements">
+          <li>{{ requirement }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="trip.stages.length > 0" class="mb-5 p-1">
+    <h5>Stages:</h5>
+
+    <div *ngFor="let stage of trip.stages" class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ stage.title }}</h5>
+            <p class="card-text">
+              {{ stage.description }}
+            </p>
+            <p class="card-text">Price: € {{ stage.price }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
