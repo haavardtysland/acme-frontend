@@ -1,5 +1,57 @@
 <h1>Explore trips!</h1>
-<!-- <div *ngIf="trips && trips.length > 0" class="card-group"> -->
+<form
+  [formGroup]="finderForm"
+  (ngSubmit)="onSearch()"
+  class="d-flex"
+  role="search"
+>
+  <input
+    class="form-control me-2 mb-2"
+    type="search"
+    placeholder="Key word"
+    aria-label="Key word"
+    formControlName="keyWord"
+  />
+  <div class="form-floating me-2">
+    <input
+      id="fromDate"
+      class="form-control me-2 mb-2"
+      type="date"
+      placeholder="From:"
+      aria-label="Search"
+      formControlName="fromDate"
+    />
+    <label class="label-top">From:</label>
+  </div>
+  <div class="form-floating me-2">
+    <input
+      class="form-control me-2 mb-2"
+      type="date"
+      placeholder="Search"
+      aria-label="To:"
+      formControlName="toDate"
+    />
+    <label for="fromDate" class="label-top">To:</label>
+  </div>
+  <input
+    class="form-control me-2 mb-2"
+    type="number"
+    placeholder="From price"
+    aria-label="From price"
+    formControlName="fromPrice"
+  />
+  <input
+    class="form-control me-2 mb-2"
+    type="number"
+    placeholder="To price"
+    aria-label="To price"
+    formControlName="toPrice"
+  />
+  <button class="btn btn-outline-success me-2 mb-2" type="submit">
+    Search
+  </button>
+</form>
+
 <div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
   <div *ngFor="let trip of trips" class="col">
     <div class="card" style="cursor: pointer" (click)="displayTrip(trip._id)">

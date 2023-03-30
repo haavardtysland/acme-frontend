@@ -1,53 +1,57 @@
 export class Finder {
-  private _keyWord?: string;
-  private _fromPrice?: number;
-  private _toPrice?: number;
-  private _fromDate?: Date;
-  private _toDate?: Date;
+  private _keyWord: string | null;
+  private _fromPrice: number | null;
+  private _toPrice: number | null;
+  private _fromDate: string | null;
+  private _toDate: string | null;
 
-  constructor(
-    keyWord?: string,
-    fromPrice?: number,
-    toPrice?: number,
-    fromDate?: Date,
-    toDate?: Date
-  ) {
-    this._keyWord = keyWord;
-    this._fromPrice = fromPrice;
-    this._toPrice = toPrice;
-    this._fromDate = fromDate;
-    this._toDate = toDate;
+  constructor() {
+    this._keyWord = null;
+    this._fromPrice = null;
+    this._toPrice = null;
+    this._fromDate = null;
+    this._toDate = null;
   }
 
-  public get keyWord(): string | undefined {
+  public get keyWord(): string | null {
     return this._keyWord;
   }
-  public get fromPrice(): number | undefined {
+  public get fromPrice(): number | null {
     return this._fromPrice;
   }
-  public get toPrice(): number | undefined {
+  public get toPrice(): number | null {
     return this._toPrice;
   }
-  public get fromDate(): Date | undefined {
+  public get fromDate(): string | null {
     return this._fromDate;
   }
-  public get toDate(): Date | undefined {
+  public get toDate(): string | null {
     return this._toDate;
   }
 
-  public set keyWord(keyWord: string | undefined) {
+  public set keyWord(keyWord: string | null) {
     this._keyWord = keyWord;
   }
-  public set fromPrice(fromPrice: number | undefined) {
+  public set fromPrice(fromPrice: number | null) {
     this._fromPrice = fromPrice;
   }
-  public set toPrice(toPrice: number | undefined) {
+  public set toPrice(toPrice: number | null) {
     this._toPrice = toPrice;
   }
-  public set fromDate(fromDate: Date | undefined) {
+  public set fromDate(fromDate: string | null) {
     this._fromDate = fromDate;
   }
-  public set toDate(toDate: Date | undefined) {
+  public set toDate(toDate: string | null) {
     this._toDate = toDate;
+  }
+  public static toJson(finder: Finder) {
+    const obj = {
+      keyWord: finder.keyWord,
+      fromDate: finder.fromDate,
+      toDate: finder.toDate,
+      fromPrice: finder.fromPrice,
+      toPrice: finder.toPrice,
+    };
+    return JSON.stringify(obj);
   }
 }
