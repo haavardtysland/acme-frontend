@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
     this.authService
       .registerUser(this.registrationForm.value)
       .subscribe((res) => {
-        console.log('halla');
         console.log(res);
       });
   }

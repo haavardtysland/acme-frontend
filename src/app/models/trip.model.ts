@@ -6,11 +6,11 @@ export class Trip extends Entity {
   private _ticker: string;
   private _title: string;
   private _description: string;
-  private _price: number;
+  private _totalPrice: number;
   private _requirements: string[];
   private _startDate: string;
   private _endDate: string;
-  private _pictures!: string;
+  private _pictures!: string[];
   private _status: TripStatus;
   private _stages: Stage[];
 
@@ -19,10 +19,11 @@ export class Trip extends Entity {
     this._ticker = '';
     this._description = '';
     this._title = '';
-    this._price = 0;
+    this._totalPrice = 0;
     this._requirements = [];
     this._startDate = '';
     this._endDate = '';
+    this._pictures = [];
     this._stages = [];
     this._status = new TripStatus();
   }
@@ -30,13 +31,16 @@ export class Trip extends Entity {
   public get ticker(): string {
     return this._ticker;
   }
+  public get title(): string {
+    return this._title;
+  }
 
   public get description(): string {
     return this._description;
   }
 
-  public get price(): number {
-    return this._price;
+  public get totalPrice(): number {
+    return this._totalPrice;
   }
 
   public get requirements(): string[] {
@@ -46,9 +50,12 @@ export class Trip extends Entity {
   public get startDate(): string {
     return this._startDate;
   }
+  public get pictures(): string[] {
+    return this._pictures;
+  }
 
   public get endDate(): string {
-    return this.endDate;
+    return this._endDate;
   }
 
   public get status(): TripStatus {
@@ -67,8 +74,8 @@ export class Trip extends Entity {
     this._description = description;
   }
 
-  public set price(price: number) {
-    this._price = price;
+  public set totalPrice(price: number) {
+    this._totalPrice = price;
   }
 
   public set requirements(requirements: string[]) {

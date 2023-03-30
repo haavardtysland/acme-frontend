@@ -1,1 +1,89 @@
-<p>trips works!</p>
+<h1>Explore trips!</h1>
+<form
+  [formGroup]="finderForm"
+  (ngSubmit)="onSearch()"
+  class="d-flex"
+  role="search"
+>
+  <input
+    class="form-control me-2 mb-2"
+    type="search"
+    placeholder="Key word"
+    aria-label="Key word"
+    formControlName="keyWord"
+  />
+  <div class="form-floating me-2">
+    <input
+      id="fromDate"
+      class="form-control me-2 mb-2"
+      type="date"
+      placeholder="From:"
+      aria-label="Search"
+      formControlName="fromDate"
+    />
+    <label class="label-top">From:</label>
+  </div>
+  <div class="form-floating me-2">
+    <input
+      class="form-control me-2 mb-2"
+      type="date"
+      placeholder="Search"
+      aria-label="To:"
+      formControlName="toDate"
+    />
+    <label for="fromDate" class="label-top">To:</label>
+  </div>
+  <input
+    class="form-control me-2 mb-2"
+    type="number"
+    placeholder="From price"
+    aria-label="From price"
+    formControlName="fromPrice"
+  />
+  <input
+    class="form-control me-2 mb-2"
+    type="number"
+    placeholder="To price"
+    aria-label="To price"
+    formControlName="toPrice"
+  />
+  <button class="btn btn-outline-success me-2 mb-2" type="submit">
+    Search
+  </button>
+</form>
+
+<div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+  <div *ngFor="let trip of trips" class="col">
+    <div class="card" style="cursor: pointer" (click)="displayTrip(trip._id)">
+      <img
+        *ngIf="trip.pictures.length == 0"
+        src="../../../../assets/noImg.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <img
+        *ngIf="trip.pictures.length > 0"
+        src="../../../../assets/logo.png"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ trip.title }}</h5>
+        <p class="card-text">
+          {{ trip.description }}
+        </p>
+        <p class="card-text">Price: € {{ trip.totalPrice }}</p>
+        <p class="card-text">
+          <small class="text-muted"
+            >From: {{ formatDate(trip.startDate) | date : "medium" }}, To:
+            {{ formatDate(trip.endDate) | date : "medium" }}</small
+          >
+        </p>
+        <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
+          >Explore trip</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!trips || trips.length == 0">Sorry, no items found</div>

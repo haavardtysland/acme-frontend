@@ -1,5 +1,6 @@
 import { Role } from '../enums/RoleEnum';
 import { Entity } from './entity.model';
+import { Finder } from './finder.model';
 
 export class Actor extends Entity {
   private _name: string;
@@ -10,6 +11,7 @@ export class Actor extends Entity {
   private _address!: string;
   private _role: Role | string;
   private _ban: boolean;
+  private _finder: Finder;
 
   constructor() {
     super();
@@ -19,6 +21,7 @@ export class Actor extends Entity {
     this._password = '';
     this._ban = false;
     this._role = '';
+    this._finder = new Finder();
   }
 
   public get name(): string {
@@ -46,6 +49,10 @@ export class Actor extends Entity {
     return this._ban;
   }
 
+  public get finder(): Finder {
+    return this._finder;
+  }
+
   public set name(name: string) {
     this._name = name;
   }
@@ -69,6 +76,10 @@ export class Actor extends Entity {
   }
   public set ban(ban: boolean) {
     this._ban = ban;
+  }
+
+  public set finder(finder: Finder) {
+    this._finder = finder;
   }
 
   public static toJson(actor: Actor) {
