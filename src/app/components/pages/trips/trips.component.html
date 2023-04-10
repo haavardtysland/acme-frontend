@@ -1,17 +1,21 @@
 <h1>Explore trips!</h1>
 <form
+  *ngIf="this.authService.getCurrentActor()"
   [formGroup]="finderForm"
   (ngSubmit)="onSearch()"
   class="d-flex"
   role="search"
 >
-  <input
-    class="form-control me-2 mb-2"
-    type="search"
-    placeholder="Key word"
-    aria-label="Key word"
-    formControlName="keyWord"
-  />
+  <div class="form-floating me-2">
+    <input
+      class="form-control me-2 mb-2"
+      type="search"
+      placeholder="Key word"
+      aria-label="Key word"
+      formControlName="keyWord"
+    />
+    <label class="label-top">Key word</label>
+  </div>
   <div class="form-floating me-2">
     <input
       id="fromDate"
@@ -21,7 +25,7 @@
       aria-label="Search"
       formControlName="fromDate"
     />
-    <label class="label-top">From:</label>
+    <label class="label-top">From</label>
   </div>
   <div class="form-floating me-2">
     <input
@@ -31,22 +35,28 @@
       aria-label="To:"
       formControlName="toDate"
     />
-    <label for="fromDate" class="label-top">To:</label>
+    <label for="fromDate" class="label-top">To</label>
   </div>
-  <input
-    class="form-control me-2 mb-2"
-    type="number"
-    placeholder="From price"
-    aria-label="From price"
-    formControlName="fromPrice"
-  />
-  <input
-    class="form-control me-2 mb-2"
-    type="number"
-    placeholder="To price"
-    aria-label="To price"
-    formControlName="toPrice"
-  />
+  <div class="form-floating me-2">
+    <input
+      class="form-control me-2 mb-2"
+      type="number"
+      placeholder="From price"
+      aria-label="From price"
+      formControlName="fromPrice"
+    />
+    <label class="label-top">From price</label>
+  </div>
+  <div class="form-floating me-2">
+    <input
+      class="form-control me-2 mb-2"
+      type="number"
+      placeholder="To price"
+      aria-label="To price"
+      formControlName="toPrice"
+    />
+    <label class="label-top">To price</label>
+  </div>
   <button class="btn btn-outline-success me-2 mb-2" type="submit">
     Search
   </button>
@@ -79,9 +89,9 @@
             {{ formatDate(trip.endDate) | date : "medium" }}</small
           >
         </p>
-        <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
+        <!--         <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
           >Explore trip</a
-        >
+        > -->
       </div>
     </div>
   </div>

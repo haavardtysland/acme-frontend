@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Finder } from 'src/app/models/finder.model';
 import { AuthService } from '../auth.service';
@@ -15,14 +15,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class FinderService {
-  private id;
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.id = authService.getCurrentActor()._id;
-  }
+export class FinderService implements OnInit {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getFinder(): Observable<any> {
-    const url = `${environment.backendApiBaseUrl}/Actors/${this.id}`;
+  getFinder(id: string): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Actors/${id}`;
     return this.http
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('getFinder')));
@@ -42,6 +39,8 @@ export class FinderService {
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('searchTrips')));
   }
+
+  ngOnInit(): void {}
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
