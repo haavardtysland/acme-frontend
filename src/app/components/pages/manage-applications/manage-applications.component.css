@@ -1,0 +1,19 @@
+.accordion-item-rejected {
+  background-color: #ff8080;
+}
+
+.accordion-item-accepted {
+  background-color: #80ff80;
+}
+
+.accordion-item-pending {
+  background-color: #ffff80;
+}
+
+.accordion-item-due {
+  background-color: #80ffff;
+}
+
+.accordion-item-cancelled {
+  background-color: #c0c0c0;
+}

@@ -1,1 +1,79 @@
-<p>applications works!</p>
+<div
+  *ngFor="let stat of ['PENDING', 'REJECTED', 'ACCEPTED', 'DUE', 'CANCELLED']"
+>
+  <h5 class="mt-2">{{ stat }} applications:</h5>
+  <div
+    class="text-center border border-2 rounded align-items-center"
+    *ngIf="!groupedApplications[stat]"
+  >
+    <p>You have no {{ stat }} applications</p>
+  </div>
+  <div class="accordion" id="accordionExample">
+    <div
+      *ngFor="let application of groupedApplications[stat]; let i = index"
+      [attr.data-index]="i"
+      class="accordion-item"
+      [ngClass]="{
+        'accordion-item-rejected':
+          application.application.status.status === 'REJECTED',
+        'accordion-item-accepted':
+          application.application.status.status === 'ACCEPTED',
+        'accordion-item-pending':
+          application.application.status.status === 'PENDING',
+        'accordion-item-due': application.application.status.status === 'DUE',
+        'accordion-item-cancelled':
+          application.application.status.status === 'CANCELLED'
+      }"
+    >
+      <h2 class="accordion-header" [id]="'heading' + i + stat">
+        <button
+          class="accordion-button"
+          [ngClass]="{
+            'accordion-item-rejected':
+              application.application.status.status === 'REJECTED',
+            'accordion-item-accepted':
+              application.application.status.status === 'ACCEPTED',
+            'accordion-item-pending':
+              application.application.status.status === 'PENDING',
+            'accordion-item-due':
+              application.application.status.status === 'DUE',
+            'accordion-item-cancelled':
+              application.application.status.status === 'CANCELLED'
+          }"
+          type="button"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#collapse' + i + stat"
+          aria-expanded="true"
+          [attr.aria-controls]="'collapse' + i + stat"
+        >
+          Application for {{ application.tripTitle }}:
+        </button>
+      </h2>
+      <div
+        [attr.id]="'collapse' + i + stat"
+        class="accordion-collapse collapse"
+        [attr.aria-labelledby]="'heading' + i + stat"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body flex">
+          <p class="accordion-text">
+            Date created: {{ formatDate(application.application.dateCreated) }}
+          </p>
+          <p class="accordion-text">
+            Status: {{ application.application.status.status }}
+          </p>
+          <p class="accordion-text">
+            Description: {{ application.application.status.description }}
+          </p>
+
+          <div *ngIf="application.application.comments.length > 0">
+            <p>Comments:</p>
+            <div *ngFor="let comment of application.application.comments">
+              {{ comment }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

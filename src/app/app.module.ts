@@ -31,6 +31,8 @@ import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { I18nModule } from './i18n.module';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -73,6 +75,7 @@ export const firebaseConfig = {
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NgxDatatableModule,
     AngularFireModule.initializeApp(firebaseConfig),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
@@ -80,7 +83,7 @@ export const firebaseConfig = {
     provideFirestore(() => getFirestore()),
   ],
   exports: [HeaderComponent],
-  providers: [],
+  providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

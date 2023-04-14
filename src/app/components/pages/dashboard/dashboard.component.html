@@ -1,1 +1,108 @@
-<p>dashboard works!</p>
+<div class="card-group mt-5">
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Minimum trips for manager </small>
+    <h3>{{ minTrips }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Maximum trips for manager</small>
+    <h3>{{ maxTrips }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Avrage trips for manager </small>
+
+    <h3>{{ avgTrips }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Standard deviation trips for manager </small>
+
+    <h3>{{ tripsStdDev }}</h3>
+  </div>
+</div>
+
+<div class="card-group mt-5">
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Minimum price for trip </small>
+    <h3>€ {{ minTripPrice.toFixed(2) }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Maximum price for trip</small>
+    <h3>€ {{ maxTripPrice.toFixed(2) }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Avrage price for all trips </small>
+
+    <h3>€ {{ avgTripPrice.toFixed(2) }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted"
+      >Standard deviation price for all trips
+    </small>
+
+    <h3>€ {{ stdDevTripPrice.toFixed(2) }}</h3>
+  </div>
+</div>
+
+<div class="card-group mt-5">
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Minimum applications for trip </small>
+    <h3>{{ minApplications }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Maximum applications for trip</small>
+    <h3>{{ maxApplications }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Avrage applications for all trips</small>
+
+    <h3>{{ avgApplications.toFixed(2) }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted"
+      >Standard deviation of applications for all trips
+    </small>
+
+    <h3>{{ stdDevApplications.toFixed(2) }}</h3>
+  </div>
+</div>
+
+<div class="card-group mt-5">
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Accepted </small>
+    <h3>{{ statusPrecentages.ACCEPTED.toFixed(2) }} %</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Due</small>
+    <h3>{{ statusPrecentages.DUE.toFixed(2) }} %</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Pending</small>
+
+    <h3>{{ statusPrecentages.PENDING.toFixed(2) }} %</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Rejected</small>
+
+    <h3>{{ statusPrecentages.REJECTED.toFixed(2) }} %</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Cancelled </small>
+
+    <h3>{{ statusPrecentages.CANCELLED.toFixed(2) }} %</h3>
+  </div>
+</div>
+<div class="card-group mt-5">
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Avrage from price</small>
+
+    <h3>{{ avgFromPrice.toFixed(2) }}</h3>
+  </div>
+  <div class="card text-center p-3">
+    <small i18n class="text-muted">Avrage to price </small>
+
+    <h3>{{ avgToPrice.toFixed(2) }}</h3>
+  </div>
+</div>
+<div class="card text-center p-3 mt-2">
+  <small i18n class="text-muted">Top 10 words </small>
+  <h3>{{ topTenWords }}</h3>
+</div>
