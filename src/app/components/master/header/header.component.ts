@@ -37,6 +37,10 @@ export class HeaderComponent {
       'alert alert-info',
       'You changed language to: ' + language
     );
+
+    localStorage.setItem('locale', language);
+
+    location.reload();
   }
 
   logOut() {

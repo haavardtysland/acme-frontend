@@ -29,6 +29,13 @@ export class ActorService {
       .pipe(catchError(this.handleError('updateActor')));
   }
 
+  getAllActors(): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Actors`;
+    return this.http
+      .get(url, httpOptions)
+      .pipe(catchError(this.handleError('getAllActors')));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

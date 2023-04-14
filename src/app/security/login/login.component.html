@@ -1,29 +1,50 @@
-<form class="form-horizontal" (ngSubmit)="onLogin(f)" #f="ngForm">
+<form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onLogin()">
   <legend>Log in</legend>
   <div class="form-group">
-    <label for="email">Email</label>
+    <label i18n for="email">Email</label>
     <input
       type="email"
       name="email"
       class="form-control"
       id="emailInput"
       aria-describedby="emailHelp"
+      i18n-placeholder
       placeholder="Enter email"
-      ngModel
+      formControlName="email"
     />
+  </div>
+  <div
+    *ngIf="loginForm.get('email')?.hasError('email')"
+    class="alert alert-danger"
+  >
+    Please enter a valid email
   </div>
 
   <div class="form-group">
-    <label for="password">Password</label>
+    <label i18n for="password">Password</label>
     <input
       type="password"
       name="password"
       class="form-control"
       id="passwordInput"
+      i18n-placeholder
       placeholder="Enter password"
-      ngModel
+      formControlName="password"
     />
+    <div
+      *ngIf="loginForm.get('password')?.hasError('minlength')"
+      class="alert alert-danger"
+    >
+      The password have to be at least 8 characters
+    </div>
   </div>
-  <p>Do you not have a user? <a href="/register">Register here</a></p>
-  <button type="submit" class="btn btn-primary">Log in</button>
+  <p i18n>Do you not have a user? <a href="/register">Register here</a></p>
+  <button
+    i18n
+    [disabled]="!loginForm.valid"
+    type="submit"
+    class="btn btn-primary"
+  >
+    Log in
+  </button>
 </form>

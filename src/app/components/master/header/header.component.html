@@ -17,23 +17,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+          <a i18n class="nav-link active" aria-current="page" routerLink="/"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/trips"
+          <a
+            i18n
+            class="nav-link active"
+            aria-current="page"
+            routerLink="/trips"
             >Trips</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="activeRole === 'EXPLORER'" class="nav-item">
           <a
+            i18n
             class="nav-link active"
             aria-current="page"
-            [routerLink]="['/applications/', currentActor?._id]"
-            >Applications</a
-          >
+            [routerLink]="['/applications/']"
+            >Applications
+          </a>
         </li>
         <li class="nav-item" *ngIf="activeRole === 'MANAGER'">
           <a
+            i18n
             class="nav-link active"
             aria-current="page"
             [routerLink]="['/trips/manage/', currentActor?._id]"
@@ -42,6 +50,7 @@
         </li>
         <li class="nav-item" *ngIf="activeRole === 'MANAGER'">
           <a
+            i18n
             class="nav-link active"
             aria-current="page"
             [routerLink]="['/applications/manage/', currentActor?._id]"
@@ -55,6 +64,7 @@
         </li>
         <li class="nav-item" *ngIf="activeRole === 'ADMINISTRATOR'">
           <a
+            i18n
             class="nav-link active"
             aria-current="page"
             routerLink="/manage-accounts"
@@ -66,17 +76,18 @@
         <input
           class="form-control me-2"
           type="search"
+          i18n-placeholder
           placeholder="Search"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success me-2" type="submit">
+        <button i18n class="btn btn-outline-success me-2" type="submit">
           Search
         </button>
       </form>
-      <button class="btn btn-secondary me-2" (click)="changeLanguage('EN')">
+      <button class="btn btn-secondary me-2" (click)="changeLanguage('en')">
         EN
       </button>
-      <button class="btn btn-secondary me-2" (click)="changeLanguage('ES')">
+      <button class="btn btn-secondary me-2" (click)="changeLanguage('es')">
         ES
       </button>
       <div class="d-flex p-1">
@@ -84,10 +95,11 @@
           class="navbar-nav mb-2 mg-lg-0 me-2 justify-content-center align-items-center"
         >
           <li class="nav-item" *ngIf="!currentActor">
-            <a routerLink="/login" class="nav-link active"><i>Login</i></a>
+            <a i18n routerLink="/login" class="nav-link active"><i>Login</i></a>
           </li>
           <li class="nav-item">
             <a
+              i18n
               routerLink="/register"
               class="nav-link active"
               *ngIf="!currentActor"
@@ -128,6 +140,7 @@
               >
                 <li ngbDropdownItem>
                   <a
+                    i18n
                     class="dropdown-item"
                     [routerLink]="['/profile/', currentActor._id]"
                     >Profile</a
@@ -135,7 +148,7 @@
                 </li>
                 <li ngbDropdownItem><hr class="dropdown-divider" /></li>
                 <li ngbDropdownItem>
-                  <a class="dropdown-item" href="#" (click)="logOut()"
+                  <a i18n class="dropdown-item" href="#" (click)="logOut()"
                     >Sign out</a
                   >
                 </li>

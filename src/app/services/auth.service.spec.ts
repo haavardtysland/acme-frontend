@@ -6,7 +6,7 @@ import { Actor } from '../models/actor.model';
 
 import { AuthService } from './auth.service';
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(() => {

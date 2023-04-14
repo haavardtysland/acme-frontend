@@ -13,7 +13,7 @@ export class Stage extends Entity {
   }
 
   public get title(): string {
-    return this.title;
+    return this._title;
   }
   public get description(): string {
     return this._description;

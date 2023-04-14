@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'profile/:id',
     component: ProfileEditComponent,
     canActivate: [ActorRoleGuard],
-    data: { expectedRole: [Role.EXPLORER, Role.MANAGER] },
+    data: { expectedRole: [Role.EXPLORER, Role.MANAGER, Role.ADMINISTRATOR] },
   },
   {
     path: '',
@@ -47,6 +47,8 @@ const routes: Routes = [
   },
   {
     path: 'applications',
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: [Role.EXPLORER] },
     children: [
       { path: '', component: ApplicationsComponent },
       { path: ':id', component: ApplicationComponent },
@@ -65,7 +67,7 @@ const routes: Routes = [
     data: { expectedRole: Role.ADMINISTRATOR },
   },
   {
-    path: 'manage-trips',
+    path: 'trips/manage',
     children: [
       { path: ':id', component: ManageTripsComponent },
       { path: 'new', component: ManageTripsComponent },
@@ -74,7 +76,7 @@ const routes: Routes = [
     data: { expectedRole: Role.MANAGER },
   },
   {
-    path: 'manage-applications',
+    path: 'applications/manage/:id',
     component: ManageApplicationsComponent,
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },

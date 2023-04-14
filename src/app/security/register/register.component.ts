@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,25 +12,30 @@ export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   roleList: string[];
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.roleList = this.authService.getRoles();
     this.registrationForm = this.fb.group({
-      name: [''],
-      surname: [''],
-      email: [''],
-      password: [''],
-      phone: [''],
-      address: [''],
-      role: [''],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      phone: ['', Validators.pattern(/^[0-9+]+$/)],
+      address: ['', Validators.minLength(2)],
+      /*       role: [''], */
     });
   }
 
   onRegister() {
-    this.authService
+    /*     this.authService
       .registerUser(this.registrationForm.value)
       .subscribe((res) => {
-        console.log(res);
-      });
+        this.router.navigate(['/login']);
+      }); */
+    console.log(this.registrationForm.value.phone);
   }
 
   ngOnInit(): void {}

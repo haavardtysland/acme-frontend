@@ -1,1 +1,81 @@
-<p>manage-applications works!</p>
+<div *ngFor="let trip of trips">
+  <h4>Trip: {{ trip.title }}</h4>
+  <p *ngIf="trip.applications.length === 0">
+    You have no applications to manage
+  </p>
+  <div class="accordion" id="accordionExample">
+    <div
+      *ngFor="let application of trip.applications; let i = index"
+      [attr.data-index]="i"
+      class="accordion-item"
+      [ngClass]="{
+        'accordion-item-rejected': application.status.status === 'REJECTED',
+        'accordion-item-accepted': application.status.status === 'ACCEPTED',
+        'accordion-item-pending': application.status.status === 'PENDING',
+        'accordion-item-due': application.status.status === 'DUE',
+        'accordion-item-cancelled': application.status.status === 'CANCELLED'
+      }"
+    >
+      <h2 class="accordion-header" [id]="'heading' + i">
+        <button
+          class="accordion-button"
+          [ngClass]="{
+            'accordion-item-rejected': application.status.status === 'REJECTED',
+            'accordion-item-accepted': application.status.status === 'ACCEPTED',
+            'accordion-item-pending': application.status.status === 'PENDING',
+            'accordion-item-due': application.status.status === 'DUE',
+            'accordion-item-cancelled':
+              application.status.status === 'CANCELLED'
+          }"
+          type="button"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#collapse' + i"
+          aria-expanded="true"
+          [attr.aria-controls]="'collapse' + i"
+        >
+          Application {{ i + 1 }}:
+        </button>
+      </h2>
+      <div
+        [attr.id]="'collapse' + i"
+        class="accordion-collapse collapse"
+        [attr.aria-labelledby]="'heading' + i"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body flex">
+          <div>
+            <p class="accordion-text">
+              Date created:
+              {{ formatDate(application.dateCreated) }}
+            </p>
+            <p class="accordion-text">
+              Status: {{ application.status.status }}
+            </p>
+            <p class="accordion-text">
+              Description: {{ application.status.description }}
+            </p>
+            <p>Comments:</p>
+
+            <div *ngfor="let comment of application.comments">
+              {{ comment }}
+            </div>
+          </div>
+          <div>
+            <button
+              *ngIf="application.status.status === 'PENDING'"
+              class="btn btn-outline-success me-2 mb-2"
+            >
+              Change to due
+            </button>
+            <button
+              *ngIf="application.status.status === 'PENDING'"
+              class="btn btn-outline-success me-2 mb-2"
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

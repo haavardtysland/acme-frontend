@@ -14,17 +14,23 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TripsComponent implements OnInit {
   finderForm: FormGroup;
+  searchWordForm: FormGroup;
   trips: Trip[];
+  remainingTimes: { [key: string]: string };
 
   constructor(
     private tripService: TripService,
-    private finderService: FinderService, 
+    private finderService: FinderService,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     protected authService: AuthService
   ) {
     this.trips = [];
+    this.searchWordForm = this.fb.group({
+      keyWordSearch: [''],
+    });
+    this.remainingTimes = {};
     this.finderForm = this.fb.group({
       keyWord: [null],
       fromDate: [null],
@@ -55,6 +61,13 @@ export class TripsComponent implements OnInit {
           this.finderForm.setValue(finder);
         });
     }
+
+    setInterval(() => {
+      this.trips.forEach((trip) => {
+        const remainingTime = this.getRemainingTime(trip.startDate);
+        this.remainingTimes[trip._id] = remainingTime;
+      });
+    }, 1000);
   }
   goBack() {
     this.router.navigate(['/']);
@@ -64,17 +77,58 @@ export class TripsComponent implements OnInit {
   }
   formatDate(date: string) {
     let newDate = new Date(date);
-    return newDate;
+    let stringDate = newDate.toString();
+    let finDate = stringDate.substring(0, 10);
+    return finDate;
+  }
+  isTripSoon(tripStartDate: string): boolean {
+    const startDate = new Date(tripStartDate);
+    const now = new Date();
+    const diffInDays = Math.floor(
+      (Date.UTC(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate()
+      ) -
+        Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) /
+        (1000 * 60 * 60 * 24)
+    );
+    return diffInDays <= 7;
+  }
+  getRemainingTime(tripStartDate: string): string {
+    const startDate = new Date(tripStartDate);
+    const now = new Date();
+    const diff = startDate.getTime() - now.getTime();
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    return `${days} d, ${hours} h, ${minutes} m, ${seconds} s`;
   }
   onSearch() {
-    this.finderService.updateFinder(this.finderForm.value).subscribe((res) => {
-      console.log('updated finder:' + this.finderForm.value);
-    });
+    if (this.authService.getCurrentActor()) {
+      this.finderService
+        .updateFinder(this.finderForm.value)
+        .subscribe((res) => {
+          console.log('updated finder:' + this.finderForm.value);
+        });
+    }
 
     this.finderService
       .searchTrips(this.finderForm.value)
       .subscribe((trips: Trip[]) => {
         this.trips = trips;
       });
+  }
+
+  searchWordSearch() {
+    console.log(this.searchWordForm.value.keyWordSearch);
+    if (this.searchWordForm.value.keyWordSearch != '') {
+      this.tripService
+        .getTripsBySearchword(this.searchWordForm.value.keyWordSearch)
+        .subscribe((trips: Trip[]) => {
+          this.trips = trips;
+        });
+    }
   }
 }

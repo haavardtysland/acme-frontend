@@ -14,6 +14,11 @@ password: 12345678
 email: explorer@gmail.com\
 password: 12345678
 
+### Manager
+
+email: manager3@gmail.com\
+password: 12345678
+
 ## UML Diagram
 
 <img src='src/assets/Uml-Diagram.png'/>

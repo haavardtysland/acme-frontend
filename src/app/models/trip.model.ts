@@ -1,3 +1,4 @@
+import { Application } from './application.model';
 import { Entity } from './entity.model';
 import { Stage } from './stage.model';
 import { TripStatus } from './trip-status.model';
@@ -13,6 +14,8 @@ export class Trip extends Entity {
   private _pictures!: string[];
   private _status: TripStatus;
   private _stages: Stage[];
+  private _managerId: string;
+  private _applications: Application[];
 
   constructor() {
     super();
@@ -26,6 +29,8 @@ export class Trip extends Entity {
     this._pictures = [];
     this._stages = [];
     this._status = new TripStatus();
+    this._managerId = '';
+    this._applications = [];
   }
 
   public get ticker(): string {
@@ -66,8 +71,24 @@ export class Trip extends Entity {
     return this._stages;
   }
 
+  public get managerId(): string {
+    return this._managerId;
+  }
+
+  public get applications(): Application[] {
+    return this._applications;
+  }
+
+  public set applications(applications: Application[]) {
+    this._applications = applications;
+  }
+
   public set ticker(ticker: string) {
     this._ticker = ticker;
+  }
+
+  public set managerID(managerId: string) {
+    this._managerId = managerId;
   }
 
   public set description(description: string) {
@@ -87,7 +108,7 @@ export class Trip extends Entity {
   }
 
   public set endDate(endDate: string) {
-    this.endDate = endDate;
+    this._endDate = endDate;
   }
 
   public set status(status: TripStatus) {
@@ -96,5 +117,9 @@ export class Trip extends Entity {
 
   public set stages(stages: Stage[]) {
     this._stages = stages;
+  }
+
+  public set title(title: string) {
+    this._title = title;
   }
 }

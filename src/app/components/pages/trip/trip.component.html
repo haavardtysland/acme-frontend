@@ -1,48 +1,73 @@
-<div class="container mt-10">
-  <div class="card">
+<div class="container">
+  <div class="card mt-2">
     <div class="flex d-flex">
       <img src="../../../../assets/logo.png" class="card-img-left" alt="..." />
       <div class="card-body">
         <h5 class="card-title">{{ trip.title }}</h5>
-        <p class="card-text">
+        <p class="card-text" id="desc">
           {{ trip.description }}
         </p>
         <p class="card-text">Price: € {{ trip.totalPrice }}</p>
         <p class="card-text">
           <small class="text-muted"
-            >From: {{ formatDate(trip.startDate) | date : "medium" }}</small
+            >From: {{ formatDate(trip.startDate) }}</small
           >
         </p>
         <p class="card-text">
-          <small class="text-muted"
-            >To: {{ formatDate(trip.endDate) | date : "medium" }}</small
-          >
+          <small class="text-muted">To: {{ formatDate(trip.endDate) }}</small>
         </p>
-        <button class="btn btn-primary card-button-rigth">
+        <button class="btn btn-primary card-button-rigth me-2">
           Apply for trip
+        </button>
+        <button (click)="goBack()" class="btn btn-primary card-button-rigth">
+          Go back
         </button>
       </div>
       <div class="card-body" *ngIf="trip.requirements.length > 0">
         <h5>Requirements:</h5>
-        <ul *ngFor="let requirement of trip.requirements">
+        <ul *ngFor="let requirement of trip.requirements" id="requirements">
           <li>{{ requirement }}</li>
         </ul>
       </div>
     </div>
   </div>
-  <div *ngIf="trip.stages.length > 0">
-    <h5>Stages:</h5>
 
-    <div *ngFor="let stage of trip.stages" class="card">
-      <div class="row g-0">
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{ stage.title }}</h5>
-            <p class="card-text">
-              {{ stage.description }}
-            </p>
-            <p class="card-text">Price: € {{ stage.price }}</p>
-          </div>
+  <div *ngIf="trip.stages.length === 0">
+    <h5 id="noStagesCard">No stages exisit</h5>
+  </div>
+</div>
+<div *ngIf="trip.stages.length > 0">
+  <h5>Stages:</h5>
+  <div class="accordion" id="accordionExample">
+    <div
+      *ngFor="let stage of trip.stages; let i = index"
+      [attr.data-index]="i"
+      class="accordion-item"
+     
+    >
+      <h2 class="accordion-header" [id]="'heading' + i">
+        <button
+          class="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#collapse' + i"
+          aria-expanded="true"
+          [attr.aria-controls]="'collapse' + i"
+        >
+          Stage {{ i + 1 }}: {{ stage.title }}
+        </button>
+      </h2>
+      <div
+        [attr.id]="'collapse' + i"
+        class="accordion-collapse collapse"
+        [attr.aria-labelledby]="'heading' + i"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+          <p class="card-text">
+            {{ stage.description }}
+          </p>
+          <p class="card-text">Price: € {{ stage.price }}</p>
         </div>
       </div>
     </div>

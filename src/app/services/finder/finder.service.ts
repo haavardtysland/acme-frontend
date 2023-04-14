@@ -34,7 +34,33 @@ export class FinderService implements OnInit {
   }
 
   searchTrips(finder: Finder): Observable<any> {
-    const url = `${environment.backendApiBaseUrl}/Finder/Search?keyWord=${finder.keyWord}&fromDate=${finder.fromDate}&toDate=${finder.toDate}&fromPrice=${finder.fromPrice}&toPrice=${finder.toPrice}`;
+    const { keyWord, fromDate, toDate, fromPrice, toPrice } = finder;
+
+    let queryParameters = '';
+
+    if (keyWord !== null) {
+      queryParameters += `&keyWord=${keyWord}`;
+    }
+
+    if (fromDate !== null) {
+      queryParameters += `&fromDate=${fromDate}`;
+    }
+
+    if (toDate !== null) {
+      queryParameters += `&toDate=${toDate}`;
+    }
+
+    if (fromPrice !== null) {
+      queryParameters += `&fromPrice=${fromPrice}`;
+    }
+
+    if (toPrice !== null) {
+      queryParameters += `&toPrice=${toPrice}`;
+    }
+
+    const url = `${
+      environment.backendApiBaseUrl
+    }/Finder/Search?${queryParameters.slice(1)}`;
     return this.http
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('searchTrips')));

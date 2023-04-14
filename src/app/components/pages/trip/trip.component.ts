@@ -12,25 +12,30 @@ export class TripComponent implements OnInit {
   trip: Trip;
   id: string;
 
-  constructor(private tripService: TripService, private router: Router, private route: ActivatedRoute){
-    this.id ="0";
+  constructor(
+    private tripService: TripService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.id = '0';
     this.trip = new Trip();
   }
 
   ngOnInit(): void {
-      this.id = this.route.snapshot.params["id"];
+    this.id = this.route.snapshot.params['id'];
 
-      this.tripService.getTripById(this.id).subscribe ((trip) => {
-        this.trip = trip;
-        console.log("Display trip: " + trip);
-      })
+    this.tripService.getTripById(this.id).subscribe((trip) => {
+      this.trip = trip;
+      console.log('Display trip: ' + trip);
+    });
   }
-  goBack(){
-    this.router.navigate(["/"]);
+  goBack() {
+    this.router.navigate(['/trips']);
   }
   formatDate(date: string) {
     let newDate = new Date(date);
-    return newDate;
+    let stringDate = newDate.toString();
+    let finDate = stringDate.substring(0, 10);
+    return finDate;
   }
-
 }
