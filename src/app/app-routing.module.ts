@@ -16,6 +16,7 @@ import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { PayComponent } from './components/pay/pay.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -53,6 +54,11 @@ const routes: Routes = [
       { path: '', component: ApplicationsComponent },
       { path: ':id', component: ApplicationComponent },
     ],
+  },
+  {
+    path: 'pay',
+    component: PayComponent,
+    data: { expectedRole: [Role.EXPLORER] },
   },
   {
     path: 'dashboard',

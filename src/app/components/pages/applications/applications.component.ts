@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip/trip.service';
 
 interface GroupedApplications {
-  [key: string]: Array<{ tripTitle: string; application: any }>;
+  [key: string]: Array<{ tripTitle: string; application: any; tripId: number }>;
 }
 
 @Component({
@@ -54,6 +54,7 @@ export class ApplicationsComponent implements OnInit {
         .forEach((application) => {
           matchedApplications.push({
             tripTitle: trip.title,
+            tripId: trip._id,
             application: application,
           });
         });

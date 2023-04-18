@@ -71,6 +71,14 @@
             <div *ngFor="let comment of application.application.comments">
               {{ comment }}
             </div>
+            <button
+              *ngIf="application.application.status.status === 'DUE'"
+              class="btn btn-dark mt-2"
+              type="button"
+              [routerLink]="['/pay']"
+            >
+              Pay trip
+            </button>
           </div>
         </div>
       </div>

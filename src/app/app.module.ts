@@ -33,6 +33,8 @@ import { DeniedAccessComponent } from './shared/denied-access/denied-access.comp
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { I18nModule } from './i18n.module';
+import { PayComponent } from './components/pay/pay.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 import { CookieService } from 'ngx-cookie-service';
 
 export const firebaseConfig = {
@@ -67,6 +69,7 @@ export const firebaseConfig = {
     TripComponent,
     ManageTripComponent,
     ApplicationComponent,
+    PayComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ export const firebaseConfig = {
     FormsModule,
     HttpClientModule,
     NgxDatatableModule,
+    NgxPayPalModule,
     AngularFireModule.initializeApp(firebaseConfig),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

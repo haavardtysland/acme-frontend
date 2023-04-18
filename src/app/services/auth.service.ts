@@ -73,17 +73,64 @@ export class AuthService {
       tap((res: any) => {
         this.currentActor = (res as any)['actor'];
         this.loginStatus.next(true);
+        this.setCurrentActor((res as any)['actor']);
       })
     );
+  }
+
+  setCurrentActor(actor?: Actor) {
+    if (actor) {
+      localStorage.setItem(
+        'currentActor',
+        JSON.stringify({
+          _id: actor.id,
+          name: actor.name,
+          surname: actor.surname,
+          role: actor.role,
+        })
+      );
+    } else {
+      localStorage.removeItem('currentActor');
+    }
+  }
+
+  checkRole(roles: string): boolean {
+    let result = false;
+    const currentActor = this.getCurrentActor();
+    if (currentActor) {
+      if (roles.indexOf(currentActor.role.toString()) !== -1) {
+        result = true;
+      } else {
+        result = false;
+      }
+    } else {
+      result = roles.indexOf('anonymous') !== -1;
+    }
+    return result;
   }
 
   getCurrentActor(): Actor {
     return this.currentActor;
   }
 
+  getCurrentActor2(): Actor {
+    /* return this.currentActor; */
+    let result = null;
+    const currentActor = localStorage.getItem('currentActor');
+    if (currentActor) {
+      result = JSON.parse(currentActor);
+    } else {
+      let message = 'user not found';
+      console.log(message);
+    }
+
+    return result;
+  }
+
   logout() {
     const url = `${environment.backendApiBaseUrl + '/logout'}`;
     localStorage.clear();
+    this.setCurrentActor();
     this.cookieService.deleteAll();
     this.loginStatus.next(false);
     return this.http.post(url, {}, httpOptions).pipe(
