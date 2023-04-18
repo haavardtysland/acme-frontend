@@ -33,6 +33,7 @@ import { DeniedAccessComponent } from './shared/denied-access/denied-access.comp
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { I18nModule } from './i18n.module';
+import { CookieService } from 'ngx-cookie-service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -83,7 +84,7 @@ export const firebaseConfig = {
     provideFirestore(() => getFirestore()),
   ],
   exports: [HeaderComponent],
-  providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
+  providers: [I18nModule.setLocale(), I18nModule.setLocaleId(), CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
