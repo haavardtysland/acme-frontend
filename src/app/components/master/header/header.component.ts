@@ -17,7 +17,7 @@ export class HeaderComponent {
   constructor(
     private messageService: MessageService,
     private router: Router,
-    private authService: AuthService
+    protected authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -43,8 +43,16 @@ export class HeaderComponent {
     location.reload();
   }
 
+  useRefreshToken() {
+    this.authService.useRefreshToken().subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   logOut() {
-    this.authService.logout();
+    this.authService.logout().subscribe((res) => {
+      console.log(res);
+    });
     this.router.navigate(['login']);
   }
 }

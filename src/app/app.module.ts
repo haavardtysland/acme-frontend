@@ -35,6 +35,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { I18nModule } from './i18n.module';
 import { PayComponent } from './components/pay/pay.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { CookieService } from 'ngx-cookie-service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -87,7 +88,7 @@ export const firebaseConfig = {
     provideFirestore(() => getFirestore()),
   ],
   exports: [HeaderComponent],
-  providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
+  providers: [I18nModule.setLocale(), I18nModule.setLocaleId(), CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
