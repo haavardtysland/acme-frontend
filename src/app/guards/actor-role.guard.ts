@@ -25,7 +25,7 @@ export class ActorRoleGuard implements CanActivate {
     | UrlTree {
     return new Promise((resolve, reject) => {
       const expectedRole = route.data['expectedRole'];
-      const actor: Actor = this.authService.getCurrentActor();
+      const actor: Actor = this.authService.getCurrentActor2();
       let result = false;
       if (actor) {
         if (expectedRole.indexOf(actor.role) !== -1) {
@@ -36,8 +36,8 @@ export class ActorRoleGuard implements CanActivate {
       } else {
         //Håvard se på det her, skjønner ikke koden.
         //Hvis man tar bort kommentaren som det er gjort slipper man å havne
-        //på login hver gang man refresher. 
-        //this.router.navigate(['login']);
+        //på login hver gang man refresher.
+        this.router.navigate(['/login']);
       }
       resolve(result);
     });
