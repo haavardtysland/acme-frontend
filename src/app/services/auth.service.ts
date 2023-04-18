@@ -7,12 +7,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, Subject, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Access-Control-Allow-Credentials': 'true',
   }),
+  withCredentials: true,
 };
 
 @Injectable({
@@ -21,7 +24,11 @@ const httpOptions = {
 export class AuthService {
   private currentActor!: Actor;
   private loginStatus = new Subject<Boolean>();
-  constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
+  constructor(
+    private fireAuth: AngularFireAuth,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   registerUser(actor: Actor): Observable<any> {
     const headers = new HttpHeaders();
@@ -35,6 +42,19 @@ export class AuthService {
 
   getRoles(): string[] {
     return Object.values(Role);
+  }
+
+  useRefreshToken() {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    const url = `${environment.backendApiBaseUrl + '/refresh-token'}`;
+    return this.http.post(url, {}, httpOptions).pipe(
+      catchError(this.handleError('useRefreshToken')),
+      tap((res: any) => {
+        this.currentActor = (res as any)['actor'];
+        this.loginStatus.next(true);
+      })
+    );
   }
 
   login(email: string, password: string) {
@@ -51,7 +71,6 @@ export class AuthService {
     return this.http.post(url, body, httpOptions).pipe(
       catchError(this.handleError('loginUser')),
       tap((res: any) => {
-        const actor = res['actor'] as Actor;
         this.currentActor = (res as any)['actor'];
         this.loginStatus.next(true);
       })
@@ -63,8 +82,16 @@ export class AuthService {
   }
 
   logout() {
+    const url = `${environment.backendApiBaseUrl + '/logout'}`;
     localStorage.clear();
+    this.cookieService.deleteAll();
     this.loginStatus.next(false);
+    return this.http.post(url, {}, httpOptions).pipe(
+      catchError(this.handleError('logout')),
+      tap((res: any) => {
+        console.log(res);
+      })
+    );
   }
 
   getStatus(): Observable<Boolean> {

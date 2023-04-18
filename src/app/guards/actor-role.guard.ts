@@ -34,7 +34,10 @@ export class ActorRoleGuard implements CanActivate {
           this.router.navigate(['denied-access']);
         }
       } else {
-        this.router.navigate(['login']);
+        //Håvard se på det her, skjønner ikke koden.
+        //Hvis man tar bort kommentaren som det er gjort slipper man å havne
+        //på login hver gang man refresher. 
+        //this.router.navigate(['login']);
       }
       resolve(result);
     });
