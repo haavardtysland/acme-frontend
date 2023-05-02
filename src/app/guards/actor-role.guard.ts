@@ -25,7 +25,7 @@ export class ActorRoleGuard implements CanActivate {
     | UrlTree {
     return new Promise((resolve, reject) => {
       const expectedRole = route.data['expectedRole'];
-      const actor: Actor = this.authService.getCurrentActor2();
+      const actor: Actor = this.authService.getCurrentActor();
       let result = false;
       if (actor) {
         if (expectedRole.indexOf(actor.role) !== -1) {

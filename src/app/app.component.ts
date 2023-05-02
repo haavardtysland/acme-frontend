@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     this.authService.useRefreshToken().subscribe((res) => {
       console.log(res);
       if (res['actor'] != null && res['accessToken'] != null) {
-        localStorage.setItem('id', res['actor']['_id']);
+        console.log('hei');
         localStorage.setItem('token', res['accessToken']);
       }
     });

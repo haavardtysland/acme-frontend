@@ -4,10 +4,10 @@ import { Role } from '../enums/RoleEnum';
 import { Actor } from '../models/actor.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of, Subject, tap } from 'rxjs';
+import { Observable, Subject, catchError, of, tap } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -83,7 +83,7 @@ export class AuthService {
       localStorage.setItem(
         'currentActor',
         JSON.stringify({
-          _id: actor.id,
+          _id: actor._id,
           name: actor.name,
           surname: actor.surname,
           role: actor.role,
@@ -110,21 +110,19 @@ export class AuthService {
   }
 
   getCurrentActor(): Actor {
-    return this.currentActor;
-  }
-
-  getCurrentActor2(): Actor {
-    /* return this.currentActor; */
-    let result = null;
-    const currentActor = localStorage.getItem('currentActor');
-    if (currentActor) {
-      result = JSON.parse(currentActor);
+    if (this.currentActor) {
+      return this.currentActor;
     } else {
-      let message = 'user not found';
-      console.log(message);
+      let result = null;
+      const currentActor = localStorage.getItem('currentActor');
+      if (currentActor) {
+        result = JSON.parse(currentActor);
+      } else {
+        let message = 'user not found';
+        console.log(message);
+      }
+      return result;
     }
-
-    return result;
   }
 
   logout() {
