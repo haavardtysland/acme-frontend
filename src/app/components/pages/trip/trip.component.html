@@ -10,13 +10,16 @@
         <p class="card-text">Price: € {{ trip.totalPrice }}</p>
         <p class="card-text">
           <small class="text-muted"
-              >From: {{ formatDate(trip.startDate) }}</small
+            >From: {{ formatDate(trip.startDate) }}</small
           >
         </p>
         <p class="card-text">
           <small class="text-muted">To: {{ formatDate(trip.endDate) }}</small>
         </p>
-        <button class="btn btn-primary card-button-rigth me-2">
+        <button
+          *ngIf="authService.getCurrentActor()"
+          class="btn btn-primary card-button-rigth me-2"
+        >
           Apply for trip
         </button>
         <button (click)="goBack()" class="btn btn-primary card-button-rigth">
@@ -43,7 +46,6 @@
       *ngFor="let stage of trip.stages; let i = index"
       [attr.data-index]="i"
       class="accordion-item"
-     
     >
       <h2 class="accordion-header" [id]="'heading' + i">
         <button

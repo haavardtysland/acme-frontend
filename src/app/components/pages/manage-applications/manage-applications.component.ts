@@ -12,7 +12,7 @@ export class ManageApplicationsComponent implements OnInit {
   trips: Trip[];
   constructor(
     private tripService: TripService,
-    private authService: AuthService
+      private authService: AuthService
   ) {
     this.trips = [];
   }

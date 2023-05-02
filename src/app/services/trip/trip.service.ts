@@ -50,6 +50,20 @@ export class TripService {
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('getTripsBySearchword')));
   }
+
+  payTrip(applicationId: string): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications//${applicationId}/Pay`;
+    return this.http
+      .post(url, httpOptions)
+      .pipe(catchError(this.handleError('payTrip')));
+  }
+
+  cancelApplication(applicationId: string): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications//${applicationId}/Cancel`;
+    return this.http
+      .post(url, httpOptions)
+      .pipe(catchError(this.handleError('cancelTrip')));
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

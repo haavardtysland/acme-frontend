@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { Trip } from 'src/app/models/trip.model';
 import { MessageService } from 'src/app/services/services/message.service';
+import { TripService } from 'src/app/services/trip/trip.service';
 
 @Component({
   selector: 'app-pay',
@@ -10,17 +12,34 @@ import { MessageService } from 'src/app/services/services/message.service';
 })
 export class PayComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
+  tripId: string;
+  applicationId: string;
+  trip: Trip;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private tripService: TripService
+  ) {
+    this.tripId = '0';
+    this.applicationId = '0';
+    this.trip = new Trip();
+  }
 
   ngOnInit(): void {
-    this.initConfig();
+    this.route.paramMap.subscribe((params: any) => {
+      this.tripId = params.get('tripId');
+      this.applicationId = params.get('applicationId');
+    });
+
+    this.tripService.getTripById(this.tripId).subscribe((trip) => {
+      this.trip = trip;
+      this.initConfig();
+    });
   }
   private initConfig(): void {
+    console.log(this.trip.totalPrice.toFixed(1).toString());
     this.payPalConfig = {
       currency: 'EUR',
       clientId:
@@ -33,24 +52,24 @@ export class PayComponent implements OnInit {
               amount: {
                 currency_code: 'EUR',
                 value: '9.99',
-                breakdown: {
+                /*     breakdown: {
                   item_total: {
                     currency_code: 'EUR',
-                    value: '9.99',
+                    value: '100.00',
                   },
-                },
+                }, */
               },
-              items: [
+              /*   items: [
                 {
                   name: 'Enterprise Subscription',
                   quantity: '1',
                   category: 'DIGITAL_GOODS',
                   unit_amount: {
                     currency_code: 'EUR',
-                    value: '9.99',
+                    value: '100',
                   },
                 },
-              ],
+              ], */
             },
           ],
         },
@@ -80,9 +99,13 @@ export class PayComponent implements OnInit {
           data
         );
 
+        this.tripService.payTrip(this.applicationId).subscribe((res) => {
+          console.log('res');
+        });
+
         let message = 'The trip is payed';
-        alert(message);
-        this.router.navigateByUrl('/applicatons');
+        this.messageService.notifyMessage('alert alert-success', message);
+        this.router.navigateByUrl('/applications');
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);

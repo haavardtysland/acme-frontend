@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Trip } from 'src/app/models/trip.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip/trip.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class TripComponent implements OnInit {
   constructor(
     private tripService: TripService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected authService: AuthService
   ) {
     this.id = '0';
     this.trip = new Trip();

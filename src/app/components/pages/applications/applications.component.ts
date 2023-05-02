@@ -45,6 +45,12 @@ export class ApplicationsComponent implements OnInit {
     return finDate;
   }
 
+  cancelApplication(applicationId: string) {
+    this.tripService
+      .cancelApplication(applicationId)
+      .subscribe((res) => console.log('Canceled applicaiton', res));
+  }
+
   filterTrips() {
     const matchedApplications: any[] = [];
 
