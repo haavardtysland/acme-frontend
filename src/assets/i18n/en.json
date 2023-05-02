@@ -1,0 +1,53 @@
+{
+  "login": "Login",
+  "log-in": "Log in",
+  "register": "Register",
+  "email": "Email",
+  "enter-email": "Enter email",
+  "enter-valid-email": "Please enter a valid email",
+  "password": "Password",
+  "password-must-be-8": "The password have to be at least 8 characters",
+  "not-registered": "Do you not have a user? ",
+  "register-here": "Register here",
+
+  "register-new-actor": "Register new actor",
+  "name": "Name",
+  "name-required": "The name is required",
+  "surname": "Surname",
+  "surname-required": "The surname is required",
+  "phone": "Phone",
+  "invalid-phone": "The phone number provided is not valid",
+  "address": "Address",
+  "adress-must-have-2-chars": "The adress needs to have at least 2 characters",
+  "email-required": "The email is required",
+  "password-required": "The password is required",
+  "already-registered": "Already registered? ",
+
+  "home": "Home",
+  "trips": "Trips",
+  "dashboard": "Dashboard",
+  "applications": "Applications",
+  "manage-accounts": "Manage accounts",
+  "manage-applications": "Manage applications",
+  "manage-trips": "Manage trips",
+  "search": "Search",
+  "profile": "Profile",
+  "sign-out": "Sign out",
+
+  "welcome-to-acme": "Welcome to acme explorer!",
+  "explore-trips-and-apply": "Explore trips and apply for them",
+
+  "key-word": "Key word",
+  "from": "From",
+  
+  "price": "Price: € {{price}}",
+  "trip-start": "From: {{tripStartDate}}",
+  "trip-end": "From: {{tripEndDate}}",
+  "apply-for-trip": "Apply for trip",
+  "go-back": "Go back",
+  "requirements": "Requirements",
+  "stages": "Stages",
+  "stage": "Stage"
+
+
+}

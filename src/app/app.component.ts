@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,7 +10,14 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   title = 'acme-explorer';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private translateService: TranslateService
+  ) {
+    const locale = localStorage.getItem('locale');
+    this.translateService.setDefaultLang(locale || 'en');
+    this.translateService.use(locale || 'en');
+  }
 
   ngOnInit(): void {
     this.authService.useRefreshToken().subscribe((res) => {
