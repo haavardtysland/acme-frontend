@@ -9,30 +9,27 @@
     <input
       class="form-control me-2 mb-2"
       type="search"
-      i18n-placeholder
-      placeholder="Key word"
+      [placeholder]="'key-word' | translate"
       aria-label="Key word"
       formControlName="keyWord"
     />
-    <label class="label-top">{{'key-word' | translate}}</label>
+    <label class="label-top">{{ "key-word" | translate }}</label>
   </div>
   <div class="form-floating me-2">
     <input
       id="fromDate"
       class="form-control me-2 mb-2"
       type="date"
-      i18n-placeholder
       placeholder="From:"
       aria-label="Search"
       formControlName="fromDate"
     />
-    <label class="label-top">{{'from' | translate}}</label>
+    <label class="label-top">{{ "from" | translate }}</label>
   </div>
   <div class="form-floating me-2">
     <input
       class="form-control me-2 mb-2"
       type="date"
-      i18n-placeholder
       placeholder="Search"
       aria-label="To:"
       formControlName="toDate"
@@ -43,7 +40,6 @@
     <input
       class="form-control me-2 mb-2"
       type="number"
-      i18n-placeholder
       placeholder="From price"
       aria-label="From price"
       formControlName="fromPrice"
@@ -54,7 +50,6 @@
     <input
       class="form-control me-2 mb-2"
       type="number"
-      i18n-placeholder
       placeholder="To price"
       aria-label="To price"
       formControlName="toPrice"
@@ -62,7 +57,7 @@
     <label class="label-top">To price</label>
   </div>
   <button class="btn btn-outline-success me-2 mb-2" type="submit">
-    Search
+    {{ "search" | translate }}
   </button>
 </form>
 
@@ -82,20 +77,18 @@
     <input
       class="form-control me-2 mb-2"
       type="search"
-      i18n-placeholder
-      placeholder="Key word"
+      placeholder="'key-word' | translate"
       aria-label="Key word"
       formControlName="keyWordSearch"
     />
-    <label i18n class="label-top">Key word</label>
+    <label class="label-top">{{ "key-word" | translate }}</label>
   </div>
   <button
     [disabled]="f.form.invalid"
-    i18n
     class="btn btn-outline-success me-2 mb-2"
     type="submit"
   >
-    Search
+    {{ "search" | translate }}
   </button>
 </form>
 
@@ -126,19 +119,24 @@
         <p class="card-text">
           {{ trip.description }}
         </p>
-        <p i18n class="card-text">Price: € {{ trip.totalPrice }}</p>
+        <p class="card-text">Price: € {{ trip.totalPrice }}</p>
         <p class="card-text">
           <small class="text-muted"
-            >From: {{ formatDate(trip.startDate) }}, To:
-            <!-- TODO FIX DATEPIPE -->
-            {{ formatDate(trip.endDate) }}</small
+            >{{
+              "trip-start"
+                | translate : { tripStartDate: formatDate(trip.startDate) }
+            }},
+            {{
+              "trip-end" | translate : { tripEndDate: formatDate(trip.endDate) }
+            }}</small
           >
         </p>
 
         <p class="card-text">
-          <small class="text-muted"
-            >Trip starts in: {{ remainingTimes[trip._id] }}</small
-          >
+          <small class="text-muted">{{
+            "trip-starts-in"
+              | translate : { remainingTime: remainingTimes[trip._id] }
+          }}</small>
         </p>
         <!--         <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
           >Explore trip</a
@@ -147,4 +145,4 @@
     </div>
   </div>
 </div>
-<div i18n *ngIf="!trips || trips.length == 0">Sorry, no items found</div>
+<div *ngIf="!trips || trips.length == 0">Sorry, no items found</div>
