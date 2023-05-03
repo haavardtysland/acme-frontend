@@ -7,16 +7,17 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { ManageAccountsComponent } from './components/pages/manage-accounts/manage-accounts.component';
 import { ManageApplicationsComponent } from './components/pages/manage-applications/manage-applications.component';
 import { ManageTripsComponent } from './components/pages/manage-trips/manage-trips.component';
+import { NewTripComponent } from './components/pages/new-trip/new-trip.component';
 import { ProfileEditComponent } from './components/pages/profile-edit/profile-edit.component';
 import { TripComponent } from './components/pages/trip/trip.component';
 import { TripsComponent } from './components/pages/trips/trips.component';
+import { PayComponent } from './components/pay/pay.component';
 import { Role } from './enums/RoleEnum';
 import { ActorRoleGuard } from './guards/actor-role.guard';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { PayComponent } from './components/pay/pay.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -76,7 +77,7 @@ const routes: Routes = [
     path: 'trips/manage',
     children: [
       { path: ':id', component: ManageTripsComponent },
-      { path: 'new', component: ManageTripsComponent },
+      { path: 'new', component: NewTripComponent },
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },

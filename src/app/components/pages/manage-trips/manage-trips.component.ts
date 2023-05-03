@@ -30,6 +30,10 @@ export class ManageTripsComponent implements OnInit {
     this.managerId = '';
   }
 
+  navigateToCreateTrip() {
+    this.router.navigate(['/trips/manage/new']);
+  }
+  
   ngOnInit(): void {
     this.managerId = this.authService.getCurrentActor()._id;
     this.tripService

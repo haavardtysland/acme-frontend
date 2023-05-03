@@ -32,7 +32,12 @@
       Search
     </button>
   </form>
-  <button class="btn btn-outline-success me-2 mb-2">Create new trip</button>
+  <button
+    class="btn btn-outline-success me-2 mb-2"
+    (click)="navigateToCreateTrip()"
+  >
+    Create new trip
+  </button>
 </div>
 
 <div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
