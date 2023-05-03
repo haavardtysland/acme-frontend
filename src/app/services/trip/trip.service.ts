@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
+import { Trip } from 'src/app/models/trip.model';
 import { environment } from './../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   }),
@@ -50,6 +52,16 @@ export class TripService {
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('getTripsBySearchword')));
   }
+
+  createTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips`;
+    const body = Trip.toJson(trip);
+    console.log(body);
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('createTrip')));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
