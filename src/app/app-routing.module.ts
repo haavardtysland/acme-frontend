@@ -6,6 +6,7 @@ import { ApplicationsComponent } from './components/pages/applications/applicati
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { ManageAccountsComponent } from './components/pages/manage-accounts/manage-accounts.component';
 import { ManageApplicationsComponent } from './components/pages/manage-applications/manage-applications.component';
+import { ManageTripComponent } from './components/pages/manage-trip/manage-trip.component';
 import { ManageTripsComponent } from './components/pages/manage-trips/manage-trips.component';
 import { NewTripComponent } from './components/pages/new-trip/new-trip.component';
 import { ProfileEditComponent } from './components/pages/profile-edit/profile-edit.component';
@@ -78,6 +79,7 @@ const routes: Routes = [
     children: [
       { path: 'new', component: NewTripComponent },
       { path: ':id', component: ManageTripsComponent },
+      { path: 'edit/:id', component: ManageTripComponent },
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },

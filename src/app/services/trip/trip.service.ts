@@ -62,6 +62,15 @@ export class TripService {
       .pipe(catchError(this.handleError('createTrip')));
   }
 
+  editTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip.id}`;
+    const body = Trip.toJson(trip);
+    console.log(body);
+    return this.http
+      .put(url, body, httpOptions)
+      .pipe(catchError(this.handleError('createTrip')));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

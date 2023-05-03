@@ -81,6 +81,10 @@
   "comments": "Comentarios",
   "pay-trip": "Pagar viaje",
 
+  "manage-trip": "Editar viaje {{tripTitle}}",
+  "edit-trip": "Gestionar viaje",
+  "delete-trip": "Eliminar viaje",
+
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",
   "description": "Descripción",

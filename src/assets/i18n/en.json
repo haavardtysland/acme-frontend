@@ -83,6 +83,10 @@
   "comments": "Comments",
   "pay-trip": "Pay trip",
 
+  "manage-trip": "Manage trip {{tripTitle}}",
+  "edit-trip": "Edit trip",
+  "delete-trip": "Delete trip",
+
   "create-new-trip": "Create new trip",
   "title": "Title",
   "description": "Description",
