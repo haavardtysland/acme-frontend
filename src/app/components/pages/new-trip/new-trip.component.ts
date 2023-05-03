@@ -36,7 +36,7 @@ export class NewTripComponent {
     this.stageForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [0, Validators.required],
     });
   }
 
