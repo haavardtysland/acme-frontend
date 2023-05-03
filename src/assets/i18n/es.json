@@ -39,7 +39,7 @@
 
   "key-word": "Palabra clave",
 
-  "price": "Precio: € {{price}}",
+  "price:": "Precio: € {{price}}",
   "trip-start": "De: {{tripStartDate}}",
   "trip-end": "A: {{tripEndDate}}",
   "trip-starts-in": "El viaje comienza en: {{remainingTime}}",
@@ -87,5 +87,16 @@
   "add-a-description...": "Agregar una descripción",
   "application-description": "Descripción: {{description}}",
   "comments": "Comentarios",
-  "pay-trip": "Pagar viaje"
+  "pay-trip": "Pagar viaje",
+
+  "manage-trip": "Editar viaje {{tripTitle}}",
+  "edit-trip": "Gestionar viaje",
+  "delete-trip": "Eliminar viaje",
+
+  "create-new-trip": "Crear nuevo viaje",
+  "title": "Título",
+  "description": "Descripción",
+  "price": "Precio",
+  "start-date": "Fecha de inicio",
+  "end-date": "Fecha final"
 }

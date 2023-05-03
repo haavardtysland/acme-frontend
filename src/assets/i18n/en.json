@@ -41,7 +41,7 @@
   "key-word": "Key word",
   "from": "From",
 
-  "price": "Price: € {{price}}",
+  "price:": "Price: € {{price}}",
   "trip-start": "From: {{tripStartDate}}",
   "trip-end": "To: {{tripEndDate}}",
   "trip-starts-in": "Trip starts in: {{remainingTime}}",
@@ -88,5 +88,16 @@
   "cancel-application": "Cancel application",
   "application-description": "Description: {{description}}",
   "comments": "Comments",
-  "pay-trip": "Pay trip"
+  "pay-trip": "Pay trip",
+
+  "manage-trip": "Manage trip {{tripTitle}}",
+  "edit-trip": "Edit trip",
+  "delete-trip": "Delete trip",
+
+  "create-new-trip": "Create new trip",
+  "title": "Title",
+  "description": "Description",
+  "price": "Price",
+  "start-date": "Start date",
+  "end-date": "End date"
 }

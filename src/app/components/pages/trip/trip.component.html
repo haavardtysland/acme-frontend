@@ -8,7 +8,7 @@
           {{ trip.description }}
         </p>
         <p class="card-text">
-          {{ "price" | translate : { price: trip.totalPrice } }}
+          {{ "price:" | translate : { price: trip.totalPrice } }}
         </p>
         <p class="card-text">
           <small class="text-muted">{{
@@ -131,7 +131,7 @@
             {{ stage.description }}
           </p>
           <p class="card-text">
-            {{ "price" | translate : { price: stage.price } }}
+            {{ "price:" | translate : { price: stage.price } }}
           </p>
         </div>
       </div>

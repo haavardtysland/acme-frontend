@@ -1,1 +1,178 @@
-<p>new-trip works!</p>
+<div class="col-xs-12 col-sm-12 myForm">
+  <form
+    [formGroup]="tripForm"
+    (ngSubmit)="onCreateNewTrip()"
+    class="form-horizontal"
+  >
+    <fieldset>
+      <legend>{{ "create-new-trip" | translate }}</legend>
+      <div class="form-group has-danger">
+        <label for="title">{{ "title" | translate }}</label>
+        <input
+          id="title"
+          class="form-control"
+          type="text"
+          formControlName="title"
+        />
+      </div>
+      <div>
+        <label for="description">{{ "description" | translate }}</label>
+        <input
+          id="description"
+          class="form-control"
+          type="text"
+          formControlName="description"
+        />
+      </div>
+      <label for="requirement">{{ "requirements" | translate }}</label>
+      <div class="input-group">
+        <input
+          id="requirement"
+          class="form-control"
+          type="text"
+          formControlName="requirement"
+        />
+        <span class="input-group-btn">
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="addRequirement()"
+          >
+            Add
+          </button>
+        </span>
+      </div>
+      <ul class="list-group">
+        <li
+          class="list-group-item py-0 pr-0"
+          *ngFor="let requirement of requirements"
+        >
+          {{ requirement }}
+          <button
+            class="btn bi bi-x pr-0"
+            type="button"
+            (click)="removeRequirement(requirement)"
+          ></button>
+        </li>
+      </ul>
+      <div>
+        <label for="startDate">{{ "startDate" | translate }}</label>
+        <input
+          id="startDate"
+          class="form-control"
+          type="date"
+          formControlName="startDate"
+        />
+      </div>
+      <div>
+        <label for="endDate">{{ "endDate" | translate }}</label>
+        <input
+          id="endDate"
+          class="form-control"
+          type="date"
+          formControlName="endDate"
+        />
+      </div>
+      <label>{{ "stages" | translate }}</label>
+      <div>
+        <button
+          class="btn btn-secondary my-2"
+          type="button"
+          (click)="toggleStageForm()"
+        >
+          {{ showStageButton }}
+        </button>
+        <form
+          *ngIf="showStageForm"
+          [formGroup]="stageForm"
+          (ngSubmit)="(addStage)"
+        >
+          <div>
+            <label for="title">{{ "title" | translate }}</label>
+            <input
+              id="title"
+              class="form-control"
+              type="text"
+              formControlName="title"
+            />
+          </div>
+          <div>
+            <label for="description">{{ "description" | translate }}</label>
+            <input
+              id="description"
+              class="form-control"
+              type="text"
+              formControlName="description"
+            />
+          </div>
+          <div>
+            <label for="price:">{{ "price" | translate }}</label>
+            <input
+              id="price:"
+              class="form-control"
+              type="number"
+              formControlName="price:"
+            />
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!stageForm.valid"
+            (click)="addStage()"
+          >
+            Add stage
+          </button>
+        </form>
+      </div>
+      <div *ngIf="stages.length > 0">
+        <div class="accordion" id="accordionExample">
+          <div
+            *ngFor="let stage of stages; let i = index"
+            [attr.data-index]="i"
+            class="accordion-item"
+          >
+            <h2 class="accordion-header" [id]="'heading' + i">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + i"
+                aria-expanded="true"
+                [attr.aria-controls]="'collapse' + i"
+              >
+                {{ "stage" | translate }} {{ i + 1 }}: {{ stage.title }}
+              </button>
+            </h2>
+            <div
+              [attr.id]="'collapse' + i"
+              class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'heading' + i"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <p class="card-text">
+                  {{ stage.description }}
+                </p>
+                <p class="card-text">
+                  {{ "price:" | translate : { price: stage.price } }}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-warning bi bi-pen"
+                ></button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger bi bi-trash"
+                  (click)="onDeleteStage(stage)"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary my-3">
+        {{ "create-new-trip" | translate }}
+      </button>
+    </fieldset>
+  </form>
+</div>
