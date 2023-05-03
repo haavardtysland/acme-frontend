@@ -122,4 +122,16 @@ export class Trip extends Entity {
   public set title(title: string) {
     this._title = title;
   }
+
+  public static toJson(trip: Trip) {
+    const obj = {
+      title: trip.title,
+      description: trip.description,
+      startDate: trip.startDate,
+      endDate: trip.endDate,
+      stages: Stage.toObject(trip.stages),
+      requirements: trip.requirements,
+    };
+    return JSON.stringify(obj);
+  }
 }

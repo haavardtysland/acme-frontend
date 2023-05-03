@@ -36,7 +36,7 @@ export class ManageTripComponent {
       endDate: ['', Validators.required],
       pictures: [''],
     });
-    this.requirements = ['test'];
+    this.requirements = [];
     this.stages = [];
     this.stageForm = this.fb.group({
       title: ['', Validators.required],
@@ -50,7 +50,15 @@ export class ManageTripComponent {
     if (tripId) {
       this.tripService.getTripById(tripId).subscribe((trip: Trip) => {
         this.trip = trip;
-        console.log(trip.startDate);
+        this.requirements = trip.requirements;
+        this.tripForm.patchValue({
+          title: trip.title,
+          description: trip.description,
+          startDate: this.formatDate(trip.startDate),
+          endDate: this.formatDate(trip.endDate),
+          pictures: trip.pictures,
+        });
+        this.stages = trip.stages;
       });
     }
   }
@@ -63,7 +71,7 @@ export class ManageTripComponent {
   formatDate(date: string) {
     return date.substring(0, 10);
   }
-  
+
   addStage() {
     const newStage: Stage = new Stage();
     newStage.title = this.stageForm.value.title;
@@ -75,17 +83,17 @@ export class ManageTripComponent {
   }
 
   onEditNewTrip() {
-    let trip: Trip = new Trip();
     const { title, description, startDate, endDate } = this.tripForm.value;
-    trip.title = title;
-    trip.description = description;
-    trip.requirements = this.requirements;
-    trip.startDate = startDate;
-    trip.endDate = endDate;
-    trip.stages = this.stages;
-    /*this.tripService.createTrip(trip).subscribe((res) => {
+    this.trip.title = title;
+    this.trip.description = description;
+    this.trip.requirements = this.requirements;
+    this.trip.startDate = startDate;
+    this.trip.endDate = endDate;
+    this.trip.stages = this.stages;
+    console.log(this.trip);
+    this.tripService.editTrip(this.trip).subscribe((res) => {
       console.log(res);
-    });*/
+    });
   }
 
   onDeleteStage(deleteStage: Stage) {

@@ -18,7 +18,7 @@ export class Stage extends Entity {
   public get description(): string {
     return this._description;
   }
-  public get prie(): number {
+  public get price(): number {
     return this._price;
   }
 
@@ -32,5 +32,19 @@ export class Stage extends Entity {
 
   public set description(description: string) {
     this._description = description;
+  }
+
+  public static toObject(stages: Stage[]) {
+    const stageList: Object[] = [];
+    stages.forEach((stage) => {
+      const obj = {
+        title: stage.title,
+        description: stage.description,
+        price: stage.price,
+      };
+      stageList.push(obj);
+    });
+
+    return stageList;
   }
 }

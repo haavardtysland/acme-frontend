@@ -15,7 +15,6 @@
           class="form-control"
           type="text"
           formControlName="title"
-          value="{{ trip.title }}"
         />
       </div>
       <div>
@@ -25,7 +24,6 @@
           class="form-control"
           type="text"
           formControlName="description"
-          value="{{ trip.description }}"
         />
       </div>
       <label for="requirement">{{ "requirements" | translate }}</label>
@@ -66,7 +64,6 @@
           class="form-control"
           type="date"
           formControlName="startDate"
-          value="{{ formatDate(trip.startDate) }}"
         />
       </div>
       <div>
@@ -76,7 +73,6 @@
           class="form-control"
           type="date"
           formControlName="endDate"
-          value="{{ formatDate(trip.endDate) }}"
         />
       </div>
       <label>{{ "stages" | translate }}</label>
@@ -130,10 +126,10 @@
           </button>
         </form>
       </div>
-      <div *ngIf="trip.stages.length > 0">
+      <div *ngIf="stages.length > 0">
         <div class="accordion" id="accordionExample">
           <div
-            *ngFor="let stage of trip.stages; let i = index"
+            *ngFor="let stage of stages; let i = index"
             [attr.data-index]="i"
             class="accordion-item"
           >
@@ -176,8 +172,11 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary my-3">
-        {{ "create-new-trip" | translate }}
+      <button type="submit" class="btn btn-warning my-3">
+        {{ "edit-trip" | translate }}
+      </button>
+      <button type="button" class="btn btn-danger my-3 mx-2">
+        {{ "delete-trip" | translate }}
       </button>
     </fieldset>
   </form>

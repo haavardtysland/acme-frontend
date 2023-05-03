@@ -8,6 +8,7 @@ import { ManageAccountsComponent } from './components/pages/manage-accounts/mana
 import { ManageApplicationsComponent } from './components/pages/manage-applications/manage-applications.component';
 import { ManageTripComponent } from './components/pages/manage-trip/manage-trip.component';
 import { ManageTripsComponent } from './components/pages/manage-trips/manage-trips.component';
+import { NewTripComponent } from './components/pages/new-trip/new-trip.component';
 import { ProfileEditComponent } from './components/pages/profile-edit/profile-edit.component';
 import { TripComponent } from './components/pages/trip/trip.component';
 import { TripsComponent } from './components/pages/trips/trips.component';
@@ -76,8 +77,8 @@ const routes: Routes = [
   {
     path: 'trips/manage',
     children: [
+      { path: 'new', component: NewTripComponent },
       { path: ':id', component: ManageTripsComponent },
-      { path: 'new', component: ManageTripsComponent },
       { path: 'edit/:id', component: ManageTripComponent },
     ],
     canActivate: [ActorRoleGuard],
