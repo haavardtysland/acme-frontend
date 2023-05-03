@@ -43,10 +43,13 @@
         </span>
       </div>
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let requirement of requirements">
+        <li
+          class="list-group-item py-0 pr-0"
+          *ngFor="let requirement of requirements"
+        >
           {{ requirement }}
           <button
-            class="btn bi bi-x"
+            class="btn bi bi-x pr-0"
             type="button"
             (click)="removeRequirement(requirement)"
           ></button>
@@ -57,7 +60,7 @@
         <input
           id="startDate"
           class="form-control"
-          type="datetime-local"
+          type="date"
           formControlName="startDate"
         />
       </div>
@@ -66,7 +69,7 @@
         <input
           id="endDate"
           class="form-control"
-          type="datetime-local"
+          type="date"
           formControlName="endDate"
         />
       </div>
@@ -103,12 +106,12 @@
             />
           </div>
           <div>
-            <label for="price">{{ "title" | translate }}</label>
+            <label for="price:">{{ "price" | translate }}</label>
             <input
-              id="price"
+              id="price:"
               class="form-control"
               type="number"
-              formControlName="price"
+              formControlName="price:"
             />
           </div>
           <button
@@ -151,7 +154,7 @@
                   {{ stage.description }}
                 </p>
                 <p class="card-text">
-                  {{ "price" | translate : { price: stage.price } }}
+                  {{ "price:" | translate : { price: stage.price } }}
                 </p>
                 <button
                   type="button"

@@ -31,7 +31,7 @@ export class NewTripComponent {
       endDate: ['', Validators.required],
       pictures: [''],
     });
-    this.requirements = [];
+    this.requirements = ['test'];
     this.stages = [];
     this.stageForm = this.fb.group({
       title: ['', Validators.required],

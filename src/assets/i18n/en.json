@@ -40,7 +40,7 @@
   "key-word": "Key word",
   "from": "From",
 
-  "price": "Price: € {{price}}",
+  "price:": "Price: € {{price}}",
   "trip-start": "From: {{tripStartDate}}",
   "trip-end": "From: {{tripEndDate}}",
   "trip-starts-in": "Trip starts in: {{remainingTime}}",
@@ -86,6 +86,7 @@
   "create-new-trip": "Create new trip",
   "title": "Title",
   "description": "Description",
+  "price": "Price",
   "start-date": "Start date",
   "end-date": "End date"
 }
