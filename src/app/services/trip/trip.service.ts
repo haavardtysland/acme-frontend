@@ -52,14 +52,24 @@ export class TripService {
   }
 
   payTrip(applicationId: string): Observable<any> {
-    const url = `${environment.backendApiBaseUrl}/Trips/Applications//${applicationId}/Pay`;
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications/${applicationId}/Pay`;
     return this.http
       .post(url, httpOptions)
       .pipe(catchError(this.handleError('payTrip')));
   }
 
   cancelApplication(applicationId: string): Observable<any> {
-    const url = `${environment.backendApiBaseUrl}/Trips/Applications//${applicationId}/Cancel`;
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications/${applicationId}/Cancel`;
+    return this.http
+      .post(url, httpOptions)
+      .pipe(catchError(this.handleError('cancelTrip')));
+  }
+
+  applyForTrip(tripId: string): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications`;
+    const body = {
+      tripId
+    }
     return this.http
       .post(url, httpOptions)
       .pipe(catchError(this.handleError('cancelTrip')));

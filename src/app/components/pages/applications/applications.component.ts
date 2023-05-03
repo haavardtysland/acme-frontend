@@ -48,7 +48,9 @@ export class ApplicationsComponent implements OnInit {
   cancelApplication(applicationId: string) {
     this.tripService
       .cancelApplication(applicationId)
-      .subscribe((res) => console.log('Canceled applicaiton', res));
+      .subscribe((res) =>
+        console.log('Canceled applicaiton', res, applicationId)
+      );
   }
 
   filterTrips() {

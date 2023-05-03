@@ -17,10 +17,17 @@
           <small class="text-muted">To: {{ formatDate(trip.endDate) }}</small>
         </p>
         <button
-          *ngIf="authService.getCurrentActor()"
+          *ngIf="authService.getCurrentActor().role === 'EXPLORER'"
           class="btn btn-primary card-button-rigth me-2"
         >
           Apply for trip
+        </button>
+
+        <button
+          class="btn btn-primary me-2"
+          (click)="modalService.open('modal-1')"
+        >
+          Open Modal 1
         </button>
         <button (click)="goBack()" class="btn btn-primary card-button-rigth">
           Go back
