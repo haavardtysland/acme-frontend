@@ -4,6 +4,7 @@ import { Actor } from 'src/app/models/actor.model';
 import { ActorService } from 'src/app/services/actor/actor.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/services/message.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -18,7 +19,8 @@ export class ProfileEditComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private actorService: ActorService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private theme: ThemeService
   ) {
     this.actor = new Actor();
     this.editProfileForm = fb.group({
@@ -65,5 +67,13 @@ export class ProfileEditComponent implements OnInit {
         );
       });
     console.log(this.passwordInput.value);
+  }
+
+  switchTheme(): void {
+    if (this.theme.current === 'light') {
+      this.theme.current = 'dark';
+    } else {
+      this.theme.current = 'light';
+    }
   }
 }

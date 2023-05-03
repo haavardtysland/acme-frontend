@@ -88,19 +88,69 @@
             }}
           </p>
 
-          <div *ngIf="application.application.comments.length > 0">
-            <p>{{ "comments" | translate }}:</p>
-            <div *ngFor="let comment of application.application.comments">
-              {{ comment }}
+          <div>
+            <p *ngIf="application.application.comments.length > 0">
+              {{ "comments" | translate }}:
+            </p>
+            <div *ngIf="application.application.comments.length > 0">
+              <div *ngFor="let comment of application.application.comments">
+                {{ comment }}
+              </div>
             </div>
             <button
               *ngIf="application.application.status.status === 'DUE'"
               class="btn btn-dark mt-2"
               type="button"
-              [routerLink]="['/pay']"
+              [routerLink]="[
+                '/trip/',
+                application.tripId,
+                'application',
+                application.application._id,
+                'pay'
+              ]"
             >
               {{ "pay-trip" | translate }}
             </button>
+            <button
+              *ngIf="
+                application.application.status.status === 'DUE' ||
+                application.application.status.status === 'PENDING'
+              "
+              class="btn btn-dark mt-2"
+              type="button"
+              [disabled]="isCancelling === i"
+              (click)="openDescriptionFrom(i)"
+            >
+              {{ "cancel-application" | translate }}
+            </button>
+            <div class="card mt-2" *ngIf="isCancelling === i">
+              <div class="row m-2">
+                <div class="col-md-12">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="description"
+                      [placeholder]="'add-a-description...' | translate"
+                    />
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      (click)="cancelApplication(application.application._id)"
+                    >
+                      {{ "cancel-application" | translate }}
+                    </button>
+                    <button
+                      class="btn btn-secondary me-2"
+                      type="button"
+                      (click)="cancelForm()"
+                    >
+                      {{ "cancel" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

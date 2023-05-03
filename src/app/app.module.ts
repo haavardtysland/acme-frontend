@@ -35,6 +35,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PayComponent } from './components/pay/pay.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { CookieService } from 'ngx-cookie-service';
+import { ApplyModalComponent } from './components/modals/apply-modal/apply-modal.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -73,6 +74,7 @@ export const firebaseConfig = {
     ManageTripComponent,
     ApplicationComponent,
     PayComponent,
+    ApplyModalComponent,
   ],
   imports: [
     BrowserModule,

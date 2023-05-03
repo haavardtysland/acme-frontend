@@ -1,4 +1,4 @@
-<div *ngFor="let trip of trips">
+<div *ngFor="let trip of trips; let j = index">
   <h4>Trip: {{ trip.title }}</h4>
   <p *ngIf="trip.applications.length === 0">
     You have no applications to manage
@@ -16,7 +16,7 @@
         'accordion-item-cancelled': application.status.status === 'CANCELLED'
       }"
     >
-      <h2 class="accordion-header" [id]="'heading' + i">
+      <h2 class="accordion-header" [id]="'heading' + i + j">
         <button
           class="accordion-button"
           [ngClass]="{
@@ -29,17 +29,17 @@
           }"
           type="button"
           data-bs-toggle="collapse"
-          [attr.data-bs-target]="'#collapse' + i"
+          [attr.data-bs-target]="'#collapse' + i + j"
           aria-expanded="true"
-          [attr.aria-controls]="'collapse' + i"
+          [attr.aria-controls]="'collapse' + i + j"
         >
           Application {{ i + 1 }}:
         </button>
       </h2>
       <div
-        [attr.id]="'collapse' + i"
+        [attr.id]="'collapse' + i + j"
         class="accordion-collapse collapse"
-        [attr.aria-labelledby]="'heading' + i"
+        [attr.aria-labelledby]="'heading' + i + j"
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body flex">
@@ -54,22 +54,24 @@
             <p class="accordion-text">
               Description: {{ application.status.description }}
             </p>
-            <p>Comments:</p>
+            <p *ngIf="application.comments.length > 0">Comments:</p>
 
-            <div *ngfor="let comment of application.comments">
+            <div *ngFor="let comment of application.comments">
               {{ comment }}
             </div>
           </div>
           <div>
             <button
+              (click)="changeApplicationToDue(application._id)"
               *ngIf="application.status.status === 'PENDING'"
-              class="btn btn-outline-success me-2 mb-2"
+              class="btn btn-dark me-2 mb-2"
             >
               Change to due
             </button>
             <button
+              (click)="rejectApplicaiton(application._id)"
               *ngIf="application.status.status === 'PENDING'"
-              class="btn btn-outline-success me-2 mb-2"
+              class="btn btn-dark me-2 mb-2"
             >
               Reject
             </button>

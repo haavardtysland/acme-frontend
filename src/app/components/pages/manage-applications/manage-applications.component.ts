@@ -27,6 +27,27 @@ export class ManageApplicationsComponent implements OnInit {
     });
   }
 
+  rejectApplicaiton(applicationId: string) {
+    const status = 'Rejected';
+    const description = 'Your application was rejected';
+    this.tripService
+      .changeApplicationStatus(applicationId, status, description)
+      .subscribe((res) => {
+        console.log('status updeted', res);
+      });
+    console.log(applicationId);
+  }
+
+  changeApplicationToDue(applicationId: string) {
+    const status = 'DUE';
+    const description = 'Awaiting payment';
+    this.tripService
+      .changeApplicationStatus(applicationId, status, description)
+      .subscribe((res) => {
+        console.log('status updeted', res);
+      });
+  }
+
   formatDate(date: string) {
     let newDate = new Date(date);
     let stringDate = newDate.toString();

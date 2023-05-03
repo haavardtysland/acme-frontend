@@ -58,7 +58,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'pay',
+    path: 'trip/:tripId/application/:applicationId/pay',
     component: PayComponent,
     data: { expectedRole: [Role.EXPLORER] },
   },

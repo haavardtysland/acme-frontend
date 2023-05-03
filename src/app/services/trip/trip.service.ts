@@ -53,6 +53,62 @@ export class TripService {
       .pipe(catchError(this.handleError('getTripsBySearchword')));
   }
 
+  payTrip(applicationId: string): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications/${applicationId}/Pay`;
+    return this.http
+      .post(url, httpOptions)
+      .pipe(catchError(this.handleError('payTrip')));
+  }
+
+  cancelApplication(
+    applicationId: string,
+    description: string
+  ): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications/${applicationId}/Cancel`;
+    var obj = {
+      status,
+      description,
+    };
+    obj.status = 'CANCELLED';
+    obj.description = description;
+    const body = JSON.stringify(obj);
+
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('cancelApplication')));
+  }
+
+  changeApplicationStatus(
+    applicationId: string,
+    status: string,
+    description: string
+  ) {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications/${applicationId}/Status`;
+    var obj = {
+      status,
+      description,
+    };
+    obj.status = status;
+    obj.description = description;
+    const body = JSON.stringify(obj); //SOMETHING WORNG WITH THE POST
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('changeApplicationStatus')));
+  }
+
+  applyForTrip(tripId: string, comments: string[]): Observable<any> {
+    const url = `${environment.backendApiBaseUrl}/Trips/Applications`;
+    var obj = {
+      tripId,
+      comments,
+    };
+    obj.tripId = tripId;
+    obj.comments = comments;
+    const body = JSON.stringify(obj);
+    return this.http
+      .post(url, body, httpOptions)
+      .pipe(catchError(this.handleError('applyForTrip')));
+  }
   createTrip(trip: Trip) {
     const url = `${environment.backendApiBaseUrl}/Trips`;
     const body = Trip.toJson(trip);
