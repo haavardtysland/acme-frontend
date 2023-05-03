@@ -46,7 +46,6 @@ export class ManageTripComponent {
   }
   ngOnInit(): void {
     const tripId = this.route.snapshot.paramMap.get('id');
-    console.log(tripId);
     if (tripId) {
       this.tripService.getTripById(tripId).subscribe((trip: Trip) => {
         this.trip = trip;
@@ -90,7 +89,6 @@ export class ManageTripComponent {
     this.trip.startDate = startDate;
     this.trip.endDate = endDate;
     this.trip.stages = this.stages;
-    console.log(this.trip);
     this.tripService.editTrip(this.trip).subscribe((res) => {
       console.log(res);
     });

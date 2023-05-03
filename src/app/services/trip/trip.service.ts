@@ -112,19 +112,17 @@ export class TripService {
   createTrip(trip: Trip) {
     const url = `${environment.backendApiBaseUrl}/Trips`;
     const body = Trip.toJson(trip);
-    console.log(body);
     return this.http
       .post(url, body, httpOptions)
       .pipe(catchError(this.handleError('createTrip')));
   }
 
   editTrip(trip: Trip) {
-    const url = `${environment.backendApiBaseUrl}/Trips/${trip.id}`;
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}`;
     const body = Trip.toJson(trip);
-    console.log(body);
     return this.http
       .put(url, body, httpOptions)
-      .pipe(catchError(this.handleError('createTrip')));
+      .pipe(catchError(this.handleError('editTrip')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
