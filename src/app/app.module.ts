@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -32,10 +32,13 @@ import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { I18nModule } from './i18n.module';
 import { PayComponent } from './components/pay/pay.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { CookieService } from 'ngx-cookie-service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBPT53ztR7ShpGyNDgQvnEgOGxxQkJ0Otc',
@@ -86,9 +89,18 @@ export const firebaseConfig = {
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+        },
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [HeaderComponent],
-  providers: [I18nModule.setLocale(), I18nModule.setLocaleId(), CookieService],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

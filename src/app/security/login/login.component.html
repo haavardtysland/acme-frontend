@@ -1,15 +1,14 @@
 <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-  <legend>Log in</legend>
+  <legend>{{ "login" | translate }}</legend>
   <div class="form-group">
-    <label i18n for="email">Email</label>
+    <label for="email">{{ "email" | translate }}</label>
     <input
       type="email"
       name="email"
       class="form-control"
       id="emailInput"
       aria-describedby="emailHelp"
-      i18n-placeholder
-      placeholder="Enter email"
+      [placeholder]="'enter-email' | translate"
       formControlName="email"
     />
   </div>
@@ -17,17 +16,16 @@
     *ngIf="loginForm.get('email')?.hasError('email')"
     class="alert alert-danger"
   >
-    Please enter a valid email
+    {{ "enter-valid-email" | translate }}
   </div>
 
   <div class="form-group">
-    <label i18n for="password">Password</label>
+    <label for="password">{{ "password" | translate }}</label>
     <input
       type="password"
       name="password"
       class="form-control"
       id="passwordInput"
-      i18n-placeholder
       placeholder="Enter password"
       formControlName="password"
     />
@@ -35,16 +33,14 @@
       *ngIf="loginForm.get('password')?.hasError('minlength')"
       class="alert alert-danger"
     >
-      The password have to be at least 8 characters
+      {{ "password-must-be-8" | translate }}
     </div>
   </div>
-  <p i18n>Do you not have a user? <a href="/register">Register here</a></p>
-  <button
-    i18n
-    [disabled]="!loginForm.valid"
-    type="submit"
-    class="btn btn-primary"
-  >
-    Log in
+  <p>
+    {{ "not-registered" | translate
+    }}<a href="/register">{{ "register-here" | translate }}</a>
+  </p>
+  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">
+    {{ "log-in" | translate }}
   </button>
 </form>

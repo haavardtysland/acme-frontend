@@ -1,12 +1,12 @@
 <div
   *ngFor="let stat of ['PENDING', 'REJECTED', 'ACCEPTED', 'DUE', 'CANCELLED']"
 >
-  <h5 class="mt-2">{{ stat }} applications:</h5>
+  <h5 class="mt-2">{{ "stat-applications" | translate : { stat: stat } }}</h5>
   <div
     class="text-center border border-2 rounded align-items-center"
     *ngIf="!groupedApplications[stat]"
   >
-    <p>You have no {{ stat }} applications</p>
+    <p>{{ "no-stat-applications" | translate : { stat: stat } }}</p>
   </div>
   <div class="accordion" id="accordionExample">
     <div
@@ -46,7 +46,9 @@
           aria-expanded="true"
           [attr.aria-controls]="'collapse' + i + stat"
         >
-          Application for {{ application.tripTitle }}:
+          {{
+            "application-for" | translate : { title: application.tripTitle }
+          }}:
         </button>
       </h2>
       <div
@@ -57,17 +59,37 @@
       >
         <div class="accordion-body flex">
           <p class="accordion-text">
-            Date created: {{ formatDate(application.application.dateCreated) }}
+            {{
+              "application-date-created"
+                | translate
+                  : {
+                      dateCreated: formatDate(
+                        application.application.dateCreated
+                      )
+                    }
+            }}
           </p>
           <p class="accordion-text">
-            Status: {{ application.application.status.status }}
+            {{
+              "application-status"
+                | translate
+                  : {
+                      status: application.application.status.status
+                    }
+            }}
           </p>
           <p class="accordion-text">
-            Description: {{ application.application.status.description }}
+            {{
+              "application-description"
+                | translate
+                  : {
+                      description: application.application.status.description
+                    }
+            }}
           </p>
 
           <div *ngIf="application.application.comments.length > 0">
-            <p>Comments:</p>
+            <p>{{ "comments" | translate }}:</p>
             <div *ngFor="let comment of application.application.comments">
               {{ comment }}
             </div>
@@ -77,7 +99,7 @@
               type="button"
               [routerLink]="['/pay']"
             >
-              Pay trip
+              {{ "pay-trip" | translate }}
             </button>
           </div>
         </div>
