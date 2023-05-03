@@ -9,20 +9,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "i18n": {
-        "sourceLocale": "en",
-        "locales": {
-          "es": {
-            "translation": "src/assets/i18n/messages_es.json"
-          }
-        }
-      },
+
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/acme-explorer",
-            "localize": true,
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -52,12 +44,6 @@
                 }
               ],
               "outputHashing": "all"
-            },
-            "es": {
-              "localize": ["es"]
-            },
-            "en": {
-              "localize": ["en"]
             },
             "development": {
               "buildOptimizer": false,

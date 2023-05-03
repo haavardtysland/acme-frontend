@@ -15,21 +15,19 @@
       <input
         class="form-control me-2 mb-2"
         type="search"
-        i18n-placeholder
-        placeholder="Key word"
+        [placeholder]="'key-word' | translate"
         aria-label="Key word"
         formControlName="keyWordSearch"
       />
-      <label i18n class="label-top">Key word</label>
+      <label class="label-top">{{ "key-word" | translate }}</label>
     </div>
 
     <button
       [disabled]="f.form.invalid"
-      i18n
       class="btn btn-outline-success me-2 mb-2"
       type="submit"
     >
-      Search
+      {{ "search" | translate }}
     </button>
   </form>
   <button class="btn btn-outline-success me-2 mb-2">Create new trip</button>
@@ -62,7 +60,9 @@
         <p class="card-text">
           {{ trip.description }}
         </p>
-        <p i18n class="card-text">Price: € {{ trip.totalPrice }}</p>
+        <p class="card-text">
+          {{ "price" | translate : { price: trip.totalPrice } }}
+        </p>
         <p class="card-text">
           <small class="text-muted"
             >From: {{ formatDate(trip.startDate) }}, To:
@@ -83,4 +83,6 @@
     </div>
   </div>
 </div>
-<div i18n *ngIf="!trips || trips.length == 0">Sorry, no items found</div>
+<div *ngIf="!trips || trips.length == 0">
+  {{ "no-trips-found" | translate }}
+</div>

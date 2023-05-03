@@ -7,24 +7,29 @@
         <p class="card-text" id="desc">
           {{ trip.description }}
         </p>
-        <p class="card-text">Price: € {{ trip.totalPrice }}</p>
         <p class="card-text">
-          <small class="text-muted"
-              >From: {{ formatDate(trip.startDate) }}</small
-          >
+          {{ "price" | translate : { price: trip.totalPrice } }}
         </p>
         <p class="card-text">
-          <small class="text-muted">To: {{ formatDate(trip.endDate) }}</small>
+          <small class="text-muted">{{
+            "trip-start"
+              | translate : { tripStartDate: formatDate(trip.startDate) }
+          }}</small>
+        </p>
+        <p class="card-text">
+          <small class="text-muted">{{
+            "trip-end" | translate : { tripEndDate: formatDate(trip.endDate) }
+          }}</small>
         </p>
         <button class="btn btn-primary card-button-rigth me-2">
-          Apply for trip
+          {{ "apply-for-trip" | translate }}
         </button>
         <button (click)="goBack()" class="btn btn-primary card-button-rigth">
-          Go back
+          {{ "go-back" | translate }}
         </button>
       </div>
       <div class="card-body" *ngIf="trip.requirements.length > 0">
-        <h5>Requirements:</h5>
+        <h5>{{ "requirements" | translate }}:</h5>
         <ul *ngFor="let requirement of trip.requirements" id="requirements">
           <li>{{ requirement }}</li>
         </ul>
@@ -37,13 +42,12 @@
   </div>
 </div>
 <div *ngIf="trip.stages.length > 0">
-  <h5>Stages:</h5>
+  <h5>{{ "stages" | translate }}:</h5>
   <div class="accordion" id="accordionExample">
     <div
       *ngFor="let stage of trip.stages; let i = index"
       [attr.data-index]="i"
       class="accordion-item"
-     
     >
       <h2 class="accordion-header" [id]="'heading' + i">
         <button
@@ -54,7 +58,7 @@
           aria-expanded="true"
           [attr.aria-controls]="'collapse' + i"
         >
-          Stage {{ i + 1 }}: {{ stage.title }}
+          {{ "stage" | translate }} {{ i + 1 }}: {{ stage.title }}
         </button>
       </h2>
       <div
@@ -67,7 +71,9 @@
           <p class="card-text">
             {{ stage.description }}
           </p>
-          <p class="card-text">Price: € {{ stage.price }}</p>
+          <p class="card-text">
+            {{ "price" | translate : { price: stage.price } }}
+          </p>
         </div>
       </div>
     </div>

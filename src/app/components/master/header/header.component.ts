@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'src/app/enums/RoleEnum';
 import { Actor } from 'src/app/models/actor.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +18,8 @@ export class HeaderComponent {
   constructor(
     private messageService: MessageService,
     private router: Router,
-    protected authService: AuthService
+    protected authService: AuthService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -33,14 +35,15 @@ export class HeaderComponent {
   }
 
   changeLanguage(language: string) {
+    const languageString = language == 'en' ? 'English' : 'Spanish';
     this.messageService.notifyMessage(
       'alert alert-info',
-      'You changed language to: ' + language
+      'You changed language to: ' + languageString
     );
 
     localStorage.setItem('locale', language);
 
-    location.reload();
+    this.translateService.use(language);
   }
 
   useRefreshToken() {
