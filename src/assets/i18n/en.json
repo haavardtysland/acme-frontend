@@ -81,5 +81,11 @@
   "application-status": "Status: {{status}}",
   "application-description": "Description: {{description}}",
   "comments": "Comments",
-  "pay-trip": "Pay trip"
+  "pay-trip": "Pay trip",
+
+  "create-new-trip": "Create new trip",
+  "title": "Title",
+  "description": "Description",
+  "start-date": "Start date",
+  "end-date": "End date"
 }

@@ -79,5 +79,11 @@
   "application-status": "Status: {{status}}",
   "application-description": "Descripción: {{description}}",
   "comments": "Comentarios",
-  "pay-trip": "Pagar viaje"
+  "pay-trip": "Pagar viaje",
+
+  "create-new-trip": "Crear nuevo viaje",
+  "title": "Título",
+  "description": "Descripción",
+  "start-date": "Fecha de inicio",
+  "end-date": "Fecha final"
 }

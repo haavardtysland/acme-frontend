@@ -76,8 +76,8 @@ const routes: Routes = [
   {
     path: 'trips/manage',
     children: [
-      { path: ':id', component: ManageTripsComponent },
       { path: 'new', component: NewTripComponent },
+      { path: ':id', component: ManageTripsComponent },
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },
