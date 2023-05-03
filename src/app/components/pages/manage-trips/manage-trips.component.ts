@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Trip } from 'src/app/models/trip.model';
-import { TripService } from 'src/app/services/trip/trip.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { TripService } from 'src/app/services/trip/trip.service';
 
 @Component({
   selector: 'app-manage-trips',
@@ -49,9 +49,11 @@ export class ManageTripsComponent implements OnInit {
   goBack() {
     this.router.navigate(['/']);
   }
+
   displayTrip(id: string) {
-    this.router.navigate(['/trips/' + id]);
+    this.router.navigate(['/trips/manage/edit/' + id]);
   }
+
   formatDate(date: string) {
     let newDate = new Date(date);
     let stringDate = newDate.toString();

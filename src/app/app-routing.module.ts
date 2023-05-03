@@ -6,17 +6,18 @@ import { ApplicationsComponent } from './components/pages/applications/applicati
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { ManageAccountsComponent } from './components/pages/manage-accounts/manage-accounts.component';
 import { ManageApplicationsComponent } from './components/pages/manage-applications/manage-applications.component';
+import { ManageTripComponent } from './components/pages/manage-trip/manage-trip.component';
 import { ManageTripsComponent } from './components/pages/manage-trips/manage-trips.component';
 import { ProfileEditComponent } from './components/pages/profile-edit/profile-edit.component';
 import { TripComponent } from './components/pages/trip/trip.component';
 import { TripsComponent } from './components/pages/trips/trips.component';
+import { PayComponent } from './components/pay/pay.component';
 import { Role } from './enums/RoleEnum';
 import { ActorRoleGuard } from './guards/actor-role.guard';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { PayComponent } from './components/pay/pay.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -77,6 +78,7 @@ const routes: Routes = [
     children: [
       { path: ':id', component: ManageTripsComponent },
       { path: 'new', component: ManageTripsComponent },
+      { path: 'edit/:id', component: ManageTripComponent },
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },

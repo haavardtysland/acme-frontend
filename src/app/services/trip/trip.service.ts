@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { environment } from './../../../environments/environment';
 
 const httpOptions = {
@@ -50,6 +50,7 @@ export class TripService {
       .get(url, httpOptions)
       .pipe(catchError(this.handleError('getTripsBySearchword')));
   }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

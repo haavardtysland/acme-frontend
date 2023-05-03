@@ -79,5 +79,7 @@
   "application-status": "Status: {{status}}",
   "application-description": "Descripción: {{description}}",
   "comments": "Comentarios",
-  "pay-trip": "Pagar viaje"
+  "pay-trip": "Pagar viaje",
+
+  "manage-trip": "Editar viaje {{tripTitle}}"
 }
