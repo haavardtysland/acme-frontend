@@ -1,12 +1,14 @@
 import { ApplicationStatus } from './application-status.model';
+import { Entity } from './entity.model';
 
-export class Application {
+export class Application extends Entity {
   private _dateCreated: string;
   private _status: ApplicationStatus;
   private _comments: string[];
   private _explorerId: string;
 
   constructor() {
+    super();
     this._dateCreated = '';
     this._status = new ApplicationStatus();
     this._comments = [];

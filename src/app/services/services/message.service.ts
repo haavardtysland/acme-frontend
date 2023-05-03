@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, delay } from 'rxjs';
 import { InfoMessage } from 'src/app/models/info-message.model';
 
 @Injectable({
@@ -10,9 +10,11 @@ export class MessageService {
   constructor() {
     this.message = new Subject<InfoMessage | null>();
   }
-  notifyMessage(code: string, typeMessage: string) {
-    this.message.next(new InfoMessage(code, typeMessage));
-  }
+  notifyMessage = async (code: string, typeMessage: string) => {
+    await this.message.next(new InfoMessage(code, typeMessage));
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    this.removeMessage();
+  };
   removeMessage() {
     this.message.next(null);
   }

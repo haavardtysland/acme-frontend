@@ -12,7 +12,7 @@ export class ManageApplicationsComponent implements OnInit {
   trips: Trip[];
   constructor(
     private tripService: TripService,
-      private authService: AuthService
+    private authService: AuthService
   ) {
     this.trips = [];
   }
@@ -25,6 +25,27 @@ export class ManageApplicationsComponent implements OnInit {
     this.tripService.getTripByManagerId(id).subscribe((trips: Trip[]) => {
       this.trips = trips;
     });
+  }
+
+  rejectApplicaiton(applicationId: string) {
+    const status = 'Rejected';
+    const description = 'Your application was rejected';
+    this.tripService
+      .changeApplicationStatus(applicationId, status, description)
+      .subscribe((res) => {
+        console.log('status updeted', res);
+      });
+    console.log(applicationId);
+  }
+
+  changeApplicationToDue(applicationId: string) {
+    const status = 'DUE';
+    const description = 'Awaiting payment';
+    this.tripService
+      .changeApplicationStatus(applicationId, status, description)
+      .subscribe((res) => {
+        console.log('status updeted', res);
+      });
   }
 
   formatDate(date: string) {

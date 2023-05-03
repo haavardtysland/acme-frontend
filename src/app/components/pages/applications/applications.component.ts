@@ -22,6 +22,8 @@ export class ApplicationsComponent implements OnInit {
   trips: Trip[];
   groupedApplications: GroupedApplications;
   id: string;
+  description: string = '';
+  isCancelling: number | null = null;
   constructor(
     private tripService: TripService,
     private authService: AuthService
@@ -47,10 +49,23 @@ export class ApplicationsComponent implements OnInit {
 
   cancelApplication(applicationId: string) {
     this.tripService
-      .cancelApplication(applicationId)
+      .cancelApplication(applicationId, this.description)
       .subscribe((res) =>
         console.log('Canceled applicaiton', res, applicationId)
       );
+    location.reload();
+  }
+
+  addDescription() {
+    console.log(this.description);
+  }
+  cancelForm() {
+    this.isCancelling = null;
+    this.description = '';
+  }
+
+  openDescriptionFrom(index: number) {
+    this.isCancelling = index;
   }
 
   filterTrips() {

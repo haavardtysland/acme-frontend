@@ -17,58 +17,53 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a i18n class="nav-link active" aria-current="page" routerLink="/"
-            >Home</a
-          >
+          <a class="nav-link active" aria-current="page" routerLink="/">{{
+            "home" | translate
+          }}</a>
         </li>
         <li class="nav-item">
-          <a
-            i18n
-            class="nav-link active"
-            aria-current="page"
-            routerLink="/trips"
-            >Trips</a
-          >
+          <a class="nav-link active" aria-current="page" routerLink="/trips">{{
+            "trips" | translate
+          }}</a>
         </li>
         <li *ngIf="activeRole === 'EXPLORER'" class="nav-item">
           <a
-            i18n
             class="nav-link active"
             aria-current="page"
             [routerLink]="['/applications/']"
-            >Applications
+            >{{ "applications" | translate }}
           </a>
         </li>
         <li class="nav-item" *ngIf="activeRole === 'MANAGER'">
           <a
-            i18n
             class="nav-link active"
             aria-current="page"
             [routerLink]="['/trips/manage/', currentActor?._id]"
-            >Manage Trips</a
+            >{{ "manage-trips" | translate }}</a
           >
         </li>
         <li class="nav-item" *ngIf="activeRole === 'MANAGER'">
           <a
-            i18n
             class="nav-link active"
             aria-current="page"
             [routerLink]="['/applications/manage/', currentActor?._id]"
-            >Manage Applications</a
-          >
-        </li>
-        <li class="nav-item" *ngIf="activeRole === 'ADMINISTRATOR'">
-          <a class="nav-link active" aria-current="page" routerLink="/dashboard"
-            >Dashboard</a
+            >{{ "manage-applications" | translate }}</a
           >
         </li>
         <li class="nav-item" *ngIf="activeRole === 'ADMINISTRATOR'">
           <a
-            i18n
+            class="nav-link active"
+            aria-current="page"
+            routerLink="/dashboard"
+            >{{ "dashboard" | translate }}</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="activeRole === 'ADMINISTRATOR'">
+          <a
             class="nav-link active"
             aria-current="page"
             routerLink="/manage-accounts"
-            >Manage accounts</a
+            >{{ "manage-accounts" | translate }}</a
           >
         </li>
       </ul>
@@ -76,12 +71,11 @@
         <input
           class="form-control me-2"
           type="search"
-          i18n-placeholder
-          placeholder="Search"
+          [placeholder]="'search' | translate"
           aria-label="Search"
         />
-        <button i18n class="btn btn-outline-success me-2" type="submit">
-          Search
+        <button class="btn btn-outline-success me-2" type="submit">
+          {{ "search" | translate }}
         </button>
       </form>
       <button class="btn btn-secondary me-2" (click)="changeLanguage('en')">
@@ -95,15 +89,16 @@
           class="navbar-nav mb-2 mg-lg-0 me-2 justify-content-center align-items-center"
         >
           <li class="nav-item" *ngIf="!currentActor">
-            <a i18n routerLink="/login" class="nav-link active"><i>Login</i></a>
+            <a routerLink="/login" class="nav-link active"
+              ><i>{{ "login" | translate }}</i></a
+            >
           </li>
           <li class="nav-item">
             <a
-              i18n
               routerLink="/register"
               class="nav-link active"
               *ngIf="!currentActor"
-              ><i>Register</i></a
+              ><i>{{ "register" | translate }}</i></a
             >
           </li>
           <li>
@@ -140,15 +135,16 @@
               >
                 <li ngbDropdownItem>
                   <a
-                    i18n
                     class="dropdown-item"
                     [routerLink]="['/profile/', currentActor._id]"
-                    >Profile</a
+                    >{{ "profile" | translate }}</a
                   >
                 </li>
                 <li ngbDropdownItem><hr class="dropdown-divider" /></li>
                 <li ngbDropdownItem>
-                  <a i18n class="dropdown-item" (click)="logOut()">Sign out</a>
+                  <a class="dropdown-item" (click)="logOut()">{{
+                    "sign-out" | translate
+                  }}</a>
                 </li>
               </ul>
             </div>
