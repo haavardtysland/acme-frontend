@@ -22,6 +22,13 @@
   "email-required": "El correo electrónico es obligatorio",
   "password-required": "La contraseña es obligatoria",
   "already-registered": "¿Ya se ha registrado? ",
+  "title-required": "El título es obligatorio",
+  "description-required": "La descripción es obligatoria",
+  "start-date-required": "Debe indicarse la fecha de inicio",
+  "end-date-required": "Debe indicarse la fecha de finalización",
+  "must-have-stage": "Debe haber al menos 1 fase",
+  "start-date-must-be-after-today": "La fecha de inicio no puede ser anterior a hoy",
+  "end-date-after-start-date": "La fecha de finalización debe ser posterior a la fecha de inicio",
 
   "home": "Inicio",
   "trips": "Viajes",
@@ -91,7 +98,7 @@
 
   "manage-trip": "Editar viaje {{tripTitle}}",
   "edit-trip": "Gestionar viaje",
-  "delete-trip": "Eliminar viaje",
+  "cancel-trip": "Cancelar viaje",
 
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",

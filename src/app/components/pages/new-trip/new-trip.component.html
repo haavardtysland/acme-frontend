@@ -15,6 +15,12 @@
           formControlName="title"
         />
       </div>
+      <div
+        *ngIf="tripForm.get('title')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "title-required" | translate }}
+      </div>
       <div>
         <label for="description">{{ "description" | translate }}</label>
         <input
@@ -23,6 +29,12 @@
           type="text"
           formControlName="description"
         />
+      </div>
+      <div
+        *ngIf="tripForm.get('description')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "description-required" | translate }}
       </div>
       <label for="requirement">{{ "requirements" | translate }}</label>
       <div class="input-group">
@@ -56,7 +68,7 @@
         </li>
       </ul>
       <div>
-        <label for="startDate">{{ "startDate" | translate }}</label>
+        <label for="startDate">{{ "start-date" | translate }}</label>
         <input
           id="startDate"
           class="form-control"
@@ -64,14 +76,38 @@
           formControlName="startDate"
         />
       </div>
+      <div
+        *ngIf="tripForm.get('startDate')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "start-date-required" | translate }}
+      </div>
+      <div
+        *ngIf="tripForm.get('startDate')?.hasError('startDateInvalid')"
+        class="alert alert-danger"
+      >
+        {{ "start-date-must-be-after-today" | translate }}
+      </div>
       <div>
-        <label for="endDate">{{ "endDate" | translate }}</label>
+        <label for="endDate">{{ "end-date" | translate }}</label>
         <input
           id="endDate"
           class="form-control"
           type="date"
           formControlName="endDate"
         />
+      </div>
+      <div
+        *ngIf="tripForm.get('endDate')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "end-date-required" | translate }}
+      </div>
+      <div
+        *ngIf="tripForm.get('endDate')?.hasError('endDateInvalid')"
+        class="alert alert-danger"
+      >
+        {{ "end-date-after-start-date" | translate }}
       </div>
       <label>{{ "stages" | translate }}</label>
       <div>
@@ -108,10 +144,10 @@
           <div>
             <label for="price:">{{ "price" | translate }}</label>
             <input
-              id="price:"
+              id="price"
               class="form-control"
               type="number"
-              formControlName="price:"
+              formControlName="price"
             />
           </div>
           <button
@@ -123,6 +159,9 @@
             Add stage
           </button>
         </form>
+        <div *ngIf="this.stages.length == 0" class="alert alert-danger">
+          {{ "must-have-stage" | translate }}
+        </div>
       </div>
       <div *ngIf="stages.length > 0">
         <div class="accordion" id="accordionExample">
@@ -170,7 +209,11 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary my-3">
+      <button
+        type="submit"
+        class="btn btn-primary my-3"
+        [disabled]="!tripForm.valid"
+      >
         {{ "create-new-trip" | translate }}
       </button>
     </fieldset>

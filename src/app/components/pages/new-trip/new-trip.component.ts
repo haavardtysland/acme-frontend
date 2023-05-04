@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip/trip.service';
@@ -27,8 +34,8 @@ export class NewTripComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       requirement: [''],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      startDate: ['', Validators.required, this.startDateValidator.bind(this)],
+      endDate: ['', Validators.required, this.endDateValidator.bind(this)],
       pictures: [''],
     });
     this.requirements = ['test'];
@@ -38,6 +45,33 @@ export class NewTripComponent {
       description: ['', Validators.required],
       price: [0, Validators.required],
     });
+  }
+  startDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const today = new Date();
+    const startDate = new Date(control.value);
+    if (startDate < today) {
+      return of({ startDateInvalid: true });
+    }
+    return of(null);
+  }
+
+  endDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const startDateControl = this.tripForm.get('startDate');
+    if (!startDateControl) {
+      // The startDate control is not present in the FormGroup
+      return of(null);
+    }
+
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(control.value);
+    if (endDate <= startDate) {
+      return of({ endDateInvalid: true });
+    }
+    return of(null);
   }
 
   toggleStageForm() {
