@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -32,8 +39,8 @@ export class ManageTripComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       requirement: [''],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      startDate: ['', Validators.required, this.startDateValidator.bind(this)],
+      endDate: ['', Validators.required, this.endDateValidator.bind(this)],
       pictures: [''],
     });
     this.requirements = [];
@@ -62,6 +69,34 @@ export class ManageTripComponent {
     }
   }
 
+  startDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const today = new Date();
+    const startDate = new Date(control.value);
+    if (startDate < today) {
+      return of({ startDateInvalid: true });
+    }
+    return of(null);
+  }
+
+  endDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const startDateControl = this.tripForm.get('startDate');
+    if (!startDateControl) {
+      // The startDate control is not present in the FormGroup
+      return of(null);
+    }
+
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(control.value);
+    if (endDate <= startDate) {
+      return of({ endDateInvalid: true });
+    }
+    return of(null);
+  }
+
   toggleStageForm() {
     this.showStageForm = !this.showStageForm;
     this.showStageButton = !this.showStageForm ? '+' : '-';
@@ -79,6 +114,7 @@ export class ManageTripComponent {
     this.stages.push(newStage);
     this.stageForm.reset();
     this.showStageForm = false;
+    this.showStageButton = '+';
   }
 
   onEditNewTrip() {

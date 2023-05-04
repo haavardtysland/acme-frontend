@@ -38,7 +38,7 @@ export class NewTripComponent {
       endDate: ['', Validators.required, this.endDateValidator.bind(this)],
       pictures: [''],
     });
-    this.requirements = ['test'];
+    this.requirements = [];
     this.stages = [];
     this.stageForm = this.fb.group({
       title: ['', Validators.required],
@@ -87,6 +87,7 @@ export class NewTripComponent {
     this.stages.push(newStage);
     this.stageForm.reset();
     this.showStageForm = false;
+    this.showStageButton = '+';
   }
 
   onCreateNewTrip() {
