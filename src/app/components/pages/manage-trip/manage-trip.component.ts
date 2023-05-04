@@ -75,6 +75,16 @@ export class ManageTripComponent {
     }
   }
 
+  onToggle(event: any) {
+    const isChecked = event?.target?.checked;
+    if (isChecked) {
+      this.trip.isPublished = true;
+    } else {
+      this.trip.isPublished = false;
+    }
+    console.log(this.trip.isPublished);
+  }
+
   onDialogYesClick(result: boolean) {
     if (this.action == 'cancel') {
       this.cancelTrip();
