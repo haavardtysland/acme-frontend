@@ -29,7 +29,7 @@
   "must-have-stage": "There needs to be atleast 1 stage",
   "start-date-must-be-after-today": "The start date cannot be earlier than today",
   "end-date-after-start-date": "The end date must be later than the start date",
-  
+
   "home": "Home",
   "trips": "Trips",
   "dashboard": "Dashboard",
@@ -98,10 +98,11 @@
   "comments": "Comments",
   "pay-trip": "Pay trip",
 
-  "manage-trip": "Manage trip {{tripTitle}}",
+  "manage-trip": "Manage trip '{{tripTitle}}'",
   "edit-trip": "Edit trip",
   "cancel-trip": "Cancel trip",
-  "edit-dialog-title": "Are you sure you want to edit {{trip}}",
+  "edit-dialog-message": "Are you sure you want to edit '{{tripTitle}}'?",
+  "cancel-dialog-message": "Are you sure you want to cancel '{{tripTitle}}'?",
 
   "create-new-trip": "Create new trip",
   "title": "Title",

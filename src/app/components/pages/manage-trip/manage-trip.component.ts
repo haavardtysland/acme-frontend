@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
@@ -36,7 +37,8 @@ export class ManageTripComponent {
     private tripService: TripService,
     private router: Router,
     private fb: FormBuilder,
-    protected authService: AuthService
+    protected authService: AuthService,
+    private translateService: TranslateService
   ) {
     this.trip = new Trip();
     this.tripForm = this.fb.group({
@@ -137,8 +139,10 @@ export class ManageTripComponent {
 
   onEditTrip() {
     this.showDialog = true;
-    this.dialogTitle = 'Are you sure you want to edit?';
-    this.dialogMessage = 'This cannot be undone and ...';
+    this.dialogTitle = this.translateService.instant('edit-trip');
+    this.dialogMessage = this.translateService.instant('edit-dialog-message', {
+      tripTitle: this.trip.title,
+    });
     this.action = 'edit';
   }
 
@@ -165,10 +169,15 @@ export class ManageTripComponent {
     this.stages = this.stages.filter((stage) => stage.id !== deleteStage.id);
   }
 
-  onCancelTrip(trip: Trip) {
+  onCancelTrip() {
     this.showDialog = true;
-    this.dialogTitle = 'Are you sure you want to cancel?';
-    this.dialogMessage = 'This cannot be undone and ...';
+    this.dialogTitle = this.translateService.instant('cancel-trip');
+    this.dialogMessage = this.translateService.instant(
+      'cancel-dialog-message',
+      {
+        tripTitle: this.trip.title,
+      }
+    );
     this.action = 'cancel';
   }
 

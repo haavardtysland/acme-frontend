@@ -97,9 +97,11 @@
   "comments": "Comentarios",
   "pay-trip": "Pagar viaje",
 
-  "manage-trip": "Editar viaje {{tripTitle}}",
+  "manage-trip": "Editar viaje '{{tripTitle}}'",
   "edit-trip": "Gestionar viaje",
   "cancel-trip": "Cancelar viaje",
+  "edit-dialog-message": "¿Está seguro de que desea editar '{{tripTitle}}'?",
+  "cancel-dialog-message": "¿Está seguro de que desea cancelar '{{tripTitle}}'?",
 
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",
