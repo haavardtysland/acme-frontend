@@ -101,6 +101,7 @@
   "manage-trip": "Manage trip {{tripTitle}}",
   "edit-trip": "Edit trip",
   "cancel-trip": "Cancel trip",
+  "edit-dialog-title": "Are you sure you want to edit {{trip}}",
 
   "create-new-trip": "Create new trip",
   "title": "Title",

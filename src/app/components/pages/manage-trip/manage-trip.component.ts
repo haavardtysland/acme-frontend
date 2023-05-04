@@ -26,6 +26,10 @@ export class ManageTripComponent {
   trip: Trip;
   showStageForm = false;
   showStageButton = !this.showStageForm ? '+' : '-';
+  showDialog = false;
+  dialogTitle = '';
+  dialogMessage = '';
+  action = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +71,20 @@ export class ManageTripComponent {
         this.stages = trip.stages;
       });
     }
+  }
+
+  onDialogYesClick(result: boolean) {
+    if (this.action == 'cancel') {
+      this.cancelTrip();
+    } else if (this.action == 'edit') {
+      this.editTrip();
+    }
+    this.showDialog = false;
+  }
+
+  onDialogNoClick(result: boolean) {
+    console.log('Dialog closed with result:', result);
+    this.showDialog = false;
   }
 
   startDateValidator(
@@ -117,7 +135,14 @@ export class ManageTripComponent {
     this.showStageButton = '+';
   }
 
-  onEditNewTrip() {
+  onEditTrip() {
+    this.showDialog = true;
+    this.dialogTitle = 'Are you sure you want to edit?';
+    this.dialogMessage = 'This cannot be undone and ...';
+    this.action = 'edit';
+  }
+
+  editTrip() {
     const { title, description, startDate, endDate } = this.tripForm.value;
     this.trip.title = title;
     this.trip.description = description;
@@ -130,8 +155,21 @@ export class ManageTripComponent {
     });
   }
 
+  cancelTrip() {
+    this.tripService.cancelTrip(this.trip).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   onDeleteStage(deleteStage: Stage) {
     this.stages = this.stages.filter((stage) => stage.id !== deleteStage.id);
+  }
+
+  onCancelTrip(trip: Trip) {
+    this.showDialog = true;
+    this.dialogTitle = 'Are you sure you want to cancel?';
+    this.dialogMessage = 'This cannot be undone and ...';
+    this.action = 'cancel';
   }
 
   addRequirement() {

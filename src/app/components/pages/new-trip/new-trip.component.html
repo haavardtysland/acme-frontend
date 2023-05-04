@@ -219,3 +219,11 @@
     </fieldset>
   </form>
 </div>
+<app-custom-dialog
+  *ngIf="showDialog"
+  [title]="dialogTitle"
+  [message]="dialogMessage"
+  (onYesClick)="onDialogYesClick($event)"
+  (onNoClick)="onDialogNoClick($event)"
+>
+</app-custom-dialog>

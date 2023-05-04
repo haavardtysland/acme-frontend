@@ -24,6 +24,9 @@ export class NewTripComponent {
   stages: Stage[];
   showStageForm = false;
   showStageButton = !this.showStageForm ? '+' : '-';
+  showDialog = false;
+  dialogTitle = '';
+  dialogMessage = '';
 
   constructor(
     private router: Router,
@@ -46,6 +49,29 @@ export class NewTripComponent {
       price: [0, Validators.required],
     });
   }
+
+  onDialogYesClick(result: boolean) {
+    if (result) {
+      let trip: Trip = new Trip();
+      const { title, description, startDate, endDate } = this.tripForm.value;
+      trip.title = title;
+      trip.description = description;
+      trip.requirements = this.requirements;
+      trip.startDate = startDate;
+      trip.endDate = endDate;
+      trip.stages = this.stages;
+      this.tripService.createTrip(trip).subscribe((res) => {
+        console.log(res);
+      });
+    }
+    this.showDialog = false;
+  }
+
+  onDialogNoClick(result: boolean) {
+    console.log('Dialog closed with result:', result);
+    this.showDialog = false;
+  }
+
   startDateValidator(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
@@ -91,17 +117,9 @@ export class NewTripComponent {
   }
 
   onCreateNewTrip() {
-    let trip: Trip = new Trip();
-    const { title, description, startDate, endDate } = this.tripForm.value;
-    trip.title = title;
-    trip.description = description;
-    trip.requirements = this.requirements;
-    trip.startDate = startDate;
-    trip.endDate = endDate;
-    trip.stages = this.stages;
-    this.tripService.createTrip(trip).subscribe((res) => {
-      console.log(res);
-    });
+    this.showDialog = true;
+    this.dialogTitle = 'Create trip';
+    this.dialogMessage = 'Create trip??';
   }
 
   onDeleteStage(deleteStage: Stage) {

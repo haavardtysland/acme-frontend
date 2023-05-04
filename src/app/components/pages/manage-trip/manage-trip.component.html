@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 myForm">
   <form
     [formGroup]="tripForm"
-    (ngSubmit)="onEditNewTrip()"
+    (ngSubmit)="onEditTrip()"
     class="form-horizontal"
   >
     <fieldset>
@@ -211,12 +211,28 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-warning my-3">
+      <button
+        type="submit"
+        class="btn btn-warning my-3"
+        [disabled]="!tripForm.valid"
+      >
         {{ "edit-trip" | translate }}
       </button>
-      <button type="button" class="btn btn-danger my-3 mx-2">
+      <button
+        type="button"
+        class="btn btn-danger my-3 mx-2"
+        (click)="onCancelTrip(trip)"
+      >
         {{ "cancel-trip" | translate }}
       </button>
     </fieldset>
   </form>
 </div>
+<app-custom-dialog
+  *ngIf="showDialog"
+  [title]="dialogTitle"
+  [message]="dialogMessage"
+  (onYesClick)="onDialogYesClick($event)"
+  (onNoClick)="onDialogNoClick($event)"
+>
+</app-custom-dialog>

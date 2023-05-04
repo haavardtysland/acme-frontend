@@ -38,6 +38,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ApplyModalComponent } from './components/modals/apply-modal/apply-modal.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CustomDialogComponent } from './components/modals/custom-dialog/custom-dialog.component';
 
 
 
@@ -75,6 +76,7 @@ export const firebaseConfig = {
     ApplicationComponent,
     PayComponent,
     ApplyModalComponent,
+    CustomDialogComponent,
   ],
   imports: [
     BrowserModule,

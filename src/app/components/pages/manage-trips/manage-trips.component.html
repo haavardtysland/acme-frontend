@@ -70,16 +70,23 @@
         </p>
         <p class="card-text">
           <small class="text-muted"
-            >From: {{ formatDate(trip.startDate) }}, To:
+            >{{
+              "trip-start"
+                | translate : { tripStartDate: formatDate(trip.startDate) }
+            }},
+            {{
+              "trip-end" | translate : { tripEndDate: formatDate(trip.endDate) }
+            }}
             <!-- TODO FIX DATEPIPE -->
             {{ formatDate(trip.endDate) }}</small
           >
         </p>
 
         <p class="card-text">
-          <small class="text-muted"
-            >Trip starts in: {{ remainingTimes[trip._id] }}</small
-          >
+          <small class="text-muted">{{
+            "trip-starts-in"
+              | translate : { remainingTime: remainingTimes[trip._id] }
+          }}</small>
         </p>
         <!--         <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
           >Explore trip</a

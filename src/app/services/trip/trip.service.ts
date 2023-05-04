@@ -125,6 +125,13 @@ export class TripService {
       .pipe(catchError(this.handleError('editTrip')));
   }
 
+  cancelTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/status`;
+    return this.http
+      .put(url, httpOptions)
+      .pipe(catchError(this.handleError('cancelTrip')));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
