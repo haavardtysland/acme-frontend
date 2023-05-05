@@ -25,7 +25,17 @@
               "./node_modules/@swimlane/ngx-datatable/index.css",
               "./node_modules/@swimlane/ngx-datatable/themes/material.css",
               "./node_modules/@swimlane/ngx-datatable/assets/icons.css",
-              "src/styles.css"
+              "src/styles.sass",
+              {
+                "input": "src/light.sass",
+                "bundleName": "light",
+                "inject": true
+              },
+              {
+                "input": "src/dark.sass",
+                "bundleName": "dark",
+                "inject": false
+              }
             ],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
@@ -93,7 +103,7 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css",
+              "src/styles.sass",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": [],
