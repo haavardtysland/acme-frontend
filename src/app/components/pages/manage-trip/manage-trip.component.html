@@ -217,17 +217,24 @@
       </div>
       <button
         type="submit"
-        class="btn btn-warning my-3"
+        class="btn btn-success my-3"
         [disabled]="!tripForm.valid"
       >
         {{ "edit-trip" | translate }}
       </button>
       <button
         type="button"
-        class="btn btn-danger my-3 mx-2"
+        class="btn btn-warning my-3 mx-2"
         (click)="onCancelTrip()"
       >
         {{ "cancel-trip" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger my-3"
+        (click)="onCancelTrip()"
+      >
+        {{ "delete-trip" | translate }}
       </button>
     </fieldset>
   </form>

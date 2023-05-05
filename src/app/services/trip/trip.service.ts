@@ -126,9 +126,16 @@ export class TripService {
   }
 
   cancelTrip(trip: Trip) {
-    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/status`;
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/Status`;
     return this.http
       .put(url, httpOptions)
+      .pipe(catchError(this.handleError('cancelTrip')));
+  }
+
+  deleteTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}`;
+    return this.http
+      .delete(url, httpOptions)
       .pipe(catchError(this.handleError('cancelTrip')));
   }
 

@@ -100,8 +100,10 @@
   "manage-trip": "Editar viaje '{{tripTitle}}'",
   "edit-trip": "Gestionar viaje",
   "cancel-trip": "Cancelar viaje",
+  "delete-trip": "Borrar viaje",
   "edit-dialog-message": "¿Está seguro de que desea editar '{{tripTitle}}'?",
   "cancel-dialog-message": "¿Está seguro de que desea cancelar '{{tripTitle}}'?",
+  "delete-dialog-message": "¿Está seguro de que desea borrar '{{tripTitle}}'?",
 
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",

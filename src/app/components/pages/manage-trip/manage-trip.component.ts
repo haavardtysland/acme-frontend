@@ -90,6 +90,8 @@ export class ManageTripComponent {
       this.cancelTrip();
     } else if (this.action == 'edit') {
       this.editTrip();
+    } else if (this.action == 'delete') {
+      this.deleteTrip();
     }
     this.showDialog = false;
   }
@@ -175,6 +177,12 @@ export class ManageTripComponent {
     });
   }
 
+  deleteTrip() {
+    this.tripService.deleteTrip(this.trip).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   onDeleteStage(deleteStage: Stage) {
     this.stages = this.stages.filter((stage) => stage.id !== deleteStage.id);
   }
@@ -189,6 +197,18 @@ export class ManageTripComponent {
       }
     );
     this.action = 'cancel';
+  }
+
+  onDeleteTrip() {
+    this.showDialog = true;
+    this.dialogTitle = this.translateService.instant('delete-trip');
+    this.dialogMessage = this.translateService.instant(
+      'delete-dialog-message',
+      {
+        tripTitle: this.trip.title,
+      }
+    );
+    this.action = 'delete';
   }
 
   addRequirement() {
