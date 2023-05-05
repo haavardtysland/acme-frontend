@@ -128,6 +128,10 @@ export class Trip extends Entity {
     this._stages = stages;
   }
 
+  public set pictures(pictures: string[]) {
+    this._pictures = pictures;
+  }
+
   public set title(title: string) {
     this._title = title;
   }

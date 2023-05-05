@@ -29,6 +29,7 @@
   "must-have-stage": "Debe haber al menos 1 fase",
   "start-date-must-be-after-today": "La fecha de inicio no puede ser anterior a hoy",
   "end-date-after-start-date": "La fecha de finalización debe ser posterior a la fecha de inicio",
+  "publish-trip": "¿Publicar viaje?",
 
   "home": "Inicio",
   "trips": "Viajes",

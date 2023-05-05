@@ -29,6 +29,7 @@
   "must-have-stage": "There needs to be atleast 1 stage",
   "start-date-must-be-after-today": "The start date cannot be earlier than today",
   "end-date-after-start-date": "The end date must be later than the start date",
+  "publish-trip": "Publish trip?",
 
   "home": "Home",
   "trips": "Trips",

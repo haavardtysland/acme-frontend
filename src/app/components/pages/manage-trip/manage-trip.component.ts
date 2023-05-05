@@ -48,6 +48,7 @@ export class ManageTripComponent {
       startDate: ['', Validators.required, this.startDateValidator.bind(this)],
       endDate: ['', Validators.required, this.endDateValidator.bind(this)],
       pictures: [''],
+      isPublished: [false],
     });
     this.requirements = [];
     this.stages = [];
@@ -69,20 +70,11 @@ export class ManageTripComponent {
           startDate: this.formatDate(trip.startDate),
           endDate: this.formatDate(trip.endDate),
           pictures: trip.pictures,
+          isPublished: trip.isPublished,
         });
         this.stages = trip.stages;
       });
     }
-  }
-
-  onToggle(event: any) {
-    const isChecked = event?.target?.checked;
-    if (isChecked) {
-      this.trip.isPublished = true;
-    } else {
-      this.trip.isPublished = false;
-    }
-    console.log(this.trip.isPublished);
   }
 
   onDialogYesClick(result: boolean) {
@@ -159,13 +151,16 @@ export class ManageTripComponent {
   }
 
   editTrip() {
-    const { title, description, startDate, endDate } = this.tripForm.value;
+    const { title, description, startDate, endDate, pictures, isPublished } =
+      this.tripForm.value;
     this.trip.title = title;
     this.trip.description = description;
     this.trip.requirements = this.requirements;
     this.trip.startDate = startDate;
     this.trip.endDate = endDate;
     this.trip.stages = this.stages;
+    this.trip.pictures = pictures;
+    this.trip.isPublished = isPublished;
     this.tripService.editTrip(this.trip).subscribe((res) => {
       console.log(res);
     });

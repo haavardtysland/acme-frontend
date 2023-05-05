@@ -210,8 +210,11 @@
             </div>
           </div>
         </div>
+        <diV>
+          <label for="isPublished">{{ "publish-trip" | translate }}</label>
+        </diV>
         <label class="switch mt-2">
-          <input type="checkbox" (change)="onToggle($event)" />
+          <input formControlName="isPublished" type="checkbox" />
           <span class="slider round"></span>
         </label>
       </div>
