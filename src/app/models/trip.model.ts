@@ -13,6 +13,7 @@ export class Trip extends Entity {
   private _endDate: string;
   private _pictures!: string[];
   private _status: TripStatus;
+  private _isPublished: boolean;
   private _stages: Stage[];
   private _managerId: string;
   private _applications: Application[];
@@ -26,6 +27,7 @@ export class Trip extends Entity {
     this._requirements = [];
     this._startDate = '';
     this._endDate = '';
+    this._isPublished = false;
     this._pictures = [];
     this._stages = [];
     this._status = new TripStatus();
@@ -57,6 +59,10 @@ export class Trip extends Entity {
   }
   public get pictures(): string[] {
     return this._pictures;
+  }
+
+  public get isPublished(): boolean {
+    return this._isPublished;
   }
 
   public get endDate(): string {
@@ -99,6 +105,9 @@ export class Trip extends Entity {
     this._totalPrice = price;
   }
 
+  public set isPublished(isPublished: boolean) {
+    this._isPublished = isPublished;
+  }
   public set requirements(requirements: string[]) {
     this._requirements = requirements;
   }
@@ -117,6 +126,10 @@ export class Trip extends Entity {
 
   public set stages(stages: Stage[]) {
     this._stages = stages;
+  }
+
+  public set pictures(pictures: string[]) {
+    this._pictures = pictures;
   }
 
   public set title(title: string) {

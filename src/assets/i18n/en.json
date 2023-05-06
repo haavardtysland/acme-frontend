@@ -22,6 +22,14 @@
   "email-required": "The email is required",
   "password-required": "The password is required",
   "already-registered": "Already registered? ",
+  "title-required": "The title is required",
+  "description-required": "The description is required",
+  "start-date-required": "The start date must be provided",
+  "end-date-required": "The end date must be provided",
+  "must-have-stage": "There needs to be atleast 1 stage",
+  "start-date-must-be-after-today": "The start date cannot be earlier than today",
+  "end-date-after-start-date": "The end date must be later than the start date",
+  "publish-trip": "Publish trip?",
 
   "home": "Home",
   "trips": "Trips",
@@ -52,6 +60,7 @@
   "add": "Add",
   "this-trip-has-already-started!": "This trip has already started!",
   "add-a-comment...": "Add a comment...",
+  "add-stage": "Add stage",
   "requirements": "Requirements",
   "stages": "Stages",
   "stage": "Stage",
@@ -90,9 +99,14 @@
   "comments": "Comments",
   "pay-trip": "Pay trip",
 
-  "manage-trip": "Manage trip {{tripTitle}}",
+  "manage-trip": "Manage trip '{{tripTitle}}'",
   "edit-trip": "Edit trip",
+  "cancel-trip": "Cancel trip",
   "delete-trip": "Delete trip",
+  "edit-dialog-message": "Are you sure you want to edit '{{tripTitle}}'?",
+  "cancel-dialog-message": "Are you sure you want to cancel '{{tripTitle}}'?",
+  "delete-dialog-message": "Are you sure you want to delete '{{tripTitle}}'?",
+
 
   "create-new-trip": "Create new trip",
   "title": "Title",

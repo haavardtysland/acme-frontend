@@ -1,0 +1,10 @@
+<div class="overlay">
+    <div class="dialog">
+      <h1>{{ title }}</h1>
+      <p>{{ message }}</p>
+      <div class="actions">
+        <button (click)="onYesClick.emit(true)">Yes</button>
+        <button (click)="onNoClick.emit(false)">No</button>
+      </div>
+    </div>
+  </div>

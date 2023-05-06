@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,22 +27,28 @@ export class ManageTripComponent {
   trip: Trip;
   showStageForm = false;
   showStageButton = !this.showStageForm ? '+' : '-';
+  showDialog = false;
+  dialogTitle = '';
+  dialogMessage = '';
+  action = '';
 
   constructor(
     private route: ActivatedRoute,
     private tripService: TripService,
     private router: Router,
     private fb: FormBuilder,
-    protected authService: AuthService
+    protected authService: AuthService,
+    private translateService: TranslateService
   ) {
     this.trip = new Trip();
     this.tripForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       requirement: [''],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      startDate: ['', Validators.required, this.startDateValidator.bind(this)],
+      endDate: ['', Validators.required, this.endDateValidator.bind(this)],
       pictures: [''],
+      isPublished: [false],
     });
     this.requirements = [];
     this.stages = [];
@@ -56,10 +70,55 @@ export class ManageTripComponent {
           startDate: this.formatDate(trip.startDate),
           endDate: this.formatDate(trip.endDate),
           pictures: trip.pictures,
+          isPublished: trip.isPublished,
         });
         this.stages = trip.stages;
       });
     }
+  }
+
+  onDialogYesClick(result: boolean) {
+    if (this.action == 'cancel') {
+      this.cancelTrip();
+    } else if (this.action == 'edit') {
+      this.editTrip();
+    } else if (this.action == 'delete') {
+      this.deleteTrip();
+    }
+    this.showDialog = false;
+  }
+
+  onDialogNoClick(result: boolean) {
+    console.log('Dialog closed with result:', result);
+    this.showDialog = false;
+  }
+
+  startDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const today = new Date();
+    const startDate = new Date(control.value);
+    if (startDate < today) {
+      return of({ startDateInvalid: true });
+    }
+    return of(null);
+  }
+
+  endDateValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    const startDateControl = this.tripForm.get('startDate');
+    if (!startDateControl) {
+      // The startDate control is not present in the FormGroup
+      return of(null);
+    }
+
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(control.value);
+    if (endDate <= startDate) {
+      return of({ endDateInvalid: true });
+    }
+    return of(null);
   }
 
   toggleStageForm() {
@@ -79,23 +138,72 @@ export class ManageTripComponent {
     this.stages.push(newStage);
     this.stageForm.reset();
     this.showStageForm = false;
+    this.showStageButton = '+';
   }
 
-  onEditNewTrip() {
-    const { title, description, startDate, endDate } = this.tripForm.value;
+  onEditTrip() {
+    this.showDialog = true;
+    this.dialogTitle = this.translateService.instant('edit-trip');
+    this.dialogMessage = this.translateService.instant('edit-dialog-message', {
+      tripTitle: this.trip.title,
+    });
+    this.action = 'edit';
+  }
+
+  editTrip() {
+    const { title, description, startDate, endDate, pictures, isPublished } =
+      this.tripForm.value;
     this.trip.title = title;
     this.trip.description = description;
     this.trip.requirements = this.requirements;
     this.trip.startDate = startDate;
     this.trip.endDate = endDate;
     this.trip.stages = this.stages;
+    this.trip.pictures = pictures;
+    this.trip.isPublished = isPublished;
     this.tripService.editTrip(this.trip).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  cancelTrip() {
+    this.tripService.cancelTrip(this.trip).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  deleteTrip() {
+    this.tripService.deleteTrip(this.trip).subscribe((res) => {
       console.log(res);
     });
   }
 
   onDeleteStage(deleteStage: Stage) {
     this.stages = this.stages.filter((stage) => stage.id !== deleteStage.id);
+  }
+
+  onCancelTrip() {
+    this.showDialog = true;
+    this.dialogTitle = this.translateService.instant('cancel-trip');
+    this.dialogMessage = this.translateService.instant(
+      'cancel-dialog-message',
+      {
+        tripTitle: this.trip.title,
+      }
+    );
+    this.action = 'cancel';
+  }
+
+  onDeleteTrip() {
+    this.showDialog = true;
+    this.dialogTitle = this.translateService.instant('delete-trip');
+    this.dialogMessage = this.translateService.instant(
+      'delete-dialog-message',
+      {
+        tripTitle: this.trip.title,
+      }
+    );
+    this.action = 'delete';
   }
 
   addRequirement() {
