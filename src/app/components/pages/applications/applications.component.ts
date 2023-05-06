@@ -2,7 +2,9 @@ import { group } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/services/message.service';
 import { TripService } from 'src/app/services/trip/trip.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface GroupedApplications {
   [key: string]: Array<{ tripTitle: string; application: any; tripId: number }>;
@@ -26,7 +28,9 @@ export class ApplicationsComponent implements OnInit {
   isCancelling: number | null = null;
   constructor(
     private tripService: TripService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService,
+    private translateService: TranslateService
   ) {
     this.trips = [];
     this.id = '';
@@ -47,14 +51,20 @@ export class ApplicationsComponent implements OnInit {
     return finDate;
   }
 
-  cancelApplication(applicationId: string) {
-    this.tripService
+  cancelApplication = async (applicationId: string) => {
+    await this.tripService
       .cancelApplication(applicationId, this.description)
       .subscribe((res) =>
         console.log('Canceled applicaiton', res, applicationId)
       );
-    location.reload();
-  }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await location.reload();
+
+    this.messageService.notifyMessage(
+      'alert alert-success',
+      this.translateService.instant('you-successfully-canceled-the-application')
+    );
+  };
 
   addDescription() {
     console.log(this.description);

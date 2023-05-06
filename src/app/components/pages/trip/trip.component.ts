@@ -73,8 +73,11 @@ export class TripComponent implements OnInit {
           } else {
             this.messageService.notifyMessage(
               'alert alert-success',
-              'You successfully applied for the trip'
+              this.translateService.instant(
+                'you-successfully-applied-for-the-trip'
+              )
             );
+            console.log(res);
             this.cancelApplication();
           }
         },

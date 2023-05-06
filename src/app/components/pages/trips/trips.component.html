@@ -131,16 +131,19 @@
             }}</small
           >
         </p>
+        <p class="card-text" *ngIf="!isTripStarted(trip.startDate)">
+          <small class="text-muted">{{
+            "the-trip-has-started" | translate
+          }}</small>
+        </p>
 
-        <p class="card-text">
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
           <small class="text-muted">{{
             "trip-starts-in"
               | translate : { remainingTime: remainingTimes[trip._id] }
           }}</small>
         </p>
-        <!--         <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
-          >Explore trip</a
-        > -->
+     
       </div>
     </div>
   </div>

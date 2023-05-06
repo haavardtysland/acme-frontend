@@ -9,6 +9,7 @@
   "password-must-be-8": "La contraseña debe tener al menos 8 caracteres",
   "not-registered": "¿No tienes usuario? ",
   "register-here": "Registrar aquí",
+  "please-enter-the-correct-email-and-password": "Por favor, introduzca el correo electrónico y la contraseña correctos.",
 
   "register-new-actor": "Registrar nuevo actor",
   "name:": "Nombre",
@@ -22,6 +23,7 @@
   "email-required": "El correo electrónico es obligatorio",
   "password-required": "La contraseña es obligatoria",
   "already-registered": "¿Ya se ha registrado? ",
+  "you-successfully-created-an-account": "Has creado una cuenta correctamente",
 
   "home": "Inicio",
   "trips": "Viajes",
@@ -53,6 +55,7 @@
   "requirements": "Requisitos",
   "stages": "Fases",
   "stage": "Fase",
+  "the-trip-has-started": "El viaje ha comenzado",
 
   "accepted": "Aceptado",
   "due": "Debido",
@@ -88,15 +91,26 @@
   "application-description": "Descripción: {{description}}",
   "comments": "Comentarios",
   "pay-trip": "Pagar viaje",
+  "you-successfully-applied-for-the-trip": "Solicitaste el viaje con éxito",
+  "you-successfully-canceled-the-application": "Has cancelado correctamente la aplicación",
+  "you-successfully-approved-the-application-for-payment": "Ha aprobado con éxito la solicitud de pago",
+  "you-successfully-rejected-the-application": "Ha rechazado con éxito la solicitud",
 
   "manage-trip": "Editar viaje {{tripTitle}}",
   "edit-trip": "Gestionar viaje",
   "delete-trip": "Eliminar viaje",
+  "you-have-no-trips-to-manage": "No tienes viajes que gestionar",
 
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",
   "description": "Descripción",
   "price": "Precio",
   "start-date": "Fecha de inicio",
-  "end-date": "Fecha final"
+  "end-date": "Fecha final",
+
+  "register-new-manager": "Registrar nuevo gerente/a",
+
+  "you-changed-your-language-to": "You changed your language to: ",
+
+  "you-have-no-applications-to-manage": "No tienes aplicaciones para administrar"
 }

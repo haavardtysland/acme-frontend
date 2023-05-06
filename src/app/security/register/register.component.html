@@ -1,15 +1,6 @@
 <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
   <fieldset>
     <legend>{{ "register-new-actor" | translate }}</legend>
-    <!--     <div class="form-group has-danger">
-      <label for="role">Role:</label>
-      <select id="role" class="form-control" formControlName="role">
-        <option *ngFor="let role of roleList" [value]="role">
-          {{ role }}
-        </option>
-      </select>
-    </div> -->
-
     <div class="form-group has-danger">
       <label for="name">{{ "name" | translate }}:</label>
       <input
@@ -38,13 +29,12 @@
     <div
       *ngIf="registrationForm.get('surname')?.hasError('required')"
       class="alert alert-danger"
-      
     >
       {{ "surname-required" | translate }}
     </div>
 
     <div class="form-group has-danger">
-      <label  for="phone">{{ "phone" | translate }}:</label>
+      <label for="phone">{{ "phone" | translate }}:</label>
       <input
         id="phone"
         class="form-control"
@@ -55,13 +45,12 @@
     <div
       *ngIf="registrationForm.get('phone')?.hasError('pattern')"
       class="alert alert-danger"
-      
     >
       {{ "invalid-phone" | translate }}
     </div>
 
     <div class="form-group has-danger">
-      <label  for="address">{{ "address" | translate }}:</label>
+      <label for="address">{{ "address" | translate }}:</label>
       <input
         id="address"
         class="form-control"
@@ -72,12 +61,11 @@
     <div
       *ngIf="registrationForm.get('address')?.hasError('minlength')"
       class="alert alert-danger"
-      
     >
       {{ "adress-must-have-2-chars" | translate }}
     </div>
     <div class="form-group has-danger">
-      <label  for="email">{{ "email" | translate }}:</label>
+      <label for="email">{{ "email" | translate }}:</label>
       <input
         id="email"
         class="form-control"
@@ -88,20 +76,18 @@
     <div
       *ngIf="registrationForm.get('email')?.hasError('required')"
       class="alert alert-danger"
-      
     >
       {{ "email-required" | translate }}
     </div>
     <div
       *ngIf="registrationForm.get('email')?.hasError('email')"
       class="alert alert-danger"
-      
     >
       {{ "enter-valid-email" | translate }}
     </div>
 
     <div class="form-group has-danger">
-      <label  for="password">{{ "password" | translate }}:</label>
+      <label for="password">{{ "password" | translate }}:</label>
       <input
         id="password"
         class="form-control"
@@ -112,7 +98,6 @@
     <div
       *ngIf="registrationForm.get('password')?.hasError('required')"
       class="alert alert-danger"
-      
     >
       {{ "password-required" | translate }}
     </div>
@@ -121,14 +106,13 @@
       type="submit"
       [disabled]="!registrationForm.valid"
       class="btn btn-primary"
-      
     >
       Register
     </button>
 
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <p >
+        <p>
           {{ "already-registered" | translate }}
           <a routerLink="/login">{{ "login" | translate }}</a>
         </p>

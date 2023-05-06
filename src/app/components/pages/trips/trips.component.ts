@@ -105,6 +105,13 @@ export class TripsComponent implements OnInit {
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     return `${days} d, ${hours} h, ${minutes} m, ${seconds} s`;
   }
+
+  isTripStarted(tripStartDate: string) {
+    const startDate = new Date(tripStartDate);
+    const now = new Date();
+
+    return startDate >= now;
+  }
   onSearch() {
     if (this.authService.getCurrentActor()) {
       this.finderService

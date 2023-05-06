@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   avgFromPrice: number;
   avgToPrice: number;
   topTenWords: string[];
+  managerCount: number;
 
   constructor(
     private tripService: TripService,
@@ -64,6 +65,7 @@ export class DashboardComponent implements OnInit {
     this.stdDevApplications = 0;
     this.avgFromPrice = 0;
     this.avgToPrice = 0;
+    this.managerCount = 0;
     this.statusPrecentages = {
       ACCEPTED: 0,
       DUE: 0,
@@ -74,6 +76,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getManagersCount();
     this.getTripsData();
     this.getFinderData();
   }
@@ -109,7 +112,7 @@ export class DashboardComponent implements OnInit {
           if (keyword in keywordFrequency) {
             keywordFrequency[keyword]++;
           } else {
-              keywordFrequency[keyword] = 1;
+            keywordFrequency[keyword] = 1;
           }
         }
       }
@@ -124,22 +127,30 @@ export class DashboardComponent implements OnInit {
       this.avgToPrice = totalToPrice / count;
     });
   }
-
+  //TODO FIX MANAGERINFO.
   getTripsData() {
-    this.tripService.getTrips().subscribe((trips: Trip[]) => {
+    this.tripService.getTrips().subscribe(async (trips: Trip[]) => {
       this.trips = trips;
       console.log('Display trip: ' + trips);
 
       const managerStats: ManagerStats[] = this.countTripsForManager();
+      const managerCount = this.getManagersCount();
 
       // Calculate the minimum and maximum number of trips for any manager
       const tripsCounts = managerStats.map((stat) => stat.tripsCount);
+      if (this.managerCount > tripsCounts.length) {
+        this.minTrips = 0;
+      } else {
+        /*         console.log(this.getManagersCount()); */
+        this.minTrips = Math.min(...tripsCounts);
+      }
       this.minTrips = Math.min(...tripsCounts);
       this.maxTrips = Math.max(...tripsCounts);
 
       // Calculate the average number of trips for all managers
       const totalTrips = tripsCounts.reduce((a, b) => a + b, 0);
       this.avgTrips = totalTrips / managerStats.length;
+      console.log(managerStats);
 
       this.tripsStdDev = this.calculateStdDev(tripsCounts);
       //gets applicationsdata from trips
@@ -152,8 +163,6 @@ export class DashboardComponent implements OnInit {
     const applicationCounts: number[] = this.trips.map(
       (trip) => trip.applications.length
     );
-    console.log(applicationCounts);
-
     this.maxApplications = Math.max(...applicationCounts);
     this.minApplications = Math.min(...applicationCounts);
     this.avgApplications =
@@ -211,6 +220,17 @@ export class DashboardComponent implements OnInit {
   }
 
   // Count the number of trips for each manager
+  //TODO FIND ALL MANAGERS TO SEE IF THE MINIMUM CAN BE 0
+  getManagersCount() {
+    this.actorService.getAllActors().subscribe((actors: Actor[]) => {
+      actors.forEach((actor) => {
+        if (actor.role === 'MANAGER') {
+          this.managerCount = this.managerCount + 1;
+          console.log(actor.role);
+        }
+      });
+    });
+  }
   countTripsForManager(): ManagerStats[] {
     return this.trips.reduce((acc: ManagerStats[], trip) => {
       const managerId = trip.managerId;

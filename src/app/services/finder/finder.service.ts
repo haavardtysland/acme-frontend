@@ -5,23 +5,25 @@ import { Finder } from 'src/app/models/finder.model';
 import { AuthService } from '../auth.service';
 import { environment } from './../../../environments/environment';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  }),
-};
-
 @Injectable({
   providedIn: 'root',
 })
 export class FinderService implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    };
+  }
+
   getFinder(id: string): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Actors/${id}`;
     return this.http
-      .get(url, httpOptions)
+      .get(url, this.getHttpOptions())
       .pipe(catchError(this.handleError('getFinder')));
   }
 
@@ -29,7 +31,7 @@ export class FinderService implements OnInit {
     const url = `${environment.backendApiBaseUrl}/Finder`;
     const body = Finder.toJson(finder);
     return this.http
-      .put(url, body, httpOptions)
+      .put(url, body, this.getHttpOptions())
       .pipe(catchError(this.handleError('updateFinder')));
   }
 
@@ -62,7 +64,7 @@ export class FinderService implements OnInit {
       environment.backendApiBaseUrl
     }/Finder/Search?${queryParameters.slice(1)}`;
     return this.http
-      .get(url, httpOptions)
+      .get(url, this.getHttpOptions())
       .pipe(catchError(this.handleError('searchTrips')));
   }
 
