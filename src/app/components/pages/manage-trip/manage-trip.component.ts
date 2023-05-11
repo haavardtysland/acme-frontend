@@ -9,10 +9,16 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
+import { AStatus } from 'src/app/enums/AStatus';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/services/message.service';
 import { TripService } from 'src/app/services/trip/trip.service';
+
+interface Response {
+  res: Number;
+}
 
 @Component({
   selector: 'app-manage-trip',
@@ -31,6 +37,7 @@ export class ManageTripComponent {
   dialogTitle = '';
   dialogMessage = '';
   action = '';
+  giveReason: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +45,8 @@ export class ManageTripComponent {
     private router: Router,
     private fb: FormBuilder,
     protected authService: AuthService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private messageService: MessageService
   ) {
     this.trip = new Trip();
     this.tripForm = this.fb.group({
@@ -77,20 +85,25 @@ export class ManageTripComponent {
     }
   }
 
-  onDialogYesClick(result: boolean) {
+  onDialogYesClick(result: {
+    confirmed: boolean;
+    reason?: string | undefined;
+  }) {
     if (this.action == 'cancel') {
-      this.cancelTrip();
+      this.cancelTrip(result.reason);
     } else if (this.action == 'edit') {
       this.editTrip();
     } else if (this.action == 'delete') {
       this.deleteTrip();
     }
     this.showDialog = false;
+    this.giveReason = false;
   }
 
   onDialogNoClick(result: boolean) {
     console.log('Dialog closed with result:', result);
     this.showDialog = false;
+    this.giveReason = false;
   }
 
   startDateValidator(
@@ -161,21 +174,115 @@ export class ManageTripComponent {
     this.trip.stages = this.stages;
     this.trip.pictures = pictures;
     this.trip.isPublished = isPublished;
-    this.tripService.editTrip(this.trip).subscribe((res) => {
-      console.log(res);
-    });
+
+    this.tripService.editTrip(this.trip).subscribe(
+      (res) => {
+        if (res.errorMessage) {
+          this.messageService.notifyMessage(
+            'alert alert-danger',
+            res.errorMessage
+          );
+        } else {
+          this.messageService.notifyMessage(
+            'alert alert-success',
+            this.translateService.instant('trip-edited')
+          );
+        }
+      },
+      (err) => {
+        this.messageService.notifyMessage(
+          'alert alert-danger',
+          err.errormessage
+        );
+      }
+    );
   }
 
-  cancelTrip() {
-    this.tripService.cancelTrip(this.trip).subscribe((res) => {
-      console.log(res);
-    });
+  cancelTrip(reason?: string) {
+    this.tripService.cancelTrip(this.trip, reason).subscribe(
+      (res) => {
+        if (res.errorMessage) {
+          this.messageService.notifyMessage(
+            'alert alert-danger',
+            res.errorMessage
+          );
+        } else {
+          this.messageService.notifyMessage(
+            'alert alert-success',
+            this.translateService.instant('trip-cancelled')
+          );
+        }
+      },
+      (err) => {
+        this.messageService.notifyMessage(
+          'alert alert-danger',
+          err.errormessage
+        );
+      }
+    );
+  }
+
+  canCancelTrip(): boolean {
+    const today = new Date();
+    const sevenDaysFromToday = new Date();
+    sevenDaysFromToday.setDate(today.getDate() + 7);
+    const startDate = new Date(this.trip.startDate);
+    if (startDate <= sevenDaysFromToday && startDate >= today) {
+      return false;
+    } else {
+      const acceptedApplication = this.checkAcceptedApplicationExists(
+        this.trip
+      );
+      if (acceptedApplication) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkAcceptedApplicationExists(trip: Trip): boolean {
+    for (const application of trip.applications) {
+      if (application.status.status === AStatus.ACCEPTED) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  canEditOrDelete(): boolean {
+    const today = new Date();
+    const startDate = new Date(this.trip.startDate);
+    const tenDaysFromNow = new Date();
+    tenDaysFromNow.setDate(startDate.getDate() + 10);
+    if (startDate <= tenDaysFromNow && startDate >= today) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   deleteTrip() {
-    this.tripService.deleteTrip(this.trip).subscribe((res) => {
-      console.log(res);
-    });
+    this.tripService.deleteTrip(this.trip).subscribe(
+      (res) => {
+        if (res.errorMessage) {
+          this.messageService.notifyMessage(
+            'alert alert-danger',
+            res.errorMessage
+          );
+        } else {
+          this.messageService.notifyMessage(
+            'alert alert-success',
+            this.translateService.instant('trip-deleted')
+          );
+        }
+      },
+      (err) => {
+        this.messageService.notifyMessage(
+          'alert alert-danger',
+          err.errormessage
+        );
+      }
+    );
   }
 
   onDeleteStage(deleteStage: Stage) {
@@ -183,6 +290,7 @@ export class ManageTripComponent {
   }
 
   onCancelTrip() {
+    this.giveReason = true;
     this.showDialog = true;
     this.dialogTitle = this.translateService.instant('cancel-trip');
     this.dialogMessage = this.translateService.instant(

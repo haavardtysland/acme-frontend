@@ -113,6 +113,9 @@
   "edit-dialog-message": "¿Está seguro de que desea editar '{{tripTitle}}'?",
   "cancel-dialog-message": "¿Está seguro de que desea cancelar '{{tripTitle}}'?",
   "delete-dialog-message": "¿Está seguro de que desea borrar '{{tripTitle}}'?",
+  "trip-edited": "Viaje editado con éxito",
+  "trip-cancelled": "Se canceló el viaje",
+  "trip-deleted": "Se eliminó el viaje",
 
   "create-new-trip": "Crear nuevo viaje",
   "title": "Título",

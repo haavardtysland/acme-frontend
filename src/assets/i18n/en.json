@@ -115,6 +115,9 @@
   "edit-dialog-message": "Are you sure you want to edit '{{tripTitle}}'?",
   "cancel-dialog-message": "Are you sure you want to cancel '{{tripTitle}}'?",
   "delete-dialog-message": "Are you sure you want to delete '{{tripTitle}}'?",
+  "trip-edited": "Trip successfully edited",
+  "trip-cancelled": "Trip was cancelled",
+  "trip-deleted": "Trip was deleted",
 
 
   "create-new-trip": "Create new trip",

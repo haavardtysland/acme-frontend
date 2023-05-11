@@ -8,6 +8,27 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class CustomDialogComponent {
   @Input() title!: string;
   @Input() message!: string;
-  @Output() onYesClick: EventEmitter<boolean> = new EventEmitter();
-  @Output() onNoClick: EventEmitter<boolean> = new EventEmitter();
+  @Input() showReasonInput = false;
+  @Output() onYesClick = new EventEmitter<{
+    confirmed: boolean;
+    reason?: string;
+  }>();
+  @Output() onNoClick = new EventEmitter<{
+    confirmed: boolean;
+    reason?: string;
+  }>();
+
+  reason: string | undefined;
+
+  onReasonChanged(reason: string) {
+    this.reason = reason;
+  }
+
+  onYesButtonClicked() {
+    this.onYesClick.emit({ confirmed: true, reason: this.reason });
+  }
+
+  onNoButtonClicked() {
+    this.onNoClick.emit({ confirmed: false, reason: this.reason });
+  }
 }
