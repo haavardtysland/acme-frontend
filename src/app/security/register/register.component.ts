@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from 'src/app/services/services/message.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService,
+    private messageService: MessageService
   ) {
     this.roleList = this.authService.getRoles();
     this.registrationForm = this.fb.group({
@@ -25,17 +29,19 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       phone: ['', Validators.pattern(/^[0-9+]+$/)],
       address: ['', Validators.minLength(2)],
-      /*       role: [''], */
     });
   }
 
   onRegister() {
-    /*     this.authService
+    this.authService
       .registerUser(this.registrationForm.value)
       .subscribe((res) => {
         this.router.navigate(['/login']);
-      }); */
-    console.log(this.registrationForm.value.phone);
+        this.messageService.notifyMessage(
+          'alert alert-success',
+          this.translateService.instant('you-successfully-created-an-account')
+        );
+      });
   }
 
   ngOnInit(): void {}

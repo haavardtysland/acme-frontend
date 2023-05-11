@@ -73,7 +73,7 @@
   #f="ngForm"
   novalidate
 >
-  <div class="form-floating me-2">
+  <div class="form-floating me-2 mt-2">
     <input
       class="form-control me-2 mb-2"
       type="search"
@@ -85,7 +85,7 @@
   </div>
   <button
     [disabled]="f.form.invalid"
-    class="btn btn-outline-success me-2 mb-2"
+    class="btn btn-secondary me-2 mb-2 mt-2"
     type="submit"
   >
     {{ "search" | translate }}
@@ -95,9 +95,9 @@
 <div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
   <div *ngFor="let trip of trips" class="col">
     <div
-      class="card"
       style="cursor: pointer"
       (click)="displayTrip(trip._id)"
+      class="card bg-secondary"
       [class.trip-soon]="isTripSoon(trip.startDate)"
     >
       <img
@@ -121,7 +121,7 @@
         </p>
         <p class="card-text">Price: € {{ trip.totalPrice }}</p>
         <p class="card-text">
-          <small class="text-muted"
+          <small
             >{{
               "trip-start"
                 | translate : { tripStartDate: formatDate(trip.startDate) }
@@ -131,16 +131,16 @@
             }}</small
           >
         </p>
+        <p class="card-text" *ngIf="!isTripStarted(trip.startDate)">
+          <small>{{ "the-trip-has-started" | translate }}</small>
+        </p>
 
-        <p class="card-text">
-          <small class="text-muted">{{
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
+          <small>{{
             "trip-starts-in"
               | translate : { remainingTime: remainingTimes[trip._id] }
           }}</small>
         </p>
-        <!--         <a [routerLink]="['/trips/', trip._id]" class="btn btn-primary"
-          >Explore trip</a
-        > -->
       </div>
     </div>
   </div>

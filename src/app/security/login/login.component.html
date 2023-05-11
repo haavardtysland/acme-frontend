@@ -1,4 +1,9 @@
-<form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+<form
+  class="form-horizontal"
+  [formGroup]="loginForm"
+  (ngSubmit)="onLogin()"
+  class="text-dark"
+>
   <legend>{{ "login" | translate }}</legend>
   <div class="form-group">
     <label for="email">{{ "email" | translate }}</label>
@@ -40,7 +45,7 @@
     {{ "not-registered" | translate
     }}<a href="/register">{{ "register-here" | translate }}</a>
   </p>
-  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">
+  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-dark">
     {{ "log-in" | translate }}
   </button>
 </form>

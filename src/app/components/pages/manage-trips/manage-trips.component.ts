@@ -33,7 +33,7 @@ export class ManageTripsComponent implements OnInit {
   navigateToCreateTrip() {
     this.router.navigate(['/trips/manage/new']);
   }
-  
+
   ngOnInit(): void {
     this.managerId = this.authService.getCurrentActor()._id;
     this.tripService
@@ -41,6 +41,7 @@ export class ManageTripsComponent implements OnInit {
       .subscribe((trips: Trip[]) => {
         this.trips = trips;
         console.log('Display trip: ' + trips);
+        console.log(trips);
       });
 
     setInterval(() => {
@@ -87,6 +88,13 @@ export class ManageTripsComponent implements OnInit {
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     return `${days} d, ${hours} h, ${minutes} m, ${seconds} s`;
+  }
+
+  isTripStarted(tripStartDate: string) {
+    const startDate = new Date(tripStartDate);
+    const now = new Date();
+
+    return startDate >= now;
   }
 
   searchWordSearch() {

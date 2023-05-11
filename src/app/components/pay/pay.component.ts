@@ -100,7 +100,7 @@ export class PayComponent implements OnInit {
         );
 
         this.tripService.payTrip(this.applicationId).subscribe((res) => {
-          console.log('res');
+          console.log(res);
         });
 
         let message = 'The trip is payed';

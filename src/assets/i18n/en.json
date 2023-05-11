@@ -9,6 +9,7 @@
   "password-must-be-8": "The password have to be at least 8 characters",
   "not-registered": "Do you not have a user? ",
   "register-here": "Register here",
+  "please-enter-the-correct-email-and-password": "Please enter the correct email and password",
 
   "register-new-actor": "Register new actor",
   "name": "Name",
@@ -22,6 +23,7 @@
   "email-required": "The email is required",
   "password-required": "The password is required",
   "already-registered": "Already registered? ",
+  "you-successfully-created-an-account": "You successfully created an account",
   "title-required": "The title is required",
   "description-required": "The description is required",
   "start-date-required": "The start date must be provided",
@@ -64,6 +66,7 @@
   "requirements": "Requirements",
   "stages": "Stages",
   "stage": "Stage",
+  "the-trip-has-started": "The trip has started",
 
   "accepted": "Accepted",
   "due": "Due",
@@ -98,11 +101,17 @@
   "application-description": "Description: {{description}}",
   "comments": "Comments",
   "pay-trip": "Pay trip",
+  "you-successfully-applied-for-the-trip": "You successfully applied for the trip",
+  "you-successfully-canceled-the-application": "You successfully canceled the application",
+  "you-successfully-approved-the-application-for-payment": "You successfully approved the application for payment",
+  "you-successfully-rejected-the-application": "You successfully rejected the application",
+  
 
   "manage-trip": "Manage trip '{{tripTitle}}'",
   "edit-trip": "Edit trip",
   "cancel-trip": "Cancel trip",
   "delete-trip": "Delete trip",
+  "you-have-no-trips-to-manage": "You have no trips to manage",
   "edit-dialog-message": "Are you sure you want to edit '{{tripTitle}}'?",
   "cancel-dialog-message": "Are you sure you want to cancel '{{tripTitle}}'?",
   "delete-dialog-message": "Are you sure you want to delete '{{tripTitle}}'?",
@@ -113,5 +122,10 @@
   "description": "Description",
   "price": "Price",
   "start-date": "Start date",
-  "end-date": "End date"
+  "end-date": "End date",
+
+  "register-new-manager": "Register new manager",
+
+  "you-changed-your-language-to": "Cambiaste tu idioma a: ",
+  "you-have-no-applications-to-manage": "You have no applications to manage"
 }

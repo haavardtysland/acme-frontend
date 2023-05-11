@@ -9,15 +9,6 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-    'Access-Control-Allow-Credentials': 'true',
-  }),
-  withCredentials: true,
-};
-
 @Injectable({
   providedIn: 'root',
 })
@@ -30,14 +21,35 @@ export class AuthService {
     private cookieService: CookieService
   ) {}
 
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Access-Control-Allow-Credentials': 'true',
+      }),
+      withCredentials: true,
+    };
+  }
+
   registerUser(actor: Actor): Observable<any> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const url = `${environment.backendApiBaseUrl + '/Actors'}`;
     const body = Actor.toJson(actor);
     return this.http
-      .post(url, body, httpOptions)
+      .post(url, body, this.getHttpOptions())
       .pipe(catchError(this.handleError('registerUser')));
+  }
+
+  registerManager(manager: any): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    const url = `${environment.backendApiBaseUrl + '/Manager'}`;
+    const body = JSON.stringify(manager);
+    return this.http
+      .post(url, body, this.getHttpOptions())
+      .pipe(catchError(this.handleError('registerManager')));
   }
 
   getRoles(): string[] {
@@ -48,7 +60,7 @@ export class AuthService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const url = `${environment.backendApiBaseUrl + '/refresh-token'}`;
-    return this.http.post(url, {}, httpOptions).pipe(
+    return this.http.post(url, {}, this.getHttpOptions()).pipe(
       catchError(this.handleError('useRefreshToken')),
       tap((res: any) => {
         this.currentActor = (res as any)['actor'];
@@ -68,7 +80,7 @@ export class AuthService {
     obj.email = email;
     obj.password = password;
     const body = JSON.stringify(obj);
-    return this.http.post(url, body, httpOptions).pipe(
+    return this.http.post(url, body, this.getHttpOptions()).pipe(
       catchError(this.handleError('loginUser')),
       tap((res: any) => {
         this.currentActor = (res as any)['actor'];
@@ -128,10 +140,10 @@ export class AuthService {
   logout() {
     const url = `${environment.backendApiBaseUrl + '/logout'}`;
     localStorage.clear();
-    this.setCurrentActor();
+    /*     this.setCurrentActor(); */
     this.cookieService.deleteAll();
     this.loginStatus.next(false);
-    return this.http.post(url, {}, httpOptions).pipe(
+    return this.http.post(url, {}, this.getHttpOptions()).pipe(
       catchError(this.handleError('logout')),
       tap((res: any) => {
         console.log(res);

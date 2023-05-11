@@ -38,7 +38,7 @@ export class HeaderComponent {
     const languageString = language == 'en' ? 'English' : 'Spanish';
     this.messageService.notifyMessage(
       'alert alert-info',
-      'You changed language to: ' + languageString
+      this.translateService.instant('you-changed-your-language-to') + languageString
     );
 
     localStorage.setItem('locale', language);
