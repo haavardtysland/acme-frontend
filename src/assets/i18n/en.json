@@ -78,6 +78,7 @@
   "maximum-trips": "Maximum trips for manager",
   "average-trips": "Average trips for manager",
   "std-trips": "Standard deviation of trips for manager",
+  "std-price":"Standard deviation price for trip",
   "minimum-price": "Minimum price for trip",
   "maximum-price": "Maximum price for trip",
   "average-price": "Average price for trip",

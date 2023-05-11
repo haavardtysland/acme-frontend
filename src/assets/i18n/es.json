@@ -76,6 +76,7 @@
   "maximum-trips": "Viajes máximos para el gestor",
   "average-trips": "Desplazamientos medios para gerente",
   "std-trips": "Desviación típica de los desplazamientos del gestor",
+  "std-price": "Desviación estándar del precio del viaje",
   "minimum-price": "Precio mínimo del viaje",
   "maximum-price": "Precio máximo del viaje",
   "average-price": "Precio medio del viaje",

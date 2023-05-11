@@ -10,13 +10,13 @@
   <div class="card text-center p-3 bg-secondary">
     <small>{{ "average-trips" | translate }}</small>
 
-    <h3>{{ avgTrips }}</h3>
+    <h3>{{ avgTrips.toFixed(2) }}</h3>
   </div>
   <div class="card text-center p-3 bg-secondary">
     <small>
       {{ "std-trips" | translate }}
     </small>
-    <h3>{{ tripsStdDev }}</h3>
+    <h3>{{ tripsStdDev.toFixed(2) }}</h3>
   </div>
 </div>
 
