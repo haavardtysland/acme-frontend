@@ -52,7 +52,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.editProfileForm.value);
     this.actorService
       .updateActor(this.editProfileForm.value)
       .subscribe((res: any) => {
@@ -60,7 +59,6 @@ export class ProfileEditComponent implements OnInit {
           'alert alert-success',
           'You successfully changed your user '
         );
-        console.log(res);
       });
   }
 
