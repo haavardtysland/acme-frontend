@@ -12,6 +12,8 @@ export class Actor extends Entity {
   private _role: Role | string;
   private _ban: boolean;
   private _finder: Finder;
+  private _cacheDuration: number;
+  private _numTripsFromFinder: number;
 
   constructor() {
     super();
@@ -22,6 +24,8 @@ export class Actor extends Entity {
     this._ban = false;
     this._role = '';
     this._finder = new Finder();
+    this._cacheDuration = 0;
+    this._numTripsFromFinder = 0;
   }
 
   public get name(): string {
@@ -53,8 +57,24 @@ export class Actor extends Entity {
     return this._finder;
   }
 
+  public get cacheDuration(): number {
+    return this._cacheDuration;
+  }
+
+  public get numTripsFromFinder(): number {
+    return this._numTripsFromFinder;
+  }
+
   public set name(name: string) {
     this._name = name;
+  }
+
+  public set cacheDuration(cacheDuration: number) {
+    this._cacheDuration = cacheDuration;
+  }
+
+  public set numTripsFromFinder(numTripsFromFinder: number) {
+    this._numTripsFromFinder = numTripsFromFinder;
   }
   public set surname(surname: string) {
     this._surname = surname;
@@ -92,6 +112,8 @@ export class Actor extends Entity {
       address: actor.address,
       role: actor.role,
       isBanned: actor.ban,
+      cacheDuration: actor.cacheDuration,
+      numTripsFromFinder: actor.numTripsFromFinder,
     };
     return JSON.stringify(obj);
   }

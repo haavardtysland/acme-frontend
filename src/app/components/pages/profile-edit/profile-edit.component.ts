@@ -15,6 +15,7 @@ export class ProfileEditComponent implements OnInit {
   editProfileForm: FormGroup;
   actor: Actor;
   passwordInput: FormGroup;
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -29,6 +30,8 @@ export class ProfileEditComponent implements OnInit {
       email: [''],
       phone: [''],
       address: [''],
+      numTripsFromFinder: [0],
+      cacheDuration: [0],
     });
     this.passwordInput = fb.group({
       password: [''],
@@ -38,11 +41,13 @@ export class ProfileEditComponent implements OnInit {
   ngOnInit(): void {
     this.actor = this.authService.getCurrentActor();
     this.editProfileForm.setValue({
-      name: this.actor.name,
-      surname: this.actor.surname,
-      phone: this.actor.phone,
-      email: this.actor.email,
-      address: this.actor.address,
+      name: this.actor.name || '',
+      surname: this.actor.surname || '',
+      phone: this.actor.phone || '',
+      email: this.actor.email || '',
+      address: this.actor.address || '',
+      numTripsFromFinder: this.actor.numTripsFromFinder || 10,
+      cacheDuration: this.actor.cacheDuration || 1,
     });
   }
 
