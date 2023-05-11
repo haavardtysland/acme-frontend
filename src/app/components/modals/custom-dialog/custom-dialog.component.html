@@ -11,7 +11,11 @@
       />
     </div>
     <div class="actions">
-      <button class="btn btn-success" (click)="onYesButtonClicked()">
+      <button
+        class="btn btn-success"
+        (click)="onYesButtonClicked()"
+        [disabled]="showReasonInput && reason === undefined"
+      >
         Yes
       </button>
       <button class="btn btn-danger" (click)="onNoButtonClicked()">No</button>

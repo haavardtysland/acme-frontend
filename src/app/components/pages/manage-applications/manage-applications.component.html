@@ -69,7 +69,7 @@
               Change to due
             </button>
             <button
-              (click)="rejectApplicaiton(application._id)"
+              (click)="onRejectApplicationClick(application._id)"
               *ngIf="application.status.status === 'PENDING'"
               class="btn btn-danger me-2 mb-2"
             >
@@ -80,6 +80,15 @@
       </div>
     </div>
   </div>
+  <app-custom-dialog
+    *ngIf="showDialog"
+    title="{{ 'reject-application-title' | translate }}"
+    message="{{ 'reject-application-message' | translate }}"
+    (onYesClick)="onDialogYesClick($event)"
+    (onNoClick)="onDialogNoClick($event.confirmed)"
+    [showReasonInput]="true"
+  >
+  </app-custom-dialog>
 </div>
 <div class="text-center text-dark mt-2" *ngIf="!trips || trips.length == 0">
   <h5>{{ "you-have-no-applications-to-manage" | translate }}</h5>

@@ -104,6 +104,8 @@
   "you-successfully-canceled-the-application": "Has cancelado correctamente la aplicación",
   "you-successfully-approved-the-application-for-payment": "Ha aprobado con éxito la solicitud de pago",
   "you-successfully-rejected-the-application": "Ha rechazado con éxito la solicitud",
+  "reject-application-title": "¿Rechazar la solicitud?",
+  "reject-application-message": "Debe indicar el motivo por el que se rechaza la solicitud:",
 
   "manage-trip": "Editar viaje '{{tripTitle}}'",
   "edit-trip": "Gestionar viaje",
