@@ -31,7 +31,7 @@
           *ngIf="authService.getCurrentActor().role === 'EXPLORER'"
           class="btn btn-success card-button-rigth me-2"
           (click)="openApplicationForm()"
-          [disabled]="isApplying"
+          [disabled]="isApplying || tripHasStartedOrIsCancelled()"
         >
           {{ "apply-for-trip" | translate }}
         </button>

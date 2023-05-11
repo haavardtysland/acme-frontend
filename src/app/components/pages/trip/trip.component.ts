@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { TStatus } from 'src/app/enums/TStatus';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { MessageService } from 'src/app/services/services/message.service';
 import { TripService } from 'src/app/services/trip/trip.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trip',
@@ -99,6 +100,15 @@ export class TripComponent implements OnInit {
 
   openApplicationForm() {
     this.isApplying = true;
+  }
+
+  tripHasStartedOrIsCancelled() {
+    const today = new Date();
+    const startDate = new Date(this.trip.startDate);
+    if (today >= startDate || this.trip.status.status === TStatus.CANCELLED) {
+      return true;
+    }
+    return false;
   }
 
   cancelApplication() {
