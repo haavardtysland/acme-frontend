@@ -197,10 +197,7 @@
                 <p class="card-text">
                   {{ "price:" | translate : { price: stage.price } }}
                 </p>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-warning bi bi-pen"
-                ></button>
+
                 <button
                   type="button"
                   class="btn btn-sm btn-danger bi bi-trash"
@@ -221,7 +218,7 @@
       <button
         type="submit"
         class="btn btn-success my-3"
-        [disabled]="!tripForm.valid"
+        [disabled]="!tripForm.valid || !canEditOrDelete() || stages.length === 0"
       >
         {{ "edit-trip" | translate }}
       </button>
@@ -229,13 +226,15 @@
         type="button"
         class="btn btn-warning my-3 mx-2"
         (click)="onCancelTrip()"
+        [disabled]="!canCancelTrip()"
       >
         {{ "cancel-trip" | translate }}
       </button>
       <button
         type="button"
         class="btn btn-danger my-3"
-        (click)="onCancelTrip()"
+        (click)="onDeleteTrip()"
+        [disabled]="!canEditOrDelete()"
       >
         {{ "delete-trip" | translate }}
       </button>
@@ -247,6 +246,7 @@
   [title]="dialogTitle"
   [message]="dialogMessage"
   (onYesClick)="onDialogYesClick($event)"
-  (onNoClick)="onDialogNoClick($event)"
+  (onNoClick)="onDialogNoClick($event.confirmed)"
+  [showReasonInput]="giveReason"
 >
 </app-custom-dialog>

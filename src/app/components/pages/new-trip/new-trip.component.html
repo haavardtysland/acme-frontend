@@ -212,7 +212,7 @@
       <button
         type="submit"
         class="btn btn-success my-3"
-        [disabled]="!tripForm.valid"
+        [disabled]="!tripForm.valid || stages.length === 0"
       >
         {{ "create-new-trip" | translate }}
       </button>
@@ -223,7 +223,7 @@
   *ngIf="showDialog"
   [title]="dialogTitle"
   [message]="dialogMessage"
-  (onYesClick)="onDialogYesClick($event)"
-  (onNoClick)="onDialogNoClick($event)"
+  (onYesClick)="onDialogYesClick($event.confirmed)"
+  (onNoClick)="onDialogNoClick($event.confirmed)"
 >
 </app-custom-dialog>

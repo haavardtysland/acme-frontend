@@ -15,7 +15,7 @@ export class TripService {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': 'http://localhost:4200',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     };
   }
@@ -115,7 +115,7 @@ export class TripService {
       .post(url, body, this.getHttpOptions())
       .pipe(catchError(this.handleError('applyForTrip')));
   }
-  createTrip(trip: Trip) {
+  createTrip(trip: Trip): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Trips`;
     const body = Trip.toJson(trip);
     return this.http
@@ -123,7 +123,7 @@ export class TripService {
       .pipe(catchError(this.handleError('createTrip')));
   }
 
-  editTrip(trip: Trip) {
+  editTrip(trip: Trip): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}`;
     const body = Trip.toJson(trip);
     return this.http
@@ -131,18 +131,22 @@ export class TripService {
       .pipe(catchError(this.handleError('editTrip')));
   }
 
-  cancelTrip(trip: Trip) {
+  cancelTrip(trip: Trip, reason?: string): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/Status`;
+    const body = {
+      description: reason,
+    };
+    const jsonBody = JSON.stringify(body);
     return this.http
-      .put(url, this.getHttpOptions())
+      .put(url, jsonBody, this.getHttpOptions())
       .pipe(catchError(this.handleError('cancelTrip')));
   }
 
-  deleteTrip(trip: Trip) {
+  deleteTrip(trip: Trip): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}`;
     return this.http
       .delete(url, this.getHttpOptions())
-      .pipe(catchError(this.handleError('cancelTrip')));
+      .pipe(catchError(this.handleError('deleteTrip')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
