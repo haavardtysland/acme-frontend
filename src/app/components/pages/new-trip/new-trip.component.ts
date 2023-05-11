@@ -123,7 +123,11 @@ export class NewTripComponent {
   }
 
   onDeleteStage(deleteStage: Stage) {
-    this.stages = this.stages.filter((stage) => stage.id !== deleteStage.id);
+    this.stages = this.stages.filter(
+      (stage) =>
+        stage.title !== deleteStage.title ||
+        stage.description !== deleteStage.description
+    );
   }
 
   addRequirement() {
