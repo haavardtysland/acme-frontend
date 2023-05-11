@@ -12,6 +12,7 @@ import { TripService } from 'src/app/services/trip/trip.service';
 })
 export class ManageTripsComponent implements OnInit {
   searchWordForm: FormGroup;
+  allTrips: Trip[];
   trips: Trip[];
   remainingTimes: { [key: string]: string };
   managerId: string;
@@ -23,6 +24,7 @@ export class ManageTripsComponent implements OnInit {
     protected authService: AuthService
   ) {
     this.trips = [];
+    this.allTrips = [];
     this.searchWordForm = this.fb.group({
       keyWordSearch: [''],
     });
@@ -34,14 +36,36 @@ export class ManageTripsComponent implements OnInit {
     this.router.navigate(['/trips/manage/new']);
   }
 
+  // Custom comparison function
+  compareDates(a: Trip, b: Trip): number {
+    const today = new Date();
+    const aDate = new Date(a.startDate);
+    const bDate = new Date(b.startDate);
+
+    // Check if trips have already started
+    const aStarted = aDate < today;
+    const bStarted = bDate < today;
+
+    if (aStarted && !bStarted) {
+      return 1; // a has started, b hasn't started, so a comes after b
+    } else if (!aStarted && bStarted) {
+      return -1; // a hasn't started, b has started, so a comes before b
+    }
+
+    const aDiff = Math.abs(aDate.getTime() - today.getTime());
+    const bDiff = Math.abs(bDate.getTime() - today.getTime());
+
+    return aDiff - bDiff;
+  }
+
   ngOnInit(): void {
     this.managerId = this.authService.getCurrentActor()._id;
     this.tripService
       .getTripByManagerId(this.managerId)
       .subscribe((trips: Trip[]) => {
-        this.trips = trips;
-        console.log('Display trip: ' + trips);
-        console.log(trips);
+        const sortedTrips: Trip[] = trips.sort(this.compareDates);
+        this.trips = sortedTrips;
+        this.allTrips = sortedTrips;
       });
 
     setInterval(() => {
@@ -103,8 +127,10 @@ export class ManageTripsComponent implements OnInit {
       this.tripService
         .getTripsBySearchword(this.searchWordForm.value.keyWordSearch)
         .subscribe((trips: Trip[]) => {
-          this.trips = trips;
+          this.trips = trips.sort(this.compareDates);
         });
+    } else {
+      this.trips = this.allTrips;
     }
   }
 }
