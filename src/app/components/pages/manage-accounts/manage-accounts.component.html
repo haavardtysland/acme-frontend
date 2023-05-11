@@ -1,4 +1,8 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+<form
+  [formGroup]="registrationForm"
+  (ngSubmit)="onRegister()"
+  class="text-dark"
+>
   <fieldset>
     <legend>{{ "register-new-manager" | translate }}</legend>
     <div class="form-group has-danger">
@@ -71,9 +75,10 @@
     </div>
 
     <button
+      class="mt-2"
       type="submit"
       [disabled]="!registrationForm.valid"
-      class="btn btn-primary"
+      class="btn btn-secondary"
     >
       Register
     </button>

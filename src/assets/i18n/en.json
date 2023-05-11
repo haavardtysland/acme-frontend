@@ -24,6 +24,14 @@
   "password-required": "The password is required",
   "already-registered": "Already registered? ",
   "you-successfully-created-an-account": "You successfully created an account",
+  "title-required": "The title is required",
+  "description-required": "The description is required",
+  "start-date-required": "The start date must be provided",
+  "end-date-required": "The end date must be provided",
+  "must-have-stage": "There needs to be atleast 1 stage",
+  "start-date-must-be-after-today": "The start date cannot be earlier than today",
+  "end-date-after-start-date": "The end date must be later than the start date",
+  "publish-trip": "Publish trip?",
 
   "home": "Home",
   "trips": "Trips",
@@ -54,6 +62,7 @@
   "add": "Add",
   "this-trip-has-already-started!": "This trip has already started!",
   "add-a-comment...": "Add a comment...",
+  "add-stage": "Add stage",
   "requirements": "Requirements",
   "stages": "Stages",
   "stage": "Stage",
@@ -96,10 +105,17 @@
   "you-successfully-canceled-the-application": "You successfully canceled the application",
   "you-successfully-approved-the-application-for-payment": "You successfully approved the application for payment",
   "you-successfully-rejected-the-application": "You successfully rejected the application",
-  "manage-trip": "Manage trip {{tripTitle}}",
+  
+
+  "manage-trip": "Manage trip '{{tripTitle}}'",
   "edit-trip": "Edit trip",
+  "cancel-trip": "Cancel trip",
   "delete-trip": "Delete trip",
   "you-have-no-trips-to-manage": "You have no trips to manage",
+  "edit-dialog-message": "Are you sure you want to edit '{{tripTitle}}'?",
+  "cancel-dialog-message": "Are you sure you want to cancel '{{tripTitle}}'?",
+  "delete-dialog-message": "Are you sure you want to delete '{{tripTitle}}'?",
+
 
   "create-new-trip": "Create new trip",
   "title": "Title",

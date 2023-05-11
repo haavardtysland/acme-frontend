@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 myForm">
   <form
     [formGroup]="tripForm"
-    (ngSubmit)="onEditNewTrip()"
+    (ngSubmit)="onEditTrip()"
     class="form-horizontal"
   >
     <fieldset>
@@ -17,6 +17,12 @@
           formControlName="title"
         />
       </div>
+      <div
+        *ngIf="tripForm.get('title')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "title-required" | translate }}
+      </div>
       <div>
         <label for="description">{{ "description" | translate }}</label>
         <input
@@ -25,6 +31,12 @@
           type="text"
           formControlName="description"
         />
+      </div>
+      <div
+        *ngIf="tripForm.get('description')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "description-required" | translate }}
       </div>
       <label for="requirement">{{ "requirements" | translate }}</label>
       <div class="input-group">
@@ -40,7 +52,7 @@
             type="button"
             (click)="addRequirement()"
           >
-            Add
+            {{ "add" | translate }}
           </button>
         </span>
       </div>
@@ -66,6 +78,18 @@
           formControlName="startDate"
         />
       </div>
+      <div
+        *ngIf="tripForm.get('startDate')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "start-date-required" | translate }}
+      </div>
+      <div
+        *ngIf="tripForm.get('startDate')?.hasError('startDateInvalid')"
+        class="alert alert-danger"
+      >
+        {{ "start-date-must-be-after-today" | translate }}
+      </div>
       <div>
         <label for="endDate">{{ "endDate" | translate }}</label>
         <input
@@ -74,6 +98,18 @@
           type="date"
           formControlName="endDate"
         />
+      </div>
+      <div
+        *ngIf="tripForm.get('endDate')?.hasError('required')"
+        class="alert alert-danger"
+      >
+        {{ "end-date-required" | translate }}
+      </div>
+      <div
+        *ngIf="tripForm.get('endDate')?.hasError('endDateInvalid')"
+        class="alert alert-danger"
+      >
+        {{ "end-date-after-start-date" | translate }}
       </div>
       <label>{{ "stages" | translate }}</label>
       <div>
@@ -110,7 +146,7 @@
           <div>
             <label for="price:">{{ "price" | translate }}</label>
             <input
-              id="price:"
+              id="price"
               class="form-control"
               type="number"
               formControlName="price"
@@ -122,9 +158,12 @@
             [disabled]="!stageForm.valid"
             (click)="addStage()"
           >
-            Add stage
+            {{ "add-stage" | translate }}
           </button>
         </form>
+        <div *ngIf="this.stages.length == 0" class="alert alert-danger">
+          {{ "must-have-stage" | translate }}
+        </div>
       </div>
       <div *ngIf="stages.length > 0">
         <div class="accordion" id="accordionExample">
@@ -171,13 +210,43 @@
             </div>
           </div>
         </div>
+        <diV>
+          <label for="isPublished">{{ "publish-trip" | translate }}</label>
+        </diV>
+        <label class="switch mt-2">
+          <input formControlName="isPublished" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
       </div>
-      <button type="submit" class="btn btn-warning my-3">
+      <button
+        type="submit"
+        class="btn btn-success my-3"
+        [disabled]="!tripForm.valid"
+      >
         {{ "edit-trip" | translate }}
       </button>
-      <button type="button" class="btn btn-danger my-3 mx-2">
+      <button
+        type="button"
+        class="btn btn-warning my-3 mx-2"
+        (click)="onCancelTrip()"
+      >
+        {{ "cancel-trip" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger my-3"
+        (click)="onCancelTrip()"
+      >
         {{ "delete-trip" | translate }}
       </button>
     </fieldset>
   </form>
 </div>
+<app-custom-dialog
+  *ngIf="showDialog"
+  [title]="dialogTitle"
+  [message]="dialogMessage"
+  (onYesClick)="onDialogYesClick($event)"
+  (onNoClick)="onDialogNoClick($event)"
+>
+</app-custom-dialog>

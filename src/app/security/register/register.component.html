@@ -1,4 +1,8 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+<form
+  [formGroup]="registrationForm"
+  (ngSubmit)="onRegister()"
+  class="text-dark"
+>
   <fieldset>
     <legend>{{ "register-new-actor" | translate }}</legend>
     <div class="form-group has-danger">
@@ -105,7 +109,7 @@
     <button
       type="submit"
       [disabled]="!registrationForm.valid"
-      class="btn btn-primary"
+      class="btn btn-dark"
     >
       Register
     </button>
@@ -114,7 +118,9 @@
       <div class="col-md-4 col-md-offset-4">
         <p>
           {{ "already-registered" | translate }}
-          <a routerLink="/login">{{ "login" | translate }}</a>
+          <a class="link-underline-light" routerLink="/login">{{
+            "login" | translate
+          }}</a>
         </p>
       </div>
     </div>

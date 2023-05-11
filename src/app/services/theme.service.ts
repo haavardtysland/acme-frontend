@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeService {
-  public static default = 'light';
+  public static default = localStorage.getItem('theme') || 'light';
 
   public get current(): string {
     return localStorage.getItem('theme') ?? ThemeService.default;

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-secondary">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="">
       <img src="../../../../assets/logo.png" width="30" height="30" alt="" />
@@ -14,7 +14,10 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse bg-secondary"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">{{
@@ -67,17 +70,7 @@
           >
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          [placeholder]="'search' | translate"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success me-2" type="submit">
-          {{ "search" | translate }}
-        </button>
-      </form>
+
       <button class="btn btn-secondary me-2" (click)="changeLanguage('en')">
         EN
       </button>
@@ -130,7 +123,7 @@
               </a>
               <ul
                 ngbDropdownMenu
-                class="dropdown-menu text-small shadow dropdown-menu-end"
+                class="dropdown-menu text-small shadow dropdown-menu-end bg-secondary"
                 aria-labelledby="dropdownUser2"
               >
                 <li ngbDropdownItem>

@@ -4,7 +4,6 @@ import { Observable, catchError, of } from 'rxjs';
 import { Trip } from 'src/app/models/trip.model';
 import { environment } from './../../../environments/environment';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -130,6 +129,20 @@ export class TripService {
     return this.http
       .put(url, body, this.getHttpOptions())
       .pipe(catchError(this.handleError('editTrip')));
+  }
+
+  cancelTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/Status`;
+    return this.http
+      .put(url, this.getHttpOptions())
+      .pipe(catchError(this.handleError('cancelTrip')));
+  }
+
+  deleteTrip(trip: Trip) {
+    const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}`;
+    return this.http
+      .delete(url, this.getHttpOptions())
+      .pipe(catchError(this.handleError('cancelTrip')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

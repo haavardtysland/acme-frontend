@@ -1,19 +1,19 @@
 <div class="card-group mt-5">
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "minimum-trips" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "minimum-trips" | translate }}</small>
     <h3>{{ minTrips }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "maximum-trips" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "maximum-trips" | translate }}</small>
     <h3>{{ maxTrips }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "average-trips" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "average-trips" | translate }}</small>
 
     <h3>{{ avgTrips }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">
+  <div class="card text-center p-3 bg-secondary">
+    <small>
       {{ "std-trips" | translate }}
     </small>
     <h3>{{ tripsStdDev }}</h3>
@@ -21,85 +21,85 @@
 </div>
 
 <div class="card-group mt-5">
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "minimum-price" | translate }} </small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "minimum-price" | translate }} </small>
     <h3>€ {{ minTripPrice.toFixed(2) }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "maximum-price" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "maximum-price" | translate }}</small>
     <h3>€ {{ maxTripPrice.toFixed(2) }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "average-price" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "average-price" | translate }}</small>
 
     <h3>€ {{ avgTripPrice.toFixed(2) }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "std-price" | translate }} </small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "std-price" | translate }} </small>
 
     <h3>€ {{ stdDevTripPrice.toFixed(2) }}</h3>
   </div>
 </div>
 
 <div class="card-group mt-5">
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "minimum-applications" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "minimum-applications" | translate }}</small>
     <h3>{{ minApplications }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "maximum-applications" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "maximum-applications" | translate }}</small>
     <h3>{{ maxApplications }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "average-applications" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "average-applications" | translate }}</small>
 
     <h3>{{ avgApplications.toFixed(2) }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "std-applications" | translate }} </small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "std-applications" | translate }} </small>
 
     <h3>{{ stdDevApplications.toFixed(2) }}</h3>
   </div>
 </div>
 
-<div class="card-group mt-5">
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "accepted" | translate }} </small>
+<div class="card-group mt-5 bg-secondary">
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "accepted" | translate }} </small>
     <h3>{{ statusPrecentages.ACCEPTED.toFixed(2) }} %</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "due" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "due" | translate }}</small>
     <h3>{{ statusPrecentages.DUE.toFixed(2) }} %</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "pending" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "pending" | translate }}</small>
 
     <h3>{{ statusPrecentages.PENDING.toFixed(2) }} %</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "rejected" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "rejected" | translate }}</small>
 
     <h3>{{ statusPrecentages.REJECTED.toFixed(2) }} %</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "cancelled" | translate }} </small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "cancelled" | translate }} </small>
 
     <h3>{{ statusPrecentages.CANCELLED.toFixed(2) }} %</h3>
   </div>
 </div>
 <div class="card-group mt-5">
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "average-from-price" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "average-from-price" | translate }}</small>
 
     <h3>{{ avgFromPrice.toFixed(2) }}</h3>
   </div>
-  <div class="card text-center p-3">
-    <small class="text-muted">{{ "average-to-price" | translate }}</small>
+  <div class="card text-center p-3 bg-secondary">
+    <small>{{ "average-to-price" | translate }}</small>
 
     <h3>{{ avgToPrice.toFixed(2) }}</h3>
   </div>
 </div>
-<div class="card text-center p-3 mt-2">
-  <small class="text-muted">{{ "top-ten-words" | translate }} </small>
+<div class="card text-center p-3 mt-2 bg-secondary">
+  <small>{{ "top-ten-words" | translate }} </small>
   <h3>{{ topTenWords }}</h3>
 </div>

@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between mt-2">
   <form
     *ngIf="
       !this.authService.getCurrentActor() ||
@@ -24,16 +24,13 @@
 
     <button
       [disabled]="f.form.invalid"
-      class="btn btn-outline-success me-2 mb-2"
+      class="btn btn-secondary me-2 mb-2"
       type="submit"
     >
       {{ "search" | translate }}
     </button>
   </form>
-  <button
-    class="btn btn-outline-success me-2 mb-2"
-    (click)="navigateToCreateTrip()"
-  >
+  <button class="btn btn-secondary me-2 mb-2" (click)="navigateToCreateTrip()">
     {{ "create-new-trip" | translate }}
   </button>
 </div>
@@ -41,7 +38,7 @@
 <div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
   <div *ngFor="let trip of trips" class="col">
     <div
-      class="card"
+      class="card bg-secondary"
       style="cursor: pointer"
       (click)="displayTrip(trip._id)"
       [class.trip-soon]="isTripSoon(trip.startDate)"
@@ -70,7 +67,13 @@
         </p>
         <p class="card-text">
           <small class="text-muted"
-            >From: {{ formatDate(trip.startDate) }}, To:
+            >{{
+              "trip-start"
+                | translate : { tripStartDate: formatDate(trip.startDate) }
+            }},
+            {{
+              "trip-end" | translate : { tripEndDate: formatDate(trip.endDate) }
+            }}
             <!-- TODO FIX DATEPIPE -->
             {{ formatDate(trip.endDate) }}</small
           >
@@ -82,7 +85,8 @@
           }}</small>
         </p>
 
-        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)"></p>
+        <p class="card-text">
           <small class="text-muted">{{
             "trip-starts-in"
               | translate : { remainingTime: remainingTimes[trip._id] }
