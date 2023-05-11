@@ -29,13 +29,13 @@
         </p>
         <button
           *ngIf="authService.getCurrentActor().role === 'EXPLORER'"
-          class="btn btn-dark card-button-rigth me-2"
+          class="btn btn-success card-button-rigth me-2"
           (click)="openApplicationForm()"
           [disabled]="isApplying"
         >
           {{ "apply-for-trip" | translate }}
         </button>
-        <button (click)="goBack()" class="btn btn-dark card-button-rigth">
+        <button (click)="goBack()" class="btn btn-danger card-button-rigth">
           {{ "go-back" | translate }}
         </button>
       </div>
@@ -46,13 +46,15 @@
           *ngFor="let requirement of trip.requirements"
           id="requirements"
         >
-          <li class="list-group-item">{{ requirement }}</li>
+          <li class="list-group-item bg-primary text-dark">
+            {{ requirement }}
+          </li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="card" *ngIf="isApplying">
+  <div class="card bg-secondary" *ngIf="isApplying">
     <div class="row m-2">
       <div class="col-md-6">
         <div class="input-group mb-3">
@@ -62,19 +64,22 @@
             [(ngModel)]="comment"
             [placeholder]="'add-a-comment...' | translate"
           />
-          <button class="btn btn-primary" type="button" (click)="addComment()">
+          <button class="btn btn-dark" type="button" (click)="addComment()">
             {{ "add" | translate }}
           </button>
         </div>
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let comment of comments">
+          <li
+            class="list-group-item bg-primary text-dark"
+            *ngFor="let comment of comments"
+          >
             {{ comment }}
             <button class="btn" (click)="removeComment(comment)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
-                fill="currentColor"
+                fill="red"
                 class="bi bi-x"
                 viewBox="0 0 16 16"
               >
@@ -88,13 +93,13 @@
       </div>
       <div class="col-md-6">
         <button
-          class="btn btn-secondary me-2"
+          class="btn btn-danger me-2"
           type="button"
           (click)="cancelApplication()"
         >
           {{ "cancel" | translate }}
         </button>
-        <button class="btn btn-primary" type="button" (click)="apply()">
+        <button class="btn btn-success" type="button" (click)="apply()">
           {{ "apply" | translate }}
         </button>
       </div>

@@ -24,13 +24,13 @@
 
     <button
       [disabled]="f.form.invalid"
-      class="btn btn-secondary me-2 mb-2"
+      class="btn btn-success me-2 mb-2"
       type="submit"
     >
       {{ "search" | translate }}
     </button>
   </form>
-  <button class="btn btn-secondary me-2 mb-2" (click)="navigateToCreateTrip()">
+  <button class="btn btn-success me-2 mb-2" (click)="navigateToCreateTrip()">
     {{ "create-new-trip" | translate }}
   </button>
 </div>
@@ -96,6 +96,6 @@
     </div>
   </div>
 </div>
-<div class="text-center" *ngIf="!trips || trips.length == 0">
+<div class="text-center text-dark" *ngIf="!trips || trips.length == 0">
   <h5>{{ "you-have-no-trips-to-manage" | translate }}</h5>
 </div>

@@ -1,5 +1,6 @@
 <div
   *ngFor="let stat of ['PENDING', 'REJECTED', 'ACCEPTED', 'DUE', 'CANCELLED']"
+  class="text-dark"
 >
   <h5 class="mt-2">{{ "stat-applications" | translate : { stat: stat } }}</h5>
   <div
@@ -99,7 +100,7 @@
             </div>
             <button
               *ngIf="application.application.status.status === 'DUE'"
-              class="btn btn-dark mt-2"
+              class="btn btn-warning mt-2"
               type="button"
               [routerLink]="[
                 '/trip/',
@@ -116,7 +117,7 @@
                 application.application.status.status === 'DUE' ||
                 application.application.status.status === 'PENDING'
               "
-              class="btn btn-dark mt-2"
+              class="btn btn-danger mt-2"
               type="button"
               [disabled]="isCancelling === i"
               (click)="openDescriptionFrom(i)"
