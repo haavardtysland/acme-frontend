@@ -33,6 +33,7 @@ export class ActorService {
   updateActor(actor: any): Observable<any> {
     const url = `${environment.backendApiBaseUrl}/Actors/${this.id}`;
     const body = Actor.toJson(actor);
+    console.log(actor);
     return this.http
       .put(url, body, this.getHttpOptions())
       .pipe(catchError(this.handleError('updateActor')));

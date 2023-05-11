@@ -1,24 +1,25 @@
-<div class="container rounded bg-secondary mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-3 border-right">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <img
-          class="rounded-circle mt-5"
-          width="150px"
-          src="../../../../assets/profile.webp"
-        /><span class="font-weight-bold">{{
-          this.actor.name + " " + this.actor.surname
-        }}</span
-        ><span class="text-black-50">{{ this.actor.email }}</span
-        ><span> </span>
-      </div>
-    </div>
-    <div class="col-md-5 border-right">
-      <div class="p-3 py-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right">Profile Settings</h4>
+<div class="container rounded bg-secondary mt-3">
+  <form [formGroup]="editProfileForm" (ngSubmit)="onSave()">
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+          <img
+            class="rounded-circle mt-5"
+            width="150px"
+            src="../../../../assets/profile.webp"
+          /><span class="font-weight-bold">{{
+            this.actor.name + " " + this.actor.surname
+          }}</span
+          ><span class="text-black-50">{{ this.actor.email }}</span
+          ><span> </span>
         </div>
-        <form [formGroup]="editProfileForm" (ngSubmit)="onSave()">
+      </div>
+      <div class="col-md-5 border-right">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-right">Profile Settings</h4>
+          </div>
+
           <div class="row mt-2">
             <div class="col-md-6">
               <label class="labels">Name</label
@@ -74,59 +75,95 @@
               Save Profile
             </button>
           </div>
-        </form>
-        <form [formGroup]="passwordInput" (submit)="onChangePassword()">
-          <div class="col-md-12 mt-4">
-            <label class="labels">Change your password</label>
-            <div class="flex d-flex">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 py-5">
+          <div
+            class="d-flex justify-content-between align-items-center experience"
+          >
+            <span>Edit Preferences</span
+            ><span class="border px-3 p-1 add-experience"
+              ><i class="fa fa-plus"></i>&nbsp;Preferences</span
+            >
+          </div>
+          <br />
+          <div class="col-md-12">
+            <label class="labels">Light/Dark mode</label>
+            <div class="form-check form-switch">
               <input
-                type="password"
-                class="form-control me-2"
-                placeholder="Enter new password"
-                formControlName="password"
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                (click)="switchTheme()"
               />
-              <button class="btn btn-primary profile-button me-2" type="submit">
-                Change password
-              </button>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="p-3 py-5">
-        <div
-          class="d-flex justify-content-between align-items-center experience"
-        >
-          <span>Edit Preferences</span
-          ><span class="border px-3 p-1 add-experience"
-            ><i class="fa fa-plus"></i>&nbsp;Preferences</span
-          >
-        </div>
-        <br />
-        <div class="col-md-12">
-          <label class="labels">Light/Dark mode</label>
-          <div class="form-check form-switch">
+          <br />
+          <!--       <div class="col-md-12">
+                <label class="labels">Language</label
+                ><select class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">English</option>
+                  <option value="2">Spanish</option>
+                  <option value="3">Norwegian</option>
+                </select>
+              </div> -->
+
+          <div class="col-md-12 d-flex row">
+            <label class="labels">Finder local saving time (cache)</label>
             <input
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckDefault"
-              (click)="switchTheme()"
+              class="form-range me-2 mb-2"
+              type="range"
+              min="1"
+              max="24"
+              step="1"
+              aria-label="Hours cached"
+              formControlName="cacheDuration"
             />
+            <h4 class="text-center">
+              {{ editProfileForm.value.cacheDuration }}
+            </h4>
+
+            <label class="labels">Number of trips retruned from finder</label>
+            <input
+              class="form-range me-2 mb-2"
+              type="range"
+              min="10"
+              max="100"
+              step="1"
+              aria-label="Number of trips returned"
+              formControlName="numTripsFromFinder"
+            />
+            <h4 class="text-center">
+              {{ editProfileForm.value.numTripsFromFinder }}
+            </h4>
           </div>
         </div>
-        <br />
-        <div class="col-md-12">
-          <label class="labels">Language</label
-          ><select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">English</option>
-            <option value="2">Spanish</option>
-            <option value="3">Norwegian</option>
-          </select>
-        </div>
       </div>
+    </div>
+  </form>
+  <div>
+    <div class="d-flex justify-content-center mb-2">
+      <form
+        [formGroup]="passwordInput"
+        (submit)="onChangePassword()"
+        class="mb-3"
+      >
+        <label class="labels">Change your password</label>
+        <div class="flex d-flex">
+          <input
+            type="password"
+            class="form-control me-2"
+            placeholder="Enter new password"
+            formControlName="password"
+          />
+          <button class="btn btn-primary profile-button me-2" type="submit">
+            Change password
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

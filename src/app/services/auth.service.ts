@@ -65,6 +65,7 @@ export class AuthService {
       tap((res: any) => {
         this.currentActor = (res as any)['actor'];
         this.loginStatus.next(true);
+        this.setCurrentActor((res as any)['actor']);
       })
     );
   }
@@ -98,7 +99,12 @@ export class AuthService {
           _id: actor._id,
           name: actor.name,
           surname: actor.surname,
+          email: actor.email,
+          phone: actor.phone,
+          address: actor.address,
           role: actor.role,
+          cacheDuration: actor.cacheDuration,
+          numTripsFromFinder: actor.numTripsFromFinder,
         })
       );
     } else {
