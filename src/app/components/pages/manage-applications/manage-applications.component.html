@@ -1,4 +1,4 @@
-<div *ngFor="let trip of trips; let j = index">
+<div class="text-dark" *ngFor="let trip of trips; let j = index">
   <h4>Trip: {{ trip.title }}</h4>
   <p *ngIf="trip.applications.length === 0">
     You have no applications to manage
@@ -64,14 +64,14 @@
             <button
               (click)="changeApplicationToDue(application._id)"
               *ngIf="application.status.status === 'PENDING'"
-              class="btn btn-dark me-2 mb-2"
+              class="btn btn-warning me-2 mb-2"
             >
               Change to due
             </button>
             <button
               (click)="rejectApplicaiton(application._id)"
               *ngIf="application.status.status === 'PENDING'"
-              class="btn btn-dark me-2 mb-2"
+              class="btn btn-danger me-2 mb-2"
             >
               Reject
             </button>
@@ -81,6 +81,6 @@
     </div>
   </div>
 </div>
-<div class="text-center" *ngIf="!trips || trips.length == 0">
+<div class="text-center text-dark mt-2" *ngIf="!trips || trips.length == 0">
   <h5>{{ "you-have-no-applications-to-manage" | translate }}</h5>
 </div>

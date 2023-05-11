@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-12 myForm">
+<div class="col-xs-12 col-sm-12 myForm text-dark">
   <form
     [formGroup]="tripForm"
     (ngSubmit)="onCreateNewTrip()"
@@ -112,7 +112,7 @@
       <label>{{ "stages" | translate }}</label>
       <div>
         <button
-          class="btn btn-secondary my-2"
+          class="btn btn-success my-2"
           type="button"
           (click)="toggleStageForm()"
         >
@@ -151,7 +151,7 @@
             />
           </div>
           <button
-            class="btn btn-primary"
+            class="btn btn-success mt-2"
             type="submit"
             [disabled]="!stageForm.valid"
             (click)="addStage()"
@@ -164,7 +164,7 @@
         </div>
       </div>
       <div *ngIf="stages.length > 0">
-        <div class="accordion" id="accordionExample">
+        <div class="accordion mt-2" id="accordionExample">
           <div
             *ngFor="let stage of stages; let i = index"
             [attr.data-index]="i"
@@ -211,7 +211,7 @@
       </div>
       <button
         type="submit"
-        class="btn btn-primary my-3"
+        class="btn btn-success my-3"
         [disabled]="!tripForm.valid"
       >
         {{ "create-new-trip" | translate }}

@@ -43,9 +43,11 @@
   </div>
   <p>
     {{ "not-registered" | translate
-    }}<a href="/register">{{ "register-here" | translate }}</a>
+    }}<a class="text-info" href="/register">{{
+      "register-here" | translate
+    }}</a>
   </p>
-  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-dark">
+  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">
     {{ "log-in" | translate }}
   </button>
 </form>
