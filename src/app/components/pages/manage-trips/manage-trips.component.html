@@ -85,8 +85,7 @@
           }}</small>
         </p>
 
-        <p class="card-text" *ngIf="isTripStarted(trip.startDate)"></p>
-        <p class="card-text">
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
           <small class="text-muted">{{
             "trip-starts-in"
               | translate : { remainingTime: remainingTimes[trip._id] }
