@@ -105,6 +105,8 @@
   "you-successfully-canceled-the-application": "You successfully canceled the application",
   "you-successfully-approved-the-application-for-payment": "You successfully approved the application for payment",
   "you-successfully-rejected-the-application": "You successfully rejected the application",
+  "reject-application-title": "Reject application?",
+  "reject-application-message": "You must give a reason why the application is rejected:",
   
 
   "manage-trip": "Manage trip '{{tripTitle}}'",
