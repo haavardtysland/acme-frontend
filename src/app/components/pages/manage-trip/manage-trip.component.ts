@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { AStatus } from 'src/app/enums/AStatus';
+import { TStatus } from 'src/app/enums/TStatus';
+import { Actor } from 'src/app/models/actor.model';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -248,6 +250,8 @@ export class ManageTripComponent {
     const startDate = new Date(this.trip.startDate);
     if (startDate <= sevenDaysFromToday && startDate >= today) {
       return false;
+    } else if (this.trip.status.status === TStatus.CANCELLED) {
+      return false;
     } else {
       const acceptedApplication = this.checkAcceptedApplicationExists(
         this.trip
@@ -289,10 +293,14 @@ export class ManageTripComponent {
             res.errorMessage
           );
         } else {
-          this.messageService.notifyMessage(
-            'alert alert-success',
-            this.translateService.instant('trip-deleted')
-          );
+          const currentManager: Actor = this.authService.getCurrentActor();
+          if (currentManager) {
+            this.router.navigateByUrl(`/trips/manage/${currentManager._id}`);
+            this.messageService.notifyMessage(
+              'alert alert-success',
+              this.translateService.instant('trip-deleted')
+            );
+          }
         }
       },
       (err) => {

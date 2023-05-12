@@ -74,7 +74,6 @@ export class NewTripComponent {
           console.log(res);
           const currentManager: Actor = this.authService.getCurrentActor();
           if (currentManager) {
-            const managerId = currentManager._id;
             this.router.navigateByUrl(`/trips/manage/${currentManager._id}`);
             this.messageService.notifyMessage(
               'alert alert-info',
