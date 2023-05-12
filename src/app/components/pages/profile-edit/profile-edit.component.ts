@@ -59,6 +59,7 @@ export class ProfileEditComponent implements OnInit {
           'alert alert-success',
           'You successfully changed your user '
         );
+        this.authService.setCurrentActor(this.editProfileForm.value);
       });
   }
 
