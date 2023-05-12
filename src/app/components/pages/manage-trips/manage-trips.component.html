@@ -29,6 +29,9 @@
     >
       {{ "search" | translate }}
     </button>
+    <button class="btn btn-warning me-2 mb-2" (click)="resetSearch()">
+      {{ "reset" | translate }}
+    </button>
   </form>
   <button class="btn btn-success me-2 mb-2" (click)="navigateToCreateTrip()">
     {{ "create-new-trip" | translate }}

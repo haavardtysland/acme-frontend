@@ -173,4 +173,13 @@ export class ManageTripsComponent implements OnInit {
         break;
     }
   }
+  resetSearch() {
+    this.tripService
+      .getTripByManagerId(this.managerId)
+      .subscribe((trips: Trip[]) => {
+        const sortedTrips: Trip[] = trips.sort(this.compareDates);
+        this.trips = sortedTrips;
+        this.allTrips = sortedTrips;
+      });
+  }
 }
