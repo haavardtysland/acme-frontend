@@ -51,6 +51,7 @@
             class="btn btn-success"
             type="button"
             (click)="addRequirement()"
+            aria-label="add requirement"
           >
             {{ "add" | translate }}
           </button>
@@ -66,6 +67,7 @@
             class="btn bi bi-x pr-0"
             type="button"
             (click)="removeRequirement(requirement)"
+            aria-label="remove requirement"
           ></button>
         </li>
       </ul>
@@ -120,6 +122,7 @@
           class="btn btn-secondary my-2"
           type="button"
           (click)="toggleStageForm()"
+          aria-label="toggle stage form"
         >
           {{ showStageButton }}
         </button>
@@ -160,6 +163,7 @@
             type="submit"
             [disabled]="!stageForm.valid"
             (click)="addStage()"
+            aria-label="add stage"
           >
             {{ "add-stage" | translate }}
           </button>
@@ -180,6 +184,7 @@
                 class="accordion-button"
                 type="button"
                 data-bs-toggle="collapse"
+                aria-label="show stage information"
                 [attr.data-bs-target]="'#collapse' + i"
                 aria-expanded="true"
                 [attr.aria-controls]="'collapse' + i"
@@ -205,16 +210,17 @@
                   type="button"
                   class="btn btn-sm btn-danger bi bi-trash"
                   (click)="onDeleteStage(stage)"
+                  aria-label="delete stage"
                 ></button>
               </div>
             </div>
           </div>
         </div>
-        <diV>
+        <div>
           <label for="isPublished">{{ "publish-trip" | translate }}</label>
-        </diV>
-        <label class="switch mt-2">
-          <input formControlName="isPublished" type="checkbox" />
+        </div>
+        <label class="switch mt-2">ƒ
+          <input id="isPublished" formControlName="isPublished" type="checkbox" />
           <span class="slider round"></span>
         </label>
       </div>
@@ -224,6 +230,7 @@
         [disabled]="
           !tripForm.valid || !canEditOrDelete() || stages.length === 0
         "
+        aria-label="edit trip"
       >
         {{ "edit-trip" | translate }}
       </button>
@@ -232,6 +239,7 @@
         class="btn btn-warning my-3 mx-2"
         (click)="onCancelTrip()"
         [disabled]="!canCancelTrip()"
+        aria-label="cancel trip"
       >
         {{ "cancel-trip" | translate }}
       </button>
@@ -240,6 +248,7 @@
         class="btn btn-danger my-3"
         (click)="onDeleteTrip()"
         [disabled]="!canEditOrDelete()"
+        aria-label="delete trip"
       >
         {{ "delete-trip" | translate }}
       </button>
