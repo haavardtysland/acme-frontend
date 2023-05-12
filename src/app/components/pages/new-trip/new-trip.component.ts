@@ -31,7 +31,7 @@ export class NewTripComponent {
   showDialog = false;
   dialogTitle = '';
   dialogMessage = '';
-  today: string; 
+  today: string;
 
   constructor(
     private router: Router,
@@ -106,7 +106,20 @@ export class NewTripComponent {
   ): Observable<ValidationErrors | null> {
     const today = new Date();
     const startDate = new Date(control.value);
-    if (startDate < today) {
+
+    // Extract year, month, and day components from the dates
+    const todayDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    const startDateDate = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    );
+
+    if (startDateDate < todayDate) {
       return of({ startDateInvalid: true });
     }
     return of(null);
@@ -123,21 +136,12 @@ export class NewTripComponent {
 
     const startDate = new Date(startDateControl.value);
     const endDate = new Date(control.value);
-    if (endDate <= startDate) {
+    if (endDate < startDate) {
       return of({ endDateInvalid: true });
     }
     return of(null);
   }
-  updateEndDate() {
-    const startDate = this.tripForm.get('startDate')?.value;
-    const nextDay = new Date(startDate);
-    nextDay.setDate(nextDay.getDate() + 1);
-
-    this.tripForm
-      .get('endDate')
-      ?.setValue(nextDay.toISOString().substring(0, 10));
-  }
-
+  
   getMinEndDate(): string {
     const startDate = this.tripForm.get('startDate')?.value;
     return startDate ? startDate : this.today;
