@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Trip } from 'src/app/models/trip.model';
 import { environment } from './../../../environments/environment';
 
@@ -152,7 +152,7 @@ export class TripService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
-      return of(error as T);
+      return throwError(error as T);
     };
   }
 }
