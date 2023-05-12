@@ -1,18 +1,27 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TripComponent } from './trip.component';
-import { TripService } from 'src/app/services/trip/trip.service';
-import { Trip } from 'src/app/models/trip.model';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activated-route-stub';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { Role } from 'src/app/enums/RoleEnum';
 import { Stage } from 'src/app/models/stage.model';
+import { Trip } from 'src/app/models/trip.model';
+import { TripService } from 'src/app/services/trip/trip.service';
+import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activated-route-stub';
+import { environment } from 'src/environments/environment';
+import { TripComponent } from './trip.component';
 
 fdescribe('Display trip', () => {
   let component: TripComponent;
   let fixture: ComponentFixture<TripComponent>;
   let mockActivatedRoute: ActivatedRouteStub;
   let testTrip: Trip;
-  let testTrip2: Trip;
   let getTripSpy: any;
 
   beforeEach(async () => {
@@ -32,25 +41,27 @@ fdescribe('Display trip', () => {
     testTrip.totalPrice = 1000;
     testTrip.startDate = '2023-07-01'; /* Date.now().toString(); */
     testTrip.endDate = '2023-07-06'; /* Date.now().toString(); */
-    /* 
-    testTrip2 = new Trip();
-    testTrip2.description = 'Jungle party';
-    testTrip2.title = 'Test title';
-    testTrip2.requirements = ['testReq1', 'testReq2', 'testReq3'];
-    testTrip2.stages = [testStage];
-    testTrip2.totalPrice = 1000;
-    testTrip2.startDate = '2023-07-01';  Date.now().toString(); 
-    testTrip2.endDate = '2023-02-06'; Date.now().toString();*/
 
     let tripSpy = jasmine.createSpyObj('TripService', ['getTripById']);
     getTripSpy = tripSpy.getTripById.and.returnValue(of(testTrip));
 
     await TestBed.configureTestingModule({
       declarations: [TripComponent],
-      imports: [],
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
+      ],
       providers: [
         { provide: TripService, useValue: tripSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: 'angularfire2.app.options', useValue: {} },
+        AngularFireAuth,
       ],
     }).compileComponents();
 
@@ -106,5 +117,34 @@ fdescribe('Display trip', () => {
     let stageDiv = fixture.nativeElement.querySelector('#accordionExample');
     fixture.detectChanges();
     expect(stageDiv.children.length).toBe(1);
+  });
+
+  it('should apply to trip, the button is shown', () => {
+    localStorage.setItem(
+      'currentActor',
+      JSON.stringify({
+        role: Role.EXPLORER,
+      })
+    );
+
+    fixture.detectChanges();
+
+    let applyTripButton = fixture.nativeElement.querySelector('#applyButton');
+    expect(applyTripButton).not.toBeNull();
+  });
+
+  it('should not apply to expired trip, the button is disabled', () => {
+    localStorage.setItem(
+      'currentActor',
+      JSON.stringify({
+        role: Role.EXPLORER,
+      })
+    );
+    component.trip.startDate = '2016-07-26';
+
+    fixture.detectChanges();
+
+    let applyTripButton = fixture.nativeElement.querySelector('#applyButton');
+    expect(applyTripButton.disabled).toBeTrue();
   });
 });

@@ -1,17 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ManageApplicationsComponent } from './manage-applications.component';
-import { TripService } from 'src/app/services/trip/trip.service';
-import { Trip } from 'src/app/models/trip.model';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activated-route-stub';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { Stage } from 'src/app/models/stage.model';
-import { Application } from 'src/app/models/application.model';
-import { AStatus } from 'src/app/enums/AStatus';
-import { ApplicationStatus } from 'src/app/models/application-status.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { Actor } from 'src/app/models/actor.model';
 import { Role } from 'src/app/enums/RoleEnum';
+import { Actor } from 'src/app/models/actor.model';
+import { ApplicationStatus } from 'src/app/models/application-status.model';
+import { Application } from 'src/app/models/application.model';
+import { Trip } from 'src/app/models/trip.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { TripService } from 'src/app/services/trip/trip.service';
+import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activated-route-stub';
+import { ManageApplicationsComponent } from './manage-applications.component';
 
 fdescribe('Display applications', () => {
   let component: ManageApplicationsComponent;
@@ -23,7 +26,7 @@ fdescribe('Display applications', () => {
   let trips: Trip[];
   let actor: Actor;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     mockActivatedRoute = new ActivatedRouteStub();
     mockActivatedRoute.testParams = { id: '642329a6cd6b90b38d07a0aa' };
 
@@ -75,9 +78,16 @@ fdescribe('Display applications', () => {
     ]);
     getCurrentActorSpy.getCurrentActor.and.returnValue(of(actor));
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ManageApplicationsComponent],
-      imports: [],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
+      ],
       providers: [
         { provide: AuthService, useValue: getCurrentActorSpy },
         { provide: TripService, useValue: tripSpy },
@@ -87,6 +97,7 @@ fdescribe('Display applications', () => {
 
     fixture = TestBed.createComponent(ManageApplicationsComponent);
     component = fixture.componentInstance;
+    component.trips = trips;
     fixture.detectChanges();
   });
 
@@ -98,7 +109,8 @@ fdescribe('Display applications', () => {
     const tripWithApplications = component.trips.find(
       (trip) => trip.applications.length > 0
     );
-    expect(tripWithApplications).toBeDefined();
+    console.log(component.trips);
+    expect(tripWithApplications?.applications).toBeDefined();
     expect(tripWithApplications?.applications.length).toBe(2);
   });
 

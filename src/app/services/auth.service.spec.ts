@@ -6,6 +6,7 @@ import { Actor } from '../models/actor.model';
 
 import { AuthService } from './auth.service';
 
+//These tests are old
 describe('AuthService', () => {
   let service: AuthService;
 

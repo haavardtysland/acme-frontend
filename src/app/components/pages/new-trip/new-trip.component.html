@@ -106,6 +106,7 @@
         {{ "end-date-required" | translate }}
       </div>
       <div
+        id="endDateAfterStartDate"
         *ngIf="tripForm.get('endDate')?.hasError('endDateInvalid')"
         class="alert alert-danger"
       >
@@ -208,6 +209,7 @@
         </div>
       </div>
       <button
+        id="createButton"
         type="submit"
         class="btn btn-success my-3"
         [disabled]="!tripForm.valid || stages.length === 0"
