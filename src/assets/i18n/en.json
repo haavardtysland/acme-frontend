@@ -45,6 +45,16 @@
   "profile": "Profile",
   "sign-out": "Sign out",
 
+  "profile-settings": "Profile settings",
+  "save-profile": "Save profile",
+  "edit-preferences": "Edit preferences",
+  "dark-mode": "Dark mode",
+  "finder-saving-time": "Finder local saving time (cache)",
+  "number-of-finder-trips": "Number of trips returned from finder",
+  "change-your-password": "Change your password",
+  "change-password": "Change password",
+  "enter-new-password": "Enter new password",
+
   "something-went-wrong": "Something went wrong while {{action}}",
 
   "welcome-to-acme": "Welcome to acme explorer!",

@@ -12,13 +12,14 @@
   "please-enter-the-correct-email-and-password": "Por favor, introduzca el correo electrónico y la contraseña correctos.",
 
   "register-new-actor": "Registrar nuevo actor",
-  "name:": "Nombre",
+
+  "name": "Nombre",
   "name-required": "El nombre es obligatorio",
-  "surname:": "Apellido",
+  "surname": "Apellido",
   "surname-required": "El apellido es obligatorio",
-  "phone:": "Télefono",
+  "phone": "Télefono",
   "invalid-phone": "El número de teléfono proporcionado no es válido",
-  "address:": "Dirección",
+  "address": "Dirección",
   "adress-must-have-2-chars": "La dirección debe tener al menos 2 caracteres",
   "email-required": "El correo electrónico es obligatorio",
   "password-required": "La contraseña es obligatoria",
@@ -43,6 +44,16 @@
   "search": "Buscar",
   "profile": "Perfil",
   "sign-out": "Desconectar",
+
+  "profile-settings": "Configuración del perfil",
+  "save-profile": "Guardar perfil",
+  "edit-preferences": "Editar preferencias",
+  "dark-mode": "Modo oscuro",
+  "finder-saving-time": "Hora local (caché) de Finder",
+  "number-of-finder-trips": "Número de viajes devueltos del buscador",
+  "change-your-password": "Cambia tu contraseña",
+  "change-password": "Cambiar contraseña",
+  "enter-new-password": "Introducir nueva contraseña",
 
   "something-went-wrong": "Algo salió mal mientras {{acción}}",
 
