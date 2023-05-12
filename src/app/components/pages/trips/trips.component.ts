@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Trip } from 'src/app/models/trip.model';
-import { TripService } from 'src/app/services/trip/trip.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FinderService } from 'src/app/services/finder/finder.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Actor } from 'src/app/models/actor.model';
 import { Finder } from 'src/app/models/finder.model';
+import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { FinderService } from 'src/app/services/finder/finder.service';
+import { TripService } from 'src/app/services/trip/trip.service';
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -42,8 +42,7 @@ export class TripsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tripService.getTrips().subscribe((trips: Trip[]) => {
-      this.trips = trips;
-      console.log('Display trip: ' + trips);
+      this.trips = this.filterPublishedTrips(trips);
     });
     const currentActor = this.authService.getCurrentActor();
     if (currentActor) {
@@ -61,7 +60,6 @@ export class TripsComponent implements OnInit {
           this.finderForm.setValue(finder);
         });
     }
-
     setInterval(() => {
       this.trips.forEach((trip) => {
         const remainingTime = this.getRemainingTime(trip.startDate);
@@ -74,6 +72,9 @@ export class TripsComponent implements OnInit {
   }
   displayTrip(id: string) {
     this.router.navigate(['/trips/' + id]);
+  }
+  filterPublishedTrips(trips: Trip[]) {
+    return trips.filter((trip) => trip.isPublished == true);
   }
   formatDate(date: string) {
     let newDate = new Date(date);
@@ -124,13 +125,13 @@ export class TripsComponent implements OnInit {
     this.finderService
       .searchTrips(this.finderForm.value)
       .subscribe((trips: Trip[]) => {
-        this.trips = trips;
+        this.trips = this.filterPublishedTrips(trips);
       });
   }
 
   resetSearch() {
     this.tripService.getTrips().subscribe((trips: Trip[]) => {
-      this.trips = trips;
+      this.trips = this.filterPublishedTrips(trips);
     });
   }
 
@@ -163,7 +164,7 @@ export class TripsComponent implements OnInit {
         break;
       default:
         this.tripService.getTrips().subscribe((trips: Trip[]) => {
-          this.trips = trips;
+          this.trips = this.filterPublishedTrips(trips);
         });
 
         break;
@@ -176,7 +177,7 @@ export class TripsComponent implements OnInit {
       this.tripService
         .getTripsBySearchword(this.searchWordForm.value.keyWordSearch)
         .subscribe((trips: Trip[]) => {
-          this.trips = trips;
+          this.trips = this.filterPublishedTrips(trips);
         });
     }
   }

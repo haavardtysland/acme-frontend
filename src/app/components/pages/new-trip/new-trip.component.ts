@@ -31,7 +31,6 @@ export class NewTripComponent {
   showDialog = false;
   dialogTitle = '';
   dialogMessage = '';
-  today: string;
 
   constructor(
     private router: Router,
@@ -56,7 +55,6 @@ export class NewTripComponent {
       description: ['', Validators.required],
       price: [0, Validators.required],
     });
-    this.today = new Date().toISOString().substring(0, 10); // Set current date
   }
 
   onDialogYesClick(result: boolean) {
@@ -141,10 +139,22 @@ export class NewTripComponent {
     }
     return of(null);
   }
-  
+
+  getMinStartDate(): string {
+    const today = new Date();
+
+    const todayDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 11
+    );
+
+    return todayDate.toISOString().substring(0, 10);
+  }
+
   getMinEndDate(): string {
     const startDate = this.tripForm.get('startDate')?.value;
-    return startDate ? startDate : this.today;
+    return startDate ? startDate : this.getMinStartDate();
   }
 
   toggleStageForm() {
