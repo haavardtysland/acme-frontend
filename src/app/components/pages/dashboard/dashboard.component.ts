@@ -76,15 +76,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getManagersCount();
-    this.getTripsData();
-    this.getFinderData();
+    this.getManagersCount().then(() => {
+      this.getTripsData();
+      this.getFinderData();
+    });
   }
 
   getFinderData() {
     this.actorService.getAllActors().subscribe((actors: Actor[]) => {
       this.actors = actors;
-      console.log('Display actors: ' + actors);
 
       let totalFromPrice = 0;
       let totalToPrice = 0;
@@ -127,30 +127,25 @@ export class DashboardComponent implements OnInit {
       this.avgToPrice = totalToPrice / count;
     });
   }
-  //TODO FIX MANAGERINFO.
+
   getTripsData() {
     this.tripService.getTrips().subscribe(async (trips: Trip[]) => {
       this.trips = trips;
-      console.log('Display trip: ' + trips);
 
       const managerStats: ManagerStats[] = this.countTripsForManager();
-      const managerCount = this.getManagersCount();
 
       // Calculate the minimum and maximum number of trips for any manager
       const tripsCounts = managerStats.map((stat) => stat.tripsCount);
       if (this.managerCount > tripsCounts.length) {
         this.minTrips = 0;
       } else {
-        /*         console.log(this.getManagersCount()); */
         this.minTrips = Math.min(...tripsCounts);
       }
-      this.minTrips = Math.min(...tripsCounts);
       this.maxTrips = Math.max(...tripsCounts);
 
       // Calculate the average number of trips for all managers
       const totalTrips = tripsCounts.reduce((a, b) => a + b, 0);
-      this.avgTrips = totalTrips / managerStats.length;
-      console.log(managerStats);
+      this.avgTrips = totalTrips / this.managerCount;
 
       this.tripsStdDev = this.calculateStdDev(tripsCounts);
       //gets applicationsdata from trips
@@ -220,14 +215,15 @@ export class DashboardComponent implements OnInit {
   }
 
   // Count the number of trips for each manager
-  //TODO FIND ALL MANAGERS TO SEE IF THE MINIMUM CAN BE 0
-  getManagersCount() {
-    this.actorService.getAllActors().subscribe((actors: Actor[]) => {
-      actors.forEach((actor) => {
-        if (actor.role === 'MANAGER') {
-          this.managerCount = this.managerCount + 1;
-          console.log(actor.role);
-        }
+  getManagersCount(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.actorService.getAllActors().subscribe((actors: Actor[]) => {
+        actors.forEach((actor) => {
+          if (actor.role === 'MANAGER') {
+            this.managerCount = this.managerCount + 1;
+          }
+        });
+        resolve(); // Resolve the Promise once the count is updated
       });
     });
   }
