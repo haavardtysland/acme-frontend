@@ -16,7 +16,7 @@ import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activate
 import { environment } from 'src/environments/environment';
 import { TripComponent } from './trip.component';
 
-fdescribe('Display trip', () => {
+describe('Display trip', () => {
   let component: TripComponent;
   let fixture: ComponentFixture<TripComponent>;
   let mockActivatedRoute: ActivatedRouteStub;
@@ -84,6 +84,7 @@ fdescribe('Display trip', () => {
     expect(component.trip.totalPrice).toBe(1001);
   });
 
+  
   it('should have correct id', () => {
     expect(component.id).toBe('642329a6cd6b90b38d07a0aa');
   });

@@ -16,7 +16,7 @@ import { TripService } from 'src/app/services/trip/trip.service';
 import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activated-route-stub';
 import { ManageApplicationsComponent } from './manage-applications.component';
 
-fdescribe('Display applications', () => {
+describe('Display applications', () => {
   let component: ManageApplicationsComponent;
   let fixture: ComponentFixture<ManageApplicationsComponent>;
   let mockActivatedRoute: ActivatedRouteStub;
