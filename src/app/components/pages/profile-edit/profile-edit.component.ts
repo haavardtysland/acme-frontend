@@ -59,7 +59,11 @@ export class ProfileEditComponent implements OnInit {
           'alert alert-success',
           'You successfully changed your user '
         );
-        this.authService.setCurrentActor(this.editProfileForm.value);
+        const currentActor: Actor = this.authService.getCurrentActor();
+        const object = this.editProfileForm.value;
+        object._id = currentActor._id;
+        object.role = currentActor.role;
+        this.authService.setCurrentActor(object);
       });
   }
 
