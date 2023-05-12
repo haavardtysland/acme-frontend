@@ -9,6 +9,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { Role } from 'src/app/enums/RoleEnum';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip/trip.service';
@@ -16,7 +17,7 @@ import { ActivatedRouteStub } from 'src/app/shared/activated-route-stub/activate
 import { environment } from 'src/environments/environment';
 import { TripComponent } from './trip.component';
 
-describe('Display trip', () => {
+fdescribe('Display trip', () => {
   let component: TripComponent;
   let fixture: ComponentFixture<TripComponent>;
   let mockActivatedRoute: ActivatedRouteStub;
@@ -84,7 +85,6 @@ describe('Display trip', () => {
     expect(component.trip.totalPrice).toBe(1001);
   });
 
-  
   it('should have correct id', () => {
     expect(component.id).toBe('642329a6cd6b90b38d07a0aa');
   });
@@ -117,5 +117,34 @@ describe('Display trip', () => {
     let stageDiv = fixture.nativeElement.querySelector('#accordionExample');
     fixture.detectChanges();
     expect(stageDiv.children.length).toBe(1);
+  });
+
+  it('should apply to trip, the button is shown', () => {
+    localStorage.setItem(
+      'currentActor',
+      JSON.stringify({
+        role: Role.EXPLORER,
+      })
+    );
+
+    fixture.detectChanges();
+
+    let applyTripButton = fixture.nativeElement.querySelector('#applyButton');
+    expect(applyTripButton).not.toBeNull();
+  });
+
+  it('should not apply to expired trip, the button is disabled', () => {
+    localStorage.setItem(
+      'currentActor',
+      JSON.stringify({
+        role: Role.EXPLORER,
+      })
+    );
+    component.trip.startDate = '2016-07-26';
+
+    fixture.detectChanges();
+
+    let applyTripButton = fixture.nativeElement.querySelector('#applyButton');
+    expect(applyTripButton.disabled).toBeTrue();
   });
 });

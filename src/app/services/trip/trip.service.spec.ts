@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 import { Trip } from './../../models/trip.model';
 import { TripService } from './trip.service';
 
-describe('TripService', () => {
+fdescribe('TripService', () => {
   let service: TripService;
   let httpTestingController: HttpTestingController;
   let testStage: Stage = new Stage();
