@@ -52,6 +52,12 @@
 
   "key-word": "Key word",
   "from": "From",
+  "reset": "Reset",
+  "sort": "Sort",
+  "price-low-high": "Price: low-high",
+  "price-high-low": "Price: high-low",
+  "date-closest": "Date: closest",
+  "date-furthest": "Date: furthest",
 
   "price:": "Price: € {{price}}",
   "trip-start": "From: {{tripStartDate}}",
@@ -80,7 +86,7 @@
   "maximum-trips": "Maximum trips for manager",
   "average-trips": "Average trips for manager",
   "std-trips": "Standard deviation of trips for manager",
-  "std-price":"Standard deviation price for trip",
+  "std-price": "Standard deviation price for trip",
   "minimum-price": "Minimum price for trip",
   "maximum-price": "Maximum price for trip",
   "average-price": "Average price for trip",
@@ -110,7 +116,6 @@
   "you-successfully-rejected-the-application": "You successfully rejected the application",
   "reject-application-title": "Reject application?",
   "reject-application-message": "You must give a reason why the application is rejected:",
-  
 
   "manage-trip": "Manage trip '{{tripTitle}}'",
   "edit-trip": "Edit trip",
@@ -123,7 +128,6 @@
   "trip-edited": "Trip successfully edited",
   "trip-cancelled": "Trip was cancelled",
   "trip-deleted": "Trip was deleted",
-
 
   "create-new-trip": "Create new trip",
   "trip-created": "Succesfully created trip",

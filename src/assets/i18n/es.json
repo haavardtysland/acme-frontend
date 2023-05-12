@@ -50,6 +50,12 @@
   "explore-trips-and-apply": "Explorar los viajes y solicitarlos",
 
   "key-word": "Palabra clave",
+  "reset": "Reiniciar",
+  "sort": "Clasificar",
+  "price-low-high": "Precio: bajo-alto",
+  "price-high-low": "Precio: alto-bajo",
+  "date-closest": "Fecha: más cercano",
+  "date-furthest": "Fecha: más lejano",
 
   "price:": "Precio: € {{price}}",
   "trip-start": "De: {{tripStartDate}}",

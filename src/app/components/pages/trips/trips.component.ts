@@ -128,6 +128,48 @@ export class TripsComponent implements OnInit {
       });
   }
 
+  resetSearch() {
+    this.tripService.getTrips().subscribe((trips: Trip[]) => {
+      this.trips = trips;
+    });
+  }
+
+  sortTrips(event: any) {
+    const selectedValue = event.target.value;
+    switch (selectedValue) {
+      case '1':
+        // Sort trips by price: low to high
+        this.trips.sort((a, b) => a.totalPrice - b.totalPrice);
+        break;
+      case '2':
+        // Sort trips by price: high to low
+        this.trips.sort((a, b) => b.totalPrice - a.totalPrice);
+        break;
+      case '3':
+        // Sort trips by date: closest
+        this.trips.sort((a, b) => {
+          const dateA = new Date(a.startDate);
+          const dateB = new Date(b.startDate);
+          return dateA.getTime() - dateB.getTime();
+        });
+        break;
+      case '4':
+        // Sort trips by date: furthest
+        this.trips.sort((a, b) => {
+          const dateA = new Date(a.startDate);
+          const dateB = new Date(b.startDate);
+          return dateB.getTime() - dateA.getTime();
+        });
+        break;
+      default:
+        this.tripService.getTrips().subscribe((trips: Trip[]) => {
+          this.trips = trips;
+        });
+
+        break;
+    }
+  }
+
   searchWordSearch() {
     console.log(this.searchWordForm.value.keyWordSearch);
     if (this.searchWordForm.value.keyWordSearch != '') {
