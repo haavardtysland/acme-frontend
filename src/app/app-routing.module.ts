@@ -83,7 +83,7 @@ const routes: Routes = [
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },
-  },
+  }, 
   {
     path: 'applications/manage/:id',
     component: ManageApplicationsComponent,
