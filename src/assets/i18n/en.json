@@ -45,6 +45,8 @@
   "profile": "Profile",
   "sign-out": "Sign out",
 
+  "something-went-wrong": "Something went wrong while {{action}}",
+
   "welcome-to-acme": "Welcome to acme explorer!",
   "explore-trips-and-apply": "Explore trips and apply for them",
 
@@ -124,6 +126,7 @@
 
 
   "create-new-trip": "Create new trip",
+  "trip-created": "Succesfully created trip",
   "title": "Title",
   "description": "Description",
   "price": "Price",

@@ -44,6 +44,8 @@
   "profile": "Perfil",
   "sign-out": "Desconectar",
 
+  "something-went-wrong": "Algo salió mal mientras {{acción}}",
+
   "welcome-to-acme": "¡Bienvenido a acme explorer!",
   "explore-trips-and-apply": "Explorar los viajes y solicitarlos",
 
@@ -121,6 +123,8 @@
   "trip-deleted": "Se eliminó el viaje",
 
   "create-new-trip": "Crear nuevo viaje",
+  "trip-created": "Viaje creado con éxito",
+
   "title": "Título",
   "description": "Descripción",
   "price": "Precio",
