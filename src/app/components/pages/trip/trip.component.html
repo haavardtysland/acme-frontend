@@ -28,7 +28,7 @@
           }}</small>
         </p>
         <button
-          *ngIf="authService.getCurrentActor().role === 'EXPLORER'"
+          *ngIf="authService.getCurrentActor()?.role === 'EXPLORER'"
           class="btn btn-success card-button-rigth me-2"
           (click)="openApplicationForm()"
           [disabled]="isApplying || tripHasStartedOrIsCancelled()"
