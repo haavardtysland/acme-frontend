@@ -144,6 +144,7 @@ export class Trip extends Entity {
       endDate: trip.endDate,
       stages: Stage.toObject(trip.stages),
       requirements: trip.requirements,
+      isPublished: trip.isPublished,
     };
     return JSON.stringify(obj);
   }
