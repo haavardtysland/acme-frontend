@@ -38,6 +38,7 @@ export class ManageTripComponent {
   dialogMessage = '';
   action = '';
   giveReason: boolean = false;
+  today: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +66,7 @@ export class ManageTripComponent {
       description: ['', Validators.required],
       price: ['', Validators.required],
     });
+    this.today = new Date().toISOString().substring(0, 10); // Set current date
   }
   ngOnInit(): void {
     const tripId = this.route.snapshot.paramMap.get('id');
@@ -111,12 +113,24 @@ export class ManageTripComponent {
   ): Observable<ValidationErrors | null> {
     const today = new Date();
     const startDate = new Date(control.value);
-    if (startDate < today) {
+
+    // Extract year, month, and day components from the dates
+    const todayDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    const startDateDate = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    );
+
+    if (startDateDate < todayDate) {
       return of({ startDateInvalid: true });
     }
     return of(null);
   }
-
   endDateValidator(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
@@ -128,10 +142,15 @@ export class ManageTripComponent {
 
     const startDate = new Date(startDateControl.value);
     const endDate = new Date(control.value);
-    if (endDate <= startDate) {
+    if (endDate < startDate) {
       return of({ endDateInvalid: true });
     }
     return of(null);
+  }
+
+  getMinEndDate(): string {
+    const startDate = this.tripForm.get('startDate')?.value;
+    return startDate ? startDate : this.today;
   }
 
   toggleStageForm() {

@@ -76,6 +76,7 @@
           class="form-control"
           type="date"
           formControlName="startDate"
+          [min]="today"
         />
       </div>
       <div
@@ -97,6 +98,8 @@
           class="form-control"
           type="date"
           formControlName="endDate"
+          [min]="getMinEndDate()"
+
         />
       </div>
       <div

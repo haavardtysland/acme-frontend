@@ -7,9 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
+import { Actor } from 'src/app/models/actor.model';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/services/message.service';
 import { TripService } from 'src/app/services/trip/trip.service';
 
 @Component({
@@ -27,11 +31,15 @@ export class NewTripComponent {
   showDialog = false;
   dialogTitle = '';
   dialogMessage = '';
+  today: string;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private tripService: TripService
+    private tripService: TripService,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private translateService: TranslateService
   ) {
     this.tripForm = this.fb.group({
       title: ['', Validators.required],
@@ -48,6 +56,7 @@ export class NewTripComponent {
       description: ['', Validators.required],
       price: [0, Validators.required],
     });
+    this.today = new Date().toISOString().substring(0, 10); // Set current date
   }
 
   onDialogYesClick(result: boolean) {
@@ -60,9 +69,29 @@ export class NewTripComponent {
       trip.startDate = startDate;
       trip.endDate = endDate;
       trip.stages = this.stages;
-      this.tripService.createTrip(trip).subscribe((res) => {
-        console.log(res);
-      });
+      this.tripService.createTrip(trip).subscribe(
+        (res) => {
+          console.log(res);
+          const currentManager: Actor = this.authService.getCurrentActor();
+          if (currentManager) {
+            const managerId = currentManager._id;
+            this.router.navigateByUrl(`/trips/manage/${currentManager._id}`);
+            this.messageService.notifyMessage(
+              'alert alert-info',
+              this.translateService.instant('trip-created')
+            );
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.messageService.notifyMessage(
+            'alert alert-info',
+            this.translateService.instant('something-went-wrong', {
+              action: 'creating a trip.',
+            })
+          );
+        }
+      );
     }
     this.showDialog = false;
   }
@@ -77,7 +106,20 @@ export class NewTripComponent {
   ): Observable<ValidationErrors | null> {
     const today = new Date();
     const startDate = new Date(control.value);
-    if (startDate < today) {
+
+    // Extract year, month, and day components from the dates
+    const todayDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    const startDateDate = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    );
+
+    if (startDateDate < todayDate) {
       return of({ startDateInvalid: true });
     }
     return of(null);
@@ -94,10 +136,15 @@ export class NewTripComponent {
 
     const startDate = new Date(startDateControl.value);
     const endDate = new Date(control.value);
-    if (endDate <= startDate) {
+    if (endDate < startDate) {
       return of({ endDateInvalid: true });
     }
     return of(null);
+  }
+  
+  getMinEndDate(): string {
+    const startDate = this.tripForm.get('startDate')?.value;
+    return startDate ? startDate : this.today;
   }
 
   toggleStageForm() {
@@ -111,7 +158,7 @@ export class NewTripComponent {
     newStage.description = this.stageForm.value.description;
     newStage.price = this.stageForm.value.price;
     this.stages.push(newStage);
-    this.stageForm.reset();
+    this.stageForm.reset({ price: 0 });
     this.showStageForm = false;
     this.showStageButton = '+';
   }
