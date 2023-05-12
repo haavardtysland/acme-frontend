@@ -60,11 +60,21 @@ export class FinderService implements OnInit {
       queryParameters += `&toPrice=${toPrice}`;
     }
 
+    let cacheDuration = 3600;
+    try {
+      cacheDuration = this.authService.getCurrentActor().cacheDuration * 3600;
+    } catch {}
+    const headers: HttpHeaders = this.getHttpOptions().headers.append(
+      'Cache-Control',
+      `max-age=${cacheDuration}, public`
+    );
+    console.log(headers);
+
     const url = `${
       environment.backendApiBaseUrl
     }/Finder/Search?${queryParameters.slice(1)}`;
     return this.http
-      .get(url, this.getHttpOptions())
+      .get(url, { headers })
       .pipe(catchError(this.handleError('searchTrips')));
   }
 
