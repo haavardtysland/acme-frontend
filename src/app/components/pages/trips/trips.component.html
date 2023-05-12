@@ -90,7 +90,22 @@
   >
     {{ "search" | translate }}
   </button>
+  <button class="btn btn-warning me-2 mb-2 mt-2" (click)="resetSearch()">
+    {{ "reset" | translate }}
+  </button>
 </form>
+
+<select
+  class="form-select mw-20 mb-3 small-select"
+  aria-label="sorting options"
+  (change)="sortTrips($event)"
+>
+  <option selected>{{ "sort" | translate }}</option>
+  <option value="1">{{ "price-low-high" | translate }}</option>
+  <option value="2">{{ "price-high-low" | translate }}</option>
+  <option value="3">{{ "date-closest" | translate }}</option>
+  <option value="4">{{ "date-furthest" | translate }}</option>
+</select>
 
 <div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
   <div *ngFor="let trip of trips" class="col">
