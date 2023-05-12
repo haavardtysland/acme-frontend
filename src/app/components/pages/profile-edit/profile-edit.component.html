@@ -18,62 +18,62 @@
       <div class="col-md-5 border-right">
         <div class="p-3 py-5">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Profile Settings</h4>
+            <h4 class="text-right">{{ "profile-settings" | translate }}</h4>
           </div>
 
           <div class="row mt-2">
             <div class="col-md-6">
-              <label class="labels">Name</label
+              <label class="labels">{{ "name" | translate }}</label
               ><input
                 type="text"
                 class="form-control"
-                placeholder="First name"
+                [placeholder]="'name' | translate"
                 formControlName="name"
               />
             </div>
             <div class="col-md-6">
-              <label class="labels">Surname</label
+              <label class="labels">{{ "surname" | translate }}</label
               ><input
                 type="text"
                 class="form-control"
                 formControlName="surname"
-                placeholder="Surname"
+                [placeholder]="'surname' | translate"
               />
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-12">
-              <label class="labels">Phone</label
+              <label class="labels">{{ "phone" | translate }}</label
               ><input
                 type="text"
                 class="form-control"
-                placeholder="Enter phone number"
+                [placeholder]="'phone' | translate"
                 formControlName="phone"
               />
             </div>
             <div class="col-md-12">
-              <label class="labels">Address</label
+              <label class="labels">{{ "address" | translate }}</label
               ><input
                 type="text"
                 class="form-control"
-                placeholder="Enter address"
+                [placeholder]="'address' | translate"
                 formControlName="address"
               />
             </div>
 
             <div class="col-md-12">
-              <label class="labels">Email</label
+              <label class="labels">{{ "email" | translate }}</label
               ><input
                 type="email"
                 class="form-control"
-                placeholder="Enter email"
+                [placeholder]="'email' | translate"
                 formControlName="email"
               />
             </div>
           </div>
           <div class="mt-5 text-center">
             <button class="btn btn-primary profile-button" type="submit">
-              Save Profile
+              {{ "save-profile" | translate }}
             </button>
           </div>
         </div>
@@ -83,16 +83,15 @@
           <div
             class="d-flex justify-content-between align-items-center experience"
           >
-            <span>Edit Preferences</span
-            ><span class="border px-3 p-1 add-experience"
-              ><i class="fa fa-plus"></i>&nbsp;Preferences</span
+            <span
+              ><u>{{ "edit-preferences" | translate }}</u></span
             >
           </div>
           <br />
           <div class="col-md-12">
-            <label class="labels" for="flexSwitchCheckDefault"
-              >Light/Dark mode</label
-            >
+            <label class="labels" for="flexSwitchCheckDefault">{{
+              "dark-mode" | translate
+            }}</label>
             <div class="form-check form-switch">
               <input
                 class="form-check-input"
@@ -115,7 +114,7 @@
               </div> -->
 
           <div class="col-md-12 d-flex row">
-            <label class="labels">Finder local saving time (cache)</label>
+            <label class="labels">{{ "finder-saving-time" | translate }}</label>
             <input
               class="form-range me-2 mb-2"
               type="range"
@@ -129,7 +128,9 @@
               {{ editProfileForm.value.cacheDuration }}
             </h4>
 
-            <label class="labels">Number of trips retruned from finder</label>
+            <label class="labels">{{
+              "number-of-finder-trips" | translate
+            }}</label>
             <input
               class="form-range me-2 mb-2"
               type="range"
@@ -154,16 +155,16 @@
         (submit)="onChangePassword()"
         class="mb-3"
       >
-        <label class="labels">Change your password</label>
+        <label class="labels">{{ "change-your-password" | translate }} </label>
         <div class="flex d-flex">
           <input
             type="password"
             class="form-control me-2"
-            placeholder="Enter new password"
+            [placeholder]="'enter-new-password' | translate"
             formControlName="password"
           />
           <button class="btn btn-primary profile-button me-2" type="submit">
-            Change password
+            {{ "change-password" | translate }}
           </button>
         </div>
       </form>

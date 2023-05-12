@@ -140,7 +140,7 @@
                     >{{ "profile" | translate }}</a
                   >
                 </li>
-                <li ngbDropdownItem><hr class="dropdown-divider" /></li>
+                <li ngbDropdownItem [disabled]="true"><hr class="dropdown-divider" /></li>
                 <li ngbDropdownItem>
                   <a class="dropdown-item" (click)="logOut()">{{
                     "sign-out" | translate
