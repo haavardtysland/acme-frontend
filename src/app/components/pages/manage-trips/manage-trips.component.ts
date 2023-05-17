@@ -16,6 +16,7 @@ export class ManageTripsComponent implements OnInit {
   trips: Trip[];
   remainingTimes: { [key: string]: string };
   managerId: string;
+  preCancelledTrips: Trip[];
 
   constructor(
     private tripService: TripService,
@@ -30,6 +31,7 @@ export class ManageTripsComponent implements OnInit {
     });
     this.remainingTimes = {};
     this.managerId = '';
+    this.preCancelledTrips = [];
   }
 
   navigateToCreateTrip() {
@@ -74,6 +76,11 @@ export class ManageTripsComponent implements OnInit {
         this.remainingTimes[trip._id] = remainingTime;
       });
     }, 1000);
+
+    let alltrips = localStorage.getItem('preCancelledtrips');
+    if (alltrips != null) {
+      this.preCancelledTrips = JSON.parse(alltrips);
+    }
   }
   goBack() {
     this.router.navigate(['/']);
@@ -81,6 +88,16 @@ export class ManageTripsComponent implements OnInit {
 
   displayTrip(id: string) {
     this.router.navigate(['/trips/manage/edit/' + id]);
+  }
+
+  isTripPreCancelled(trip: Trip) {
+    let isInList = false;
+    this.preCancelledTrips.forEach((preCanTrip: Trip) => {
+      if (trip._id === preCanTrip._id) {
+        isInList = true;
+      }
+    });
+    return isInList;
   }
 
   formatDate(date: string) {

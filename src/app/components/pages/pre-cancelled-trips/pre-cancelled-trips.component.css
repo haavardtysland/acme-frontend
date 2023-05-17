@@ -1,0 +1,7 @@
+.trip-soon {
+  background-color: #ff4252 !important;
+}
+
+.selected {
+  filter: brightness(70%);
+}

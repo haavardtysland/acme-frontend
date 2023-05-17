@@ -101,7 +101,6 @@
           type="date"
           formControlName="endDate"
           [min]="getMinEndDate()"
-
         />
       </div>
       <div
@@ -219,8 +218,13 @@
         <div>
           <label for="isPublished">{{ "publish-trip" | translate }}</label>
         </div>
-        <label class="switch mt-2">ƒ
-          <input id="isPublished" formControlName="isPublished" type="checkbox" />
+        <label class="switch mt-2"
+          >ƒ
+          <input
+            id="isPublished"
+            formControlName="isPublished"
+            type="checkbox"
+          />
           <span class="slider round"></span>
         </label>
       </div>
@@ -251,6 +255,24 @@
         aria-label="delete trip"
       >
         {{ "delete-trip" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger my-3 me-2"
+        (click)="preCancelTrip(trip)"
+        [disabled]="isTripPreCancelled() || !canCancelTrip()"
+        aria-label="pre-cancel trip"
+      >
+        {{ "pre-cancel" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger my-3 me-2"
+        (click)="undoPreCancel(trip)"
+        [disabled]="!isTripPreCancelled() || !canCancelTrip()"
+        aria-label="undo-pre-cancel trip"
+      >
+        {{ "undo-pre-cancel" | translate }}
       </button>
     </fieldset>
   </form>

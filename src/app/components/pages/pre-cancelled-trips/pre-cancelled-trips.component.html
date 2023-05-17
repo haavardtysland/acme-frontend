@@ -1,64 +1,27 @@
 <div class="d-flex justify-content-between mt-2">
-  <form
-    *ngIf="
-      !this.authService.getCurrentActor() ||
-      this.authService.getCurrentActor()?.role != 'EXPLORER'
-    "
-    [formGroup]="searchWordForm"
-    (ngSubmit)="searchWordSearch()"
-    class="d-flex"
-    role="search"
-    #f="ngForm"
-    novalidate
+  <h5>Pre-Cancelled Trip</h5>
+  <p>You have selected {{ selectedTrips.length }} trip/s</p>
+  <button
+    class="btn btn-danger"
+    type="button"
+    aria-label="cancel trip"
+    (click)="cancelTrip()"
   >
-    <div class="form-floating me-2">
-      <input
-        class="form-control me-2 mb-2"
-        type="search"
-        [placeholder]="'key-word' | translate"
-        aria-label="Key word"
-        formControlName="keyWordSearch"
-      />
-      <label class="label-top">{{ "key-word" | translate }}</label>
-    </div>
-
-    <button
-      [disabled]="f.form.invalid"
-      class="btn btn-success me-2 mb-2"
-      type="submit"
-    >
-      {{ "search" | translate }}
-    </button>
-    <button class="btn btn-warning me-2 mb-2" (click)="resetSearch()">
-      {{ "reset" | translate }}
-    </button>
-    <button class="btn btn-info me-2 mb-2" routerLink="/preCancelTrips">
-      {{ "See pre-cancelled trips" | translate }}
-    </button>
-  </form>
-  <button class="btn btn-success me-2 mb-2" (click)="navigateToCreateTrip()">
-    {{ "create-new-trip" | translate }}
+    {{ "Cancel selected trips" | translate }}
   </button>
 </div>
-<select
-  class="form-select mw-20 mb-3 small-select"
-  aria-label="sorting options"
-  (change)="sortTrips($event)"
->
-  <option selected>{{ "sort" | translate }}</option>
-  <option value="1">{{ "price-low-high" | translate }}</option>
-  <option value="2">{{ "price-high-low" | translate }}</option>
-  <option value="3">{{ "date-closest" | translate }}</option>
-  <option value="4">{{ "date-furthest" | translate }}</option>
-</select>
 
-<div *ngIf="trips && trips.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+<div
+  *ngIf="trips && trips.length > 0"
+  class="row row-cols-1 row-cols-md-3 g-4 mt-2"
+>
   <div *ngFor="let trip of trips" class="col">
     <div
       class="card bg-secondary"
       style="cursor: pointer"
-      (click)="displayTrip(trip._id)"
+      (click)="addToSelectedTrips(trip)"
       [class.trip-soon]="isTripSoon(trip.startDate)"
+      [class.selected]="isInSelectedTrips(trip)"
     >
       <img
         *ngIf="trip.pictures.length == 0"
@@ -106,8 +69,9 @@
               | translate : { remainingTime: remainingTimes[trip._id] }
           }}</small>
         </p>
-        <p class="card-text" *ngIf="isTripPreCancelled(trip)">
-          <small>This Trip is pre-cancelled</small>
+
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
+          <small>This trip is pre-cancelled</small>
         </p>
       </div>
     </div>

@@ -41,6 +41,7 @@ export class ManageTripComponent {
   action = '';
   giveReason: boolean = false;
   today: string;
+  preCancelledTrips: Trip[];
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,7 @@ export class ManageTripComponent {
       isPublished: [false],
     });
     this.requirements = [];
+    this.preCancelledTrips = [];
     this.stages = [];
     this.stageForm = this.fb.group({
       title: ['', Validators.required],
@@ -86,6 +88,11 @@ export class ManageTripComponent {
         });
         this.stages = trip.stages;
       });
+    }
+
+    let alltrips = localStorage.getItem('preCancelledtrips');
+    if (alltrips != null) {
+      this.preCancelledTrips = JSON.parse(alltrips);
     }
   }
 
@@ -241,6 +248,73 @@ export class ManageTripComponent {
         );
       }
     );
+  }
+
+  isTripPreCancelled() {
+    let isInList = false;
+    this.preCancelledTrips.forEach((preCanTrip: Trip) => {
+      if (this.trip._id === preCanTrip._id) {
+        isInList = true;
+      }
+    });
+    return isInList;
+  }
+
+  preCancelTrip(trip: Trip) {
+    let listOfTrips = [];
+
+    let alltrips = localStorage.getItem('preCancelledtrips');
+    let alreadyPreCancelledTrips = [];
+
+    if (alltrips != null) {
+      alreadyPreCancelledTrips = JSON.parse(alltrips);
+      listOfTrips = alreadyPreCancelledTrips;
+    }
+    let isAlreadyInList = false;
+    listOfTrips.forEach((canTrip: Trip) => {
+      if (trip._id === canTrip._id) {
+        isAlreadyInList = true;
+      }
+    });
+
+    if (!isAlreadyInList) {
+      listOfTrips.push(trip);
+    }
+
+    localStorage.setItem('preCancelledtrips', JSON.stringify(listOfTrips));
+    this.preCancelledTrips = listOfTrips;
+    this.messageService.notifyMessage(
+      'alert alert-info',
+      this.translateService.instant('You pre-cance this trip')
+    );
+  }
+
+  undoPreCancel(trip: Trip) {
+    let listOfTrips = [];
+
+    let alltrips = localStorage.getItem('preCancelledtrips');
+    let allTripsObjs = [];
+    let newTrips: Trip[] = [];
+
+    if (alltrips != null) {
+      allTripsObjs = JSON.parse(alltrips);
+
+      allTripsObjs.filter((canTrip: Trip) => {
+        trip._id != canTrip._id;
+      });
+
+      allTripsObjs.forEach((canTrip: any) => {
+        if (trip._id != canTrip._id) {
+          newTrips.push(canTrip);
+        }
+      });
+      localStorage.setItem('preCancelledtrips', JSON.stringify(newTrips));
+      this.preCancelledTrips = newTrips;
+      this.messageService.notifyMessage(
+        'alert alert-info',
+        this.translateService.instant('You undid the pre-cancel of this trip')
+      );
+    }
   }
 
   canCancelTrip(): boolean {
