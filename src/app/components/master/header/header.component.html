@@ -58,6 +58,14 @@
             >{{ "manage-applications" | translate }}</a
           >
         </li>
+        <li class="nav-item" *ngIf="activeRole === 'MANAGER'">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['/trips/manage/precancelled']"
+            >{{ "Pre-Cancelled Trips" | translate }}</a
+          >
+        </li>
         <li class="nav-item" *ngIf="activeRole === 'ADMINISTRATOR'">
           <a
             class="nav-link active"
@@ -140,7 +148,9 @@
                     >{{ "profile" | translate }}</a
                   >
                 </li>
-                <li ngbDropdownItem [disabled]="true"><hr class="dropdown-divider" /></li>
+                <li ngbDropdownItem [disabled]="true">
+                  <hr class="dropdown-divider" />
+                </li>
                 <li ngbDropdownItem>
                   <a class="dropdown-item" (click)="logOut()">{{
                     "sign-out" | translate

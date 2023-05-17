@@ -39,6 +39,7 @@ import { ApplyModalComponent } from './components/modals/apply-modal/apply-modal
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CustomDialogComponent } from './components/modals/custom-dialog/custom-dialog.component';
+import { PreCancelComponent } from './components/pages/pre-cancel/pre-cancel.component';
 
 
 
@@ -77,6 +78,7 @@ export const firebaseConfig = {
     PayComponent,
     ApplyModalComponent,
     CustomDialogComponent,
+    PreCancelComponent,
   ],
   imports: [
     BrowserModule,

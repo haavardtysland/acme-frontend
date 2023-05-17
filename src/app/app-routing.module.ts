@@ -19,6 +19,7 @@ import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { PreCancelComponent } from './components/pages/pre-cancel/pre-cancel.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -78,12 +79,13 @@ const routes: Routes = [
     path: 'trips/manage',
     children: [
       { path: 'new', component: NewTripComponent },
+      { path: 'precancelled', component: PreCancelComponent },
       { path: ':id', component: ManageTripsComponent },
       { path: 'edit/:id', component: ManageTripComponent },
     ],
     canActivate: [ActorRoleGuard],
     data: { expectedRole: Role.MANAGER },
-  }, 
+  },
   {
     path: 'applications/manage/:id',
     component: ManageApplicationsComponent,

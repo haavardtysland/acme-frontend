@@ -41,6 +41,7 @@ export class ManageTripComponent {
   action = '';
   giveReason: boolean = false;
   today: string;
+  precancelledString: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,7 +70,9 @@ export class ManageTripComponent {
       price: ['', Validators.required],
     });
     this.today = new Date().toISOString().substring(0, 10); // Set current date
+    this.precancelledString = 'Pre cancel trip';
   }
+
   ngOnInit(): void {
     const tripId = this.route.snapshot.paramMap.get('id');
     if (tripId) {
@@ -85,6 +88,9 @@ export class ManageTripComponent {
           isPublished: trip.isPublished,
         });
         this.stages = trip.stages;
+        if (this.isPrecancelled()) {
+          this.precancelledString = 'Remove as pre-cancelled';
+        }
       });
     }
   }
@@ -357,5 +363,52 @@ export class ManageTripComponent {
     this.requirements = this.requirements.filter(
       (requirement) => requirement !== removeRequirement
     );
+  }
+
+  preCancelTrip() {
+    if (this.isPrecancelled()) {
+      this.removeAsPrecancelled();
+      return;
+    }
+
+    let existingList = [];
+    const localStorageList = localStorage.getItem('preCancelled');
+    if (localStorageList != null) {
+      existingList = JSON.parse(localStorageList);
+    }
+    existingList.push(this.trip);
+    const jsonString = JSON.stringify(existingList);
+    localStorage.setItem('preCancelled', jsonString);
+    this.precancelledString = 'Remove as pre-cancelled';
+  }
+
+  removeAsPrecancelled() {
+    const localStorageList = localStorage.getItem('preCancelled');
+    if (localStorageList == null) {
+      return;
+    }
+    const existingList: Trip[] = JSON.parse(localStorageList);
+    const filteredList = existingList.filter(
+      (trip) => trip._id !== this.trip._id
+    );
+    const jsonString = JSON.stringify(filteredList);
+    localStorage.setItem('preCancelled', jsonString);
+    this.precancelledString = 'Pre cancel trip';
+  }
+
+  isPrecancelled(): boolean {
+    console.log(this.trip);
+    const localStorageList = localStorage.getItem('preCancelled');
+    if (localStorageList == null) {
+      return false;
+    }
+    const trips: Trip[] = JSON.parse(localStorageList);
+    const trip: Trip | undefined = trips.find((trip) => {
+      return trip._id == this.trip._id;
+    });
+    if (!trip) {
+      return false;
+    }
+    return true;
   }
 }

@@ -1,0 +1,74 @@
+<div
+  *ngIf="trips && trips.length > 0"
+  class="row row-cols-1 row-cols-md-3 g-4 mt-2"
+>
+  <div *ngFor="let trip of trips" class="col">
+    <div
+      class="card bg-secondary"
+      style="cursor: pointer"
+      (click)="displayTrip(trip._id)"
+      [class.trip-soon]="isTripSoon(trip.startDate)"
+    >
+      <img
+        *ngIf="trip.pictures.length == 0"
+        src="../../../../assets/noImg.jpg"
+        class="card-img-top"
+        alt="..."
+        height="250"
+        width="250"
+      />
+      <img
+        *ngIf="trip.pictures.length > 0"
+        src="../../../../assets/logo.png"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ trip.title }}</h5>
+        <p class="card-text">
+          {{ trip.description }}
+        </p>
+        <p class="card-text">
+          {{ "price:" | translate : { price: trip.totalPrice } }}
+        </p>
+        <p class="card-text">
+          <small
+            >{{
+              "trip-start"
+                | translate : { tripStartDate: formatDate(trip.startDate) }
+            }},
+            {{
+              "trip-end" | translate : { tripEndDate: formatDate(trip.endDate) }
+            }}
+            <!-- TODO FIX DATEPIPE -->
+            {{ formatDate(trip.endDate) }}</small
+          >
+        </p>
+
+        <p class="card-text" *ngIf="!isTripStarted(trip.startDate)">
+          <small>{{ "the-trip-has-started" | translate }}</small>
+        </p>
+
+        <p class="card-text" *ngIf="isTripStarted(trip.startDate)">
+          <small>{{
+            "trip-starts-in"
+              | translate : { remainingTime: remainingTimes[trip._id] }
+          }}</small>
+        </p>
+      </div>
+    </div>
+    <div
+      class="d-flex justify-content-between px-4"
+      *ngIf="!isTripSoon(trip.startDate)"
+    >
+      <label for="selectCheckbox">Select</label>
+      <input type="checkbox" id="selectCheckbox" (click)="selectTrip(trip)" />
+    </div>
+  </div>
+</div>
+<div class="text-center text-dark g-4" *ngIf="!trips || trips.length == 0">
+  <h5>{{ "you-have-no-trips-to-manage" | translate }}</h5>
+</div>
+<button (click)="cancelSelectedTrips()" class="btn btn-success me-2 mb-2 mt-2">
+  Cancel all selected Trips
+</button>

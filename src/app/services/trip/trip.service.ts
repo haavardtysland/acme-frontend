@@ -1,8 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  concat,
+  concatAll,
+  forkJoin,
+  of,
+  throwError,
+} from 'rxjs';
 import { Trip } from 'src/app/models/trip.model';
 import { environment } from './../../../environments/environment';
+import { forEach } from 'cypress/types/lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -132,6 +141,7 @@ export class TripService {
   }
 
   cancelTrip(trip: Trip, reason?: string): Observable<any> {
+    console.log(trip);
     const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/Status`;
     const body = {
       description: reason,
@@ -140,6 +150,20 @@ export class TripService {
     return this.http
       .put(url, jsonBody, this.getHttpOptions())
       .pipe(catchError(this.handleError('cancelTrip')));
+  }
+
+  cancelTrips(trips: Trip[]): Observable<any> {
+    const body = {
+      description: 'Cancelled',
+    };
+    const jsonBody = JSON.stringify(body);
+    const putRequests = trips.map((trip) => {
+      const url = `${environment.backendApiBaseUrl}/Trips/${trip._id}/Status`;
+      this.http
+        .put(url, jsonBody, this.getHttpOptions())
+        .pipe(catchError(this.handleError('cancelTrip')));
+    });
+    return forkJoin(putRequests);
   }
 
   deleteTrip(trip: Trip): Observable<any> {
